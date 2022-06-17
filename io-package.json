@@ -1,0 +1,79 @@
+{
+	"common": {
+		"name": "solarmanpv",
+		"version": "0.0.1",
+		"news": {
+			"0.0.1": {
+				"en": "initial release",
+				"de": "Erstveröffentlichung",
+				"ru": "Начальная версия",
+				"pt": "lançamento inicial",
+				"nl": "Eerste uitgave",
+				"fr": "Première version",
+				"it": "Versione iniziale",
+				"es": "Versión inicial",
+				"pl": "Pierwsze wydanie",
+				"zh-cn": "首次出版"
+			}
+		},
+		"title": "Solarman PV",
+		"titleLang": {
+			"en": "Solarman PV",
+			"de": "Solarman PV",
+			"ru": "Соларман ПВ",
+			"pt": "Solarman fotovoltaico",
+			"nl": "Solarman PV",
+			"fr": "PV Solarman",
+			"it": "Solarman PV",
+			"es": "fotovoltaica solarman",
+			"pl": "Solarman PV",
+			"zh-cn": "太阳能光伏"
+		},
+		"desc": {
+			"en": "Reading data from balcony power plant",
+			"de": "Auslesen von Daten aus dem Balkonkraftwerk",
+			"ru": "Чтение данных с балконной электростанции",
+			"pt": "Lendo dados da usina de varanda",
+			"nl": "Gegevens lezen van balkoncentrale",
+			"fr": "Lecture des données de la centrale électrique du balcon",
+			"it": "Lettura dei dati dalla centrale elettrica del balcone",
+			"es": "Lectura de datos de la planta de energía del balcón",
+			"pl": "Odczytywanie danych z elektrowni balkonowej",
+			"zh-cn": "从阳台电厂读取数据"
+		},
+		"authors": [
+			"raschy <raschy@gmx.de>"
+		],
+		"keywords": [
+			"solar",
+			"balcony power plant",
+			"mi600"
+		],
+		"license": "MIT",
+		"platform": "Javascript/Node.js",
+		"main": "main.js",
+		"icon": "solarmanpv.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/raschy/ioBroker.solarmanpv/main/admin/solarmanpv.png",
+		"readme": "https://github.com/raschy/ioBroker.solarmanpv/blob/main/README.md",
+		"loglevel": "info",
+		"mode": "schedule",
+		"allowInit": true,
+		"type": "iot-systems",
+		"compact": true,
+		"connectionType": "cloud",
+		"dataSource": "poll",
+		"materialize": true,
+		"dependencies": [
+			{
+				"js-controller": ">=2.0.0"
+			}
+		]
+	},
+	"native": {
+		"option1": true,
+		"option2": "42"
+	},
+	"objects": [],
+	"instanceObjects": []
+}
