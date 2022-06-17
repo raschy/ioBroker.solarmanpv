@@ -20,72 +20,51 @@ This section is intended for the developer. It can be deleted later
 
 ### Getting started
 
-You are almost done, only a few steps left:
-1. Create a new repository on GitHub with the name `ioBroker.solarmanpv`
+== EN ==
 
-1. Push all files to the GitHub repo. The creator has already set up the local repository for you:  
-	```bash
-	git push origin main
-	```
-1. Add a new secret under https://github.com/raschy/ioBroker.solarmanpv/settings/secrets. It must be named `AUTO_MERGE_TOKEN` and contain a personal access token with push access to the repository, e.g. yours. You can create a new token under https://github.com/settings/tokens.
+This adapter is used to display data of a balcony power plant, which 
+is provided by a inverter "Bosswerk MI600" in ioBroker.
 
-1. Head over to [main.js](main.js) and start programming!
+I assume that the plant is monitored by the app "Solarman" so far. 
+This adapter gets the data from this cloud.
 
-### Best Practices
-We've collected some [best practices](https://github.com/ioBroker/ioBroker.repositories#development-and-coding-best-practices) regarding ioBroker development and coding in general. If you're new to ioBroker or Node.js, you should
-check them out. If you're already experienced, you should also take a look at them - you might learn something new :)
+First you have to ask Solarman support <service@solarmanpv.com> for 
+the needed Credentials (app_id & app_secret) must be requested.
+There may still be a query of the type, "I need to ask what platform 
+are you using? What is your role? Are you an individual, O&M provider, 
+manufacturer, or distributor? Can you give me your email address for 
+the API?". In my case, another query then came: "Why are you applying 
+for API?". I politely answered this question as well and was sent the 
+necessary data the next day.
 
-### Scripts in `package.json`
-Several npm scripts are predefined for your convenience. You can run them using `npm run <scriptname>`
-| Script name | Description |
-|-------------|-------------|
-| `test:js` | Executes the tests you defined in `*.test.js` files. |
-| `test:package` | Ensures your `package.json` and `io-package.json` are valid. |
-| `test:unit` | Tests the adapter startup with unit tests (fast, but might require module mocks to work). |
-| `test:integration` | Tests the adapter startup with an actual instance of ioBroker. |
-| `test` | Performs a minimal test run on package files and your tests. |
-| `check` | Performs a type-check on your code (without compiling anything). |
-| `lint` | Runs `ESLint` to check your code for formatting errors and potential bugs. |
-| `translate` | Translates texts in your adapter to all required languages, see [`@iobroker/adapter-dev`](https://github.com/ioBroker/adapter-dev#manage-translations) for more details. |
-| `release` | Creates a new release, see [`@alcalzone/release-script`](https://github.com/AlCalzone/release-script#usage) for more details. |
+On the admin page the 4 fields  have to be according to the description. 
+This adapter is created as a "scheduled" adapter. 
+Since the data in the cloud is updated only about every 6 minutes, 
+it does not make to start the adapter more frequently.
 
-### Writing tests
-When done right, testing code is invaluable, because it gives you the 
-confidence to change your code while knowing exactly if and when 
-something breaks. A good read on the topic of test-driven development 
-is https://hackernoon.com/introduction-to-test-driven-development-tdd-61a13bc92d92. 
-Although writing tests before the code might seem strange at first, but it has very 
-clear upsides.
 
-The template provides you with basic tests for the adapter startup and package files.
-It is recommended that you add your own tests into the mix.
+== DE ==
 
-### Publishing the adapter
-Using GitHub Actions, you can enable automatic releases on npm whenever you push a new git tag that matches the form 
-`v<major>.<minor>.<patch>`. We **strongly recommend** that you do. The necessary steps are described in `.github/workflows/test-and-release.yml`.
+Dieser Adapter dient dazu, Daten eines Balkonkraftwerks, das durch einen 
+Wechselrichter "Bosswerk MI600" bereit gestellt werden, in ioBroker darzustellen.
 
-Since you installed the release script, you can create a new
-release simply by calling:
-```bash
-npm run release
-```
-Additional command line options for the release script are explained in the
-[release-script documentation](https://github.com/AlCalzone/release-script#command-line).
+Ich gehe davon aus, dass die Anlage bisher durch die App "Solarman" beobachtet 
+wird. Dieser Adapter holt die Daten aus dieser Cloud.
 
-To get your adapter released in ioBroker, please refer to the documentation 
-of [ioBroker.repositories](https://github.com/ioBroker/ioBroker.repositories#requirements-for-adapter-to-get-added-to-the-latest-repository).
+Zunächst muss beim Solarman-Support <service@solarmanpv.com> die benötigten 
+Credentials (app_id & app_secret) beantragt werden.
+Möglicherweise kommt noch eine Rückfrage der Art: "Ich muss fragen, welche 
+Plattform Sie verwenden? Welche Rolle spielen Sie? Sind Sie Einzelperson, 
+OEM-Anbieter, Hersteller oder Distributor? Können Sie mir Ihre E-Mail-Adresse 
+für die API mitteilen?". Bei mir kam dann noch eine weitere Rückfrage: 
+"Warum bewerben Sie sich für API?". Auch diese Frage habe ich höflich 
+beantwortet und bekam dann am nächsten Tag die notwendigen Daten zugesendet.
 
-### Test the adapter manually with dev-server
-Since you set up `dev-server`, you can use it to run, test and debug your adapter.
+Auf der Admin-Seite müssen die 4 Felder der Beschreibung entsprechend aus-
+gefüllt werden. Dieser Adapter ist als "scheduled" Adapter angelegt. Da die 
+Daten in der Cloud nur ca. alle 6 Minuten aktualisiert werden, ist es nicht 
+sinnvoll, den Adapter häufiger starten zu lassen.
 
-You may start `dev-server` by calling from your dev directory:
-```bash
-dev-server watch
-```
-
-The ioBroker.admin interface will then be available at http://localhost:8081/
-
-Please refer to the [`dev-server` documentation](https://github.com/ioBroker/dev-server#command-line) for more details.
 
 ## Changelog
 <!--
@@ -94,6 +73,10 @@ Please refer to the [`dev-server` documentation](https://github.com/ioBroker/dev
 -->
 
 ### **WORK IN PROGRESS**
+* (raschy) 
+
+
+### 0.0.1 (2022-06-16)
 * (raschy) initial release
 
 ## License
