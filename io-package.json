@@ -16,7 +16,6 @@
 				"zh-cn": "首次出版"
 			}
 		},
-		"title": "Solarman PV",
 		"titleLang": {
 			"en": "Solarman PV",
 			"de": "Solarman PV",
@@ -59,6 +58,7 @@
 		"loglevel": "info",
 		"mode": "schedule",
 		"allowInit": true,
+		"schedule": "*/15 * * * *",
 		"type": "iot-systems",
 		"compact": true,
 		"connectionType": "cloud",
@@ -66,13 +66,21 @@
 		"materialize": true,
 		"dependencies": [
 			{
-				"js-controller": ">=2.0.0"
+				"js-controller": ">=3.3.19"
 			}
+		],
+		"globalDependencies": [
+		  	{
+				"admin": ">=5.1.28"
+		  	}
 		]
 	},
 	"native": {
-		"option1": true,
-		"option2": "42"
+		"email" : "",
+		"password": "",
+		"appId": "",
+		"appSecret": "",
+		"aktiveToken": ""
 	},
 	"objects": [],
 	"instanceObjects": []

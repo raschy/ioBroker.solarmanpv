@@ -1,5 +1,3 @@
-'use strict';
-
 /*
  * Created with @iobroker/create-adapter v2.1.1
  */
@@ -7,9 +5,11 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require('@iobroker/adapter-core');
+'use strict';
 
 // Load your modules here, e.g.:
-// const fs = require("fs");
+const axios = require('axios').default;
+const crypto = require('crypto-js/sha256');
 
 class Solarmanpv extends utils.Adapter {
 
@@ -21,70 +21,133 @@ class Solarmanpv extends utils.Adapter {
 			...options,
 			name: 'solarmanpv',
 		});
+
+		const self = this;
+
 		this.on('ready', this.onReady.bind(this));
-		this.on('stateChange', this.onStateChange.bind(this));
-		// this.on('objectChange', this.onObjectChange.bind(this));
-		// this.on('message', this.onMessage.bind(this));
 		this.on('unload', this.onUnload.bind(this));
+		//
+		this.baseUrl = 'https://api.solarmanpv.com';
+		this.stationId = null;
+		this.deviceId = null;
+		this.deviceSn = null;
+		this.hash = null;
+		this.token = null;
+		//
+		this.maxGetToken = 1;
+		//
+		this.http = axios.create({
+			baseURL: this.baseUrl,
+			timeout: 3000,
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+
+		this.http.interceptors.response.use(async function (response) {
+			// Any status code that lie within the range of 2xx cause this function to trigger
+			// Do something with response data
+			// ##############
+			//console.log('Test ====');
+			//console.log(response.config);
+			//console.log(response.status);
+			//console.log(response.data);
+			//self.log.debug(`[response] ${response.config}`);
+			// ##############
+
+			if(response.data.msg){
+
+				if(response.data.msg === 'auth invalid token') {
+					if(self.maxGetToken < 1) return Promise.reject('could not retrieve token.');
+					self.maxGetToken--;
+
+					delete self.http.defaults.headers.common['Authorization'];
+					self.token = await self.getToken();
+
+					self.extendForeignObject('system.adapter.' + 'solarmanpv', {
+						native: {
+							aktiveToken: self.token
+						}
+					});
+
+					if(!self.token) return Promise.reject('No valid token.');
+
+					self.http.defaults.headers.common['Authorization'] = 'Bearer ' + self.token;
+
+					const config = response.config;
+					config.headers.Authorization = 'Bearer ' + self.token;
+
+					response = await self.http.request(config);
+				} else {
+					return Promise.reject(response);
+				}
+			}
+			return response;
+		 },	function (error) {
+			// Any status codes that falls outside the range of 2xx cause this function to trigger
+			// Do something with response error
+			return Promise.reject(error);
+		});
 	}
 
 	/**
 	 * Is called when databases are connected and adapter received configuration.
 	 */
-	async onReady() {
+	 async onReady() {
 		// Initialize your adapter here
-
+		this.log.debug(`[onReady] started`);
 		// The adapters config (in the instance object everything under the attribute "native") is accessible via
 		// this.config:
-		this.log.info('config option1: ' + this.config.option1);
-		this.log.info('config option2: ' + this.config.option2);
+		this.log.debug('config email: ' + this.config.email);
+		this.log.debug('config password: ' + this.config.password);
+		this.log.debug('config appId: ' + this.config.appId);
+		this.log.debug('config appSecret: ' + this.config.appSecret);
 
-		/*
-		For every state in the system there has to be also an object of type state
-		Here a simple template for a boolean variable named "testVariable"
-		Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
-		*/
-		await this.setObjectNotExistsAsync('testVariable', {
-			type: 'state',
-			common: {
-				name: 'testVariable',
-				type: 'boolean',
-				role: 'indicator',
-				read: true,
-				write: true,
-			},
-			native: {},
-		});
+		this.hash = crypto(this.config.password).toString();
+		this.log.debug('intern hash: ' + this.hash);
 
-		// In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
-		this.subscribeStates('testVariable');
-		// You can also add a subscription for multiple states. The following line watches all states starting with "lights."
-		// this.subscribeStates('lights.*');
-		// Or, if you really must, you can also watch all states. Don't do this if you don't need to. Otherwise this will cause a lot of unnecessary load on the system:
-		// this.subscribeStates('*');
+		const object = await this.getForeignObjectAsync('system.adapter.solarmanpv');
+		this.token = object?.native.aktiveToken;
+		this.log.debug('intern token: ' + this.token);
 
-		/*
-			setState examples
-			you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
-		*/
-		// the variable testVariable is set to true as command (ack=false)
-		await this.setStateAsync('testVariable', true);
+		console.log('==== Start ====');
 
-		// same thing, but the value is flagged "ack"
-		// ack should be always set to true if the value is received from or acknowledged from the target system
-		await this.setStateAsync('testVariable', { val: true, ack: true });
+		try {
+			// add bearer token to header of axios instance for next requests
+			this.http.defaults.headers.common['Authorization'] = 'bearer ' + this.token;
 
-		// same thing, but the state is deleted after 30s (getState will return null afterwards)
-		await this.setStateAsync('testVariable', { val: true, ack: true, expire: 30 });
+			// get station-id via api-call
+			this.stationId = await this.getStationId();
+			this.log.info('Station ID: ' + this.stationId);
 
-		// examples for the checkPassword/checkGroup functions
-		let result = await this.checkPasswordAsync('admin', 'iobroker');
-		this.log.info('check user admin pw iobroker: ' + result);
+			// get device-sn  & device-id via api-call
+			this.deviceSn = await this.getInverterId()
+			this.log.info('Device SN: ' + this.deviceSn);
+			this.log.info('Device ID: ' + this.deviceId);
 
-		result = await this.checkGroupAsync('admin', 'admin');
-		this.log.info('check group user admin group admin: ' + result);
+			// get data from station via api-call
+			await this.getStationData().then(result =>
+				this.updateStationData(result));
+			
+			// get data from device via api-call
+			await this.getDeviceData().then(result =>
+				this.updateDeviceData(result));
+			/*
+			await this.getRealTimeData().then(result =>
+				this.updateDeviceData(result));
+			*/							
+		} 
+		catch (err) {
+			this.log.error(`[onReady] error: ${err}`);
+		} 
+		finally {
+			this.log.debug(`[onReady] finished - stopping instance`);
+			if(typeof this.stop === 'function') {
+				this.stop();
+			}
+		}
+	// End onReady
 	}
-
 	/**
 	 * Is called when adapter shuts down - callback has to be called under any circumstances!
 	 * @param {() => void} callback
@@ -92,67 +155,267 @@ class Solarmanpv extends utils.Adapter {
 	onUnload(callback) {
 		try {
 			// Here you must clear all timeouts or intervals that may still be active
-			// clearTimeout(timeout1);
-			// clearTimeout(timeout2);
-			// ...
-			// clearInterval(interval1);
-
+			this.log.debug('[callback] cleaned everything up...');
 			callback();
 		} catch (e) {
 			callback();
+			this.log.error('callback catch');
 		}
 	}
 
-	// If you need to react to object changes, uncomment the following block and the corresponding line in the constructor.
-	// You also need to subscribe to the objects with `this.subscribeObjects`, similar to `this.subscribeStates`.
-	// /**
-	//  * Is called if a subscribed object changes
-	//  * @param {string} id
-	//  * @param {ioBroker.Object | null | undefined} obj
-	//  */
-	// onObjectChange(id, obj) {
-	// 	if (obj) {
-	// 		// The object was changed
-	// 		this.log.info(`object ${id} changed: ${JSON.stringify(obj)}`);
-	// 	} else {
-	// 		// The object was deleted
-	// 		this.log.info(`object ${id} deleted`);
-	// 	}
-	// }
+	async fillSensorData(device, name, description, value, unit) {
+		const dp_Device = this.stationId +'.'+ device +'.'+ name;
+		const sensorName = device +'.'+ description;
+		this.log.debug(`[fillSensorData] Device "${dp_Device}" sensor "${description}" with Value: "${value}" "${unit}"`);
 
-	/**
-	 * Is called if a subscribed state changes
-	 * @param {string} id
-	 * @param {ioBroker.State | null | undefined} state
-	 */
-	onStateChange(id, state) {
-		if (state) {
-			// The state was changed
-			this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-		} else {
-			// The state was deleted
-			this.log.info(`state ${id} deleted`);
+		await this.setObjectNotExistsAsync(this.stationId +'.'+ device, {
+			type: 'device',
+			common: {
+				name: device
+			},
+			native: {}
+		});
+		/*
+			await this.extendObjectAsync(Device, {
+				common: {
+					name: sensorName
+				}
+						});
+		*/
+		// Type-Erkennung
+		let	_type = 'string';
+		if (this.isNumeric(value)) {
+			_type = 'number';
+			value = parseFloat(value);
 		}
+		if (typeof value === 'object') {
+			_type = 'object';
+			value = JSON.stringify(value);
+		}
+		
+		await this.setObjectNotExistsAsync(dp_Device, {
+			type: 'state',
+			common: {
+				name: sensorName,
+				role: 'state',
+				type: _type,
+				unit: unit,
+				read: true,
+				write: false
+			},
+			native: {}
+		});
+
+		await this.setStateAsync(dp_Device, {val: value, ack: true});
+
 	}
 
-	// If you need to accept messages in your adapter, uncomment the following block and the corresponding line in the constructor.
-	// /**
-	//  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
-	//  * Using this method requires "common.messagebox" property to be set to true in io-package.json
-	//  * @param {ioBroker.Message} obj
-	//  */
-	// onMessage(obj) {
-	// 	if (typeof obj === 'object' && obj.message) {
-	// 		if (obj.command === 'send') {
-	// 			// e.g. send email or pushover or whatever
-	// 			this.log.info('send command');
+	// update station data in ioBroker
+	updateStationData(data) {
+		//console.log('Station Data: ', data);
+		// define keys that shall be updated
+		const updateKeys = ['generationPower', 'lastUpdateTime'];
 
-	// 			// Send response in callback if required
-	// 			if (obj.callback) this.sendTo(obj.from, obj.command, 'Message received', obj.callback);
-	// 		}
-	// 	}
-	// }
+		updateKeys.forEach((key) => {
+			//this.log.info('[updateStationData] '+ key + ' Data: ' + data[key]);
+			if (key == 'generationPower') {
+				this.log.info('[updateStationData] Stromerzeugung : '+ data[key]);
+				this.fillSensorData('StationData', key, key, data[key],'W');
+			}
+			if (key == 'lastUpdateTime') {
+				const lastUpdate = new Date(data[key]*1000);
+				this.log.info('[updateStationData] letzte Aktualisierung : '+ lastUpdate);
+				this.fillSensorData('StationData', key, key, lastUpdate,'');
+			}
+		});
+	}
 
+	// update inverter data in ioBroker
+	updateDeviceData(data) {
+		//console.log('Inverter Data: ', data);
+		// define keys that shall be updated (works in dataList only)
+		const updateKeys = ['DV1','DV2','DC1','DC2','DP1','DP2','AV1','Et_ge0','Etdy_ge0','AC_RDT_T1','APo_t1'];
+		const values = data.dataList.filter((obj) => updateKeys.includes(obj.key));
+		values.forEach((obj) => {
+			//console.log(obj.value);
+			this.log.info('[updateDeviceData] '+ obj.key + ' Data: ' + obj.value + ' Unit: ' + obj.unit + ' Name: ' + obj.name);
+			this.fillSensorData('DeviceData', obj.key, obj.name, obj.value, obj.unit);
+		});
+	}
+
+	// get inverter data from api
+	getDeviceData() {
+		const self = this;
+		this.log.debug(`[getDeviceData] Device SN >: ${this.deviceSn}`);
+		this.log.debug(`[getDeviceData] Device ID >: ${this.deviceId}`);
+  
+		return this.http
+			.post(
+				'/device/v1.0/currentData?language=en', // language parameter does not show any effect
+				{
+					deviceId: this.deviceId,
+					deviceSn: this.deviceSn
+				}
+			)
+			.then((response) => {
+				// this.log.error(`[getDeviceData] msg: ${response.data.msg}`);
+				if(response.data.msg === 'auth invalid token') return Promise.reject('Invalid-Token');		//throw 'InvalidToken';
+				return response.data;
+			})
+			.catch(function (error) {
+				self.log.error(`[getDeviceData] error: ${error}`);
+				//console.log('=== Request ===');
+				//console.log(error.request);
+				//console.log('=== Response ===');
+				//console.log(error);
+			});
+	}
+
+	// get station data from api
+	getStationData() {
+		const self = this;
+		this.log.debug(`[getStationData] Station ID >: ${this.stationId}`);
+		return this.http
+			.post(
+				'/station/v1.0/realTime?language=en', // language parameter does not show any effect
+				{ stationId: this.stationId }
+			)
+			.then((response) => {
+				// this.log.error(`[getStationData] msg: ${response.data.msg}`);
+				if(response.data.msg === 'auth invalid token') return Promise.reject('Invalid-Token');		//throw 'InvalidToken';
+				return response.data;
+				})
+			.catch(function (error) {
+				self.log.error(`[getStationData] error: ${error}`);
+			});
+	}
+
+	// get realtimedata from api
+	getRealTimeData() {
+		const self = this;
+		this.log.debug(`[getRealTimeData] Device SN >: ${this.deviceSn}`);
+		this.log.debug(`[getRealTimeData] Device ID >: ${this.deviceId}`);
+  
+		return this.http
+			.post(
+				'/device/v1.0/currentData?language=en', // language parameter does not show any effect
+				{
+					deviceId: this.deviceId,
+					deviceSn: this.deviceSn
+				}
+			)
+			.then((response) => {
+				//console.log('RealTimeData ID ====');
+				//console.log(response.data);
+
+				//const deviceSn = response.data.deviceListItems[0].deviceSn;
+				//console.log(deviceSn);
+				//if(response.data.msg === 'auth invalid token') return Promise.reject('Invalid-Token');
+				//this.log.debug(`[getRealTimeData] Device SN <: ${response.data.deviceListItems[0].deviceSn}`);
+				return response.data
+			})
+			.catch(function (error) {
+				console.log(error.request);
+				self.log.error(`[getRealTimeData] error: ${error}`);
+			});
+	}
+
+	// get inverter-id from api
+	getInverterId() {
+		const self = this;
+		this.log.debug(`[getInverterId] StationID >: ${this.stationId}`);
+  
+		return this.http
+			.post(
+				'/station/v1.0/device?language=en', // language parameter does not show any effect
+				{
+					page: 1,
+					size: 10,
+					deviceType: "MICRO_INVERTER",
+					stationId : this.stationId
+				}
+			)
+			.then((response) => {
+				//console.log('Inverter ID ====');
+				//console.log(response.data);
+				//const deviceSn = response.data.deviceListItems[0].deviceSn;
+				//console.log(deviceSn);
+				//if(response.data.msg === 'auth invalid token') return Promise.reject('Invalid-Token');
+
+				this.deviceId = response.data.deviceListItems[0].deviceId;
+				this.log.debug(`[getInverterId] Device ID <: ${response.data.deviceListItems[0].deviceId}`);
+
+				this.log.debug(`[getInverterId] Device SN <: ${response.data.deviceListItems[0].deviceSn}`);
+				return response.data.deviceListItems[0].deviceSn;
+			})
+			.catch(function (error) {
+				console.log(error.request);
+				self.log.error(`[getInverterId] error: ${error}`);
+			});
+	}
+
+	// get station-id from api
+	getStationId() {
+		const self = this;
+		return this.http
+			.post(
+				'/station/v1.0/list?language=en', // language parameter does not show any effect
+				{
+					page: 1,
+					size: 20
+				}
+			)
+			.then((response) => {
+				//console.log('Station ID ====');
+				//console.log(response.data);
+
+				const total = response.data.total;	// Anzahl der Plants
+				const objStationList = response.data.stationList;
+				const stationId = objStationList[0].id;
+
+				this.log.debug(`[getStationId] StationList <: ${stationId}`);
+				//this.log.info(`[getStationId] msg: ${response.data.msg.stationList.id}`);
+				//if(response.data.msg === 'auth invalid token') return Promise.reject('Invalid-Token');
+				return stationId;
+			})
+			.catch(function (error) {
+				console.log(error.request);
+				self.log.error(`[getStationId] error: ${error}`);
+			});
+	}
+
+	// get Token from api
+	async getToken() {
+		const self = this;
+		console.log(`[getToken] ==== neues ====`);
+		console.log(`[getToken] appId: ${this.config.appId}`);
+		console.log(`[getToken] appSecret: ${this.config.appSecret}`);
+		console.log(`[getToken] email: ${this.config.email}`);
+		console.log(`[getToken] hash: ${this.hash}`);
+		return await this.http
+			.post('/account/v1.0/token?appId=' + this.config.appId + '&language=en', {
+				appSecret: this.config.appSecret,
+				email: this.config.email,
+				password: this.hash,
+			})
+			.then((response) => {
+				console.log('TOKEN ====');
+				console.log(response);
+				self.log.debug(`[getToken] debug: ${response.data.access_token}`);
+				return response.data.access_token;
+			})
+			.catch(function (error) {
+				//console.log(error.request);
+				console.log(error.config);
+				self.log.error(`[getToken] error: ${error}`);
+			});
+	}
+
+	// Beschreibe diese Funktion: Prüfen ob Wert numerisch ist
+	isNumeric(n) {
+		return !isNaN(parseFloat(n)) && isFinite(n);
+	}
+// End Class
 }
 
 if (require.main !== module) {
