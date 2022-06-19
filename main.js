@@ -219,12 +219,12 @@ class Solarmanpv extends utils.Adapter {
 		updateKeys.forEach((key) => {
 			//this.log.info('[updateStationData] '+ key + ' Data: ' + data[key]);
 			if (key == 'generationPower') {
-				this.log.info('[updateStationData] Stromerzeugung : '+ data[key]);
+				this.log.info('[updateStationData] generationPower : '+ data[key]);
 				this.fillSensorData('StationData', key, key, data[key],'W');
 			}
 			if (key == 'lastUpdateTime') {
 				const lastUpdate = new Date(data[key]*1000);
-				this.log.info('[updateStationData] letzte Aktualisierung : '+ lastUpdate);
+				this.log.info('[updateStationData] lastUpdateTime : '+ lastUpdate);
 				this.fillSensorData('StationData', key, key, lastUpdate,'');
 			}
 		});

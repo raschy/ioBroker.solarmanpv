@@ -5,7 +5,7 @@
         "news": {
             "0.0.4": {
                 "en": "Dependecies addet",
-                "de": "Ausgaben Addet",
+                "de": "Abhängigkeiten hinzugefügt",
                 "ru": "Зависимость аппетит",
                 "pt": "Complementos de dependências",
                 "nl": "Afhankelijk van toevoegingen",
@@ -17,7 +17,7 @@
             },
             "0.0.3": {
                 "en": "ReadMe changed",
-                "de": "Weiterlesen Ich habe mich verändert",
+                "de": "ReadMe angepasst",
                 "ru": "Читать Я изменил",
                 "pt": "Leia mais Eu mudei",
                 "nl": "Lees Ik ben veranderd",
@@ -26,6 +26,18 @@
                 "es": "Leer Cambié",
                 "pl": "Reader zmienić się",
                 "zh-cn": "阅读 修改"
+            },
+            "0.0.2": {
+                "en": "changed to jsonConfig",
+                "de": "geändert in jsonConfig",
+                "ru": "изменено на jsonConfig",
+                "pt": "mudou para jsonConfig",
+                "nl": "verandering van JsonConfig",
+                "fr": "changé en jsonConfig",
+                "it": "cambiato in jsonConfig",
+                "es": "cambiado a jsonConfig",
+                "pl": "zmienił się na jsonConfig",
+                "zh-cn": "b. 修改"
             },
             "0.0.1": {
                 "en": "initial release",
