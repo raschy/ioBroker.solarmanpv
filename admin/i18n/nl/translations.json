@@ -1,5 +1,9 @@
 {
-	"solarmanpv adapter settings": "Adapterinstellingen voor solarmanpv",
-	"option1": "Optie 1",
-	"option2": "Optie 2"
+    "Credentials": "Inloggegevens",
+    "eMail": "e-mail",
+    "Password": "Wachtwoord",
+    "appId": "App-ID",
+    "appSecret": "App-geheimen",
+    "App ID from solarmanpv.com": "App-ID van solarmanpv.com",
+    "Secrets from solarmanpv.com": "Geheimen van solarmanpv.com"
 }

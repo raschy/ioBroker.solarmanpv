@@ -1,5 +1,9 @@
 {
-	"solarmanpv adapter settings": "Настройки адаптера для solarmanpv",
-	"option1": "Опция 1",
-	"option2": "вариант 2"
+    "Credentials": "Реквизиты для входа",
+    "eMail": "Эл. адрес",
+    "Password": "Пароль",
+    "appId": "Идентификатор приложения",
+    "appSecret": "Секреты приложений",
+    "App ID from solarmanpv.com": "Идентификатор приложения с сайта solarmanpv.com",
+    "Secrets from solarmanpv.com": "Секреты от solarmanpv.com"
 }

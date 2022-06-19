@@ -1,5 +1,9 @@
 {
-	"solarmanpv adapter settings": "solarmanpv的适配器设置",
-	"option1": "选项1",
-	"option2": "选项2"
+    "Credentials": "证书",
+    "eMail": "电子邮件",
+    "Password": "密码",
+    "appId": "应用编号",
+    "appSecret": "应用秘密",
+    "App ID from solarmanpv.com": "来自 solarmanpv.com 的应用程序 ID",
+    "Secrets from solarmanpv.com": "来自 solarmanpv.com 的秘密"
 }

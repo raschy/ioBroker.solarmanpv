@@ -1,0 +1,47 @@
+{
+    "i18n": true,
+    "type": "tabs",
+    "items": {
+        "_credentials": {
+            "type": "panel",
+            "label": "Credentials",
+            "items": {
+                "email": {
+                    "newLine": true,
+                    "type": "text",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "label": "eMail"
+                },
+                "password": {
+                    "type": "password",
+                    "repeat": false,
+                    "visible": false,
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "label": "Password"
+                },
+				"appId": {
+                    "type": "number",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "label": "APP ID",
+                    "help": "App ID from solarmanpv.com"
+                },
+                "appSecret": {
+                    "type": "text",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+					"label": "APP Secrets",
+                    "help": "Secrets from solarmanpv.com"
+                }
+            }
+        }
+    },
+    "objects": [],
+    "instanceObjects": []
+}

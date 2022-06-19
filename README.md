@@ -15,8 +15,6 @@
 
 Reading data from balcony power plant
 
-## Developer manual
-This section is intended for the developer. It can be deleted later
 
 ### Getting started
 
@@ -73,10 +71,7 @@ sinnvoll, den Adapter häufiger starten zu lassen.
 -->
 
 ### **WORK IN PROGRESS**
-* (raschy) 
 
-
-### 0.0.1 (2022-06-16)
 * (raschy) initial release
 
 ## License

@@ -1,5 +1,9 @@
 {
-	"solarmanpv adapter settings": "Adapter settings for solarmanpv",
-	"option1": "option1",
-	"option2": "option2"
+	"Credentials": "Credentials",
+	"eMail": "eMail",
+	"Password": "Password",
+	"appId": "App ID",
+	"appSecret": "App Secrets",
+	"App ID from solarmanpv.com": "App ID from solarmanpv.com",
+	"Secrets from solarmanpv.com": "Secrets from solarmanpv.com"
 }
