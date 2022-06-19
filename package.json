@@ -1,6 +1,6 @@
 {
   "name": "iobroker.solarmanpv",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Reading data from balcony power plant",
   "author": {
     "name": "raschy",
@@ -18,7 +18,8 @@
     "url": "git@github.com:raschy/ioBroker.solarmanpv.git"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^2.6.0"
+    "@iobroker/adapter-core": "^2.6.0",
+    "crypto-js": "^4.4.1"
   },
   "devDependencies": {
     "@alcalzone/release-script": "^3.5.9",

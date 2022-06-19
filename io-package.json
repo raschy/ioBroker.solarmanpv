@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "solarmanpv",
-        "version": "0.0.1",
+        "version": "0.0.3",
         "news": {
+            "0.0.3": {
+                "en": "ReadMe changed",
+                "de": "Weiterlesen Ich habe mich verändert",
+                "ru": "Читать Я изменил",
+                "pt": "Leia mais Eu mudei",
+                "nl": "Lees Ik ben veranderd",
+                "fr": "Read J'ai changé",
+                "it": "Leggi Io cambiato",
+                "es": "Leer Cambié",
+                "pl": "Reader zmienić się",
+                "zh-cn": "阅读 修改"
+            },
             "0.0.1": {
                 "en": "initial release",
                 "de": "Erstveröffentlichung",

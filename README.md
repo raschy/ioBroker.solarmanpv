@@ -69,9 +69,11 @@ sinnvoll, den Adapter häufiger starten zu lassen.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-
-
 ### **WORK IN PROGRESS**
+
+* (raschy) Dependecies addet
+
+### 0.0.3 (2022-06-19)
 
 * (raschy) ReadMe changed
 
