@@ -70,7 +70,7 @@ sinnvoll, den Adapter häufiger starten zu lassen.
 	### **WORK IN PROGRESS**
 -->
 
-### **WORK IN PROGRESS**
+### 0.0.7 (2022-06-19)
 * (raschy) Try first release
 
 ### 0.0.6 (2022-06-19)

@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "solarmanpv",
-        "version": "0.0.6",
+        "version": "0.0.7",
         "news": {
+            "0.0.7": {
+                "en": "Try first release",
+                "de": "Erste Veröffentlichung",
+                "ru": "Попробуйте первый релиз",
+                "pt": "Experimente o primeiro lançamento",
+                "nl": "Probeer het",
+                "fr": "Essayez la première version",
+                "it": "Prova la prima versione",
+                "es": "Prueba primero",
+                "pl": "Try first release",
+                "zh-cn": "首次释放"
+            },
             "0.0.6": {
                 "en": "Crypto version corrected",
                 "de": "Crypto Version korrigiert",
