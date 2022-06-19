@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "solarmanpv",
-        "version": "0.0.5",
+        "version": "0.0.6",
         "news": {
+            "0.0.6": {
+                "en": "Crypto version corrected",
+                "de": "Crypto Version korrigiert",
+                "ru": "Исправлена версия Crypto",
+                "pt": "Versão de criptografia corrigida",
+                "nl": "Crypto versie correct",
+                "fr": "Crypto version corrigée",
+                "it": "Crypto versione corretta",
+                "es": "Crypto versión corregida",
+                "pl": "Wersja kryptowa poprawiła",
+                "zh-cn": "更正版本"
+            },
             "0.0.5": {
                 "en": "Crypto version changed",
                 "de": "Crypto Version geändert",
