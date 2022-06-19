@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "solarmanpv",
-        "version": "0.0.3",
+        "version": "0.0.4",
         "news": {
+            "0.0.4": {
+                "en": "Dependecies addet",
+                "de": "Ausgaben Addet",
+                "ru": "Зависимость аппетит",
+                "pt": "Complementos de dependências",
+                "nl": "Afhankelijk van toevoegingen",
+                "fr": "Addet",
+                "it": "Dipendenze",
+                "es": "Dependencias addet",
+                "pl": "W zależności od dodawania",
+                "zh-cn": "A. 属性增加"
+            },
             "0.0.3": {
                 "en": "ReadMe changed",
                 "de": "Weiterlesen Ich habe mich verändert",
