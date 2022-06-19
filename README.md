@@ -69,8 +69,10 @@ sinnvoll, den Adapter häufiger starten zu lassen.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-
 ### **WORK IN PROGRESS**
+* (raschy) Crypto version corrected
+
+### 0.0.5 (2022-06-19)
 * (raschy) Crypto version changed
 
 ### 0.0.4 (2022-06-19)
