@@ -70,10 +70,14 @@ sinnvoll, den Adapter häufiger starten zu lassen.
 	### **WORK IN PROGRESS**
 -->
 
+
+### **WORK IN PROGRESS**
+
+* (raschy) ReadMe changed
+
 ### 0.0.2 (2022-06-19)
 
 * (raschy) changed to jsonConfig
-
 
 ### 0.0.1 (2022-06-16
 
