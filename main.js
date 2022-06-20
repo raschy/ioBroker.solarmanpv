@@ -47,13 +47,6 @@ class Solarmanpv extends utils.Adapter {
 		this.http.interceptors.response.use(async function (response) {
 			// Any status code that lie within the range of 2xx cause this function to trigger
 			// Do something with response data
-			// ##############
-			//console.log('Test ====');
-			//console.log(response.config);
-			//console.log(response.status);
-			//console.log(response.data);
-			//self.log.debug(`[response] ${response.config}`);
-			// ##############
 
 			if(response.data.msg){
 
@@ -72,18 +65,19 @@ class Solarmanpv extends utils.Adapter {
 
 					if(!self.token) return Promise.reject('No valid token.');
 
-					self.http.defaults.headers.common['Authorization'] = 'Bearer ' + self.token;
+					self.http.defaults.headers.common['Authorization'] = 'bearer ' + self.token;
 
 					const config = response.config;
-					config.headers.Authorization = 'Bearer ' + self.token;
-
+					if (config.headers) {
+						config.headers.Authorization = 'Bearer ' + self.token;
+					}
 					response = await self.http.request(config);
 				} else {
 					return Promise.reject(response);
 				}
 			}
 			return response;
-		 },	function (error) {
+		},	function (error) {
 			// Any status codes that falls outside the range of 2xx cause this function to trigger
 			// Do something with response error
 			return Promise.reject(error);
@@ -93,7 +87,7 @@ class Solarmanpv extends utils.Adapter {
 	/**
 	 * Is called when databases are connected and adapter received configuration.
 	 */
-	 async onReady() {
+	async onReady() {
 		// Initialize your adapter here
 		this.log.debug(`[onReady] started`);
 		// The adapters config (in the instance object everything under the attribute "native") is accessible via
@@ -107,9 +101,10 @@ class Solarmanpv extends utils.Adapter {
 		this.log.debug('intern hash: ' + this.hash);
 
 		const object = await this.getForeignObjectAsync('system.adapter.solarmanpv');
-		this.token = object?.native.aktiveToken;
-		this.log.debug('intern token: ' + this.token);
-
+		if (typeof(object) != 'undefined' && object != null){
+			this.token = object.native.aktiveToken;
+			this.log.debug('intern token: ' + this.token);
+		}
 		console.log('==== Start ====');
 
 		try {
@@ -121,25 +116,27 @@ class Solarmanpv extends utils.Adapter {
 			this.log.info('Station ID: ' + this.stationId);
 
 			// get device-sn  & device-id via api-call
-			this.deviceSn = await this.getInverterId()
+			this.deviceSn = await this.getInverterId();
 			this.log.info('Device SN: ' + this.deviceSn);
 			this.log.info('Device ID: ' + this.deviceId);
+
 
 			// get data from station via api-call
 			await this.getStationData().then(result =>
 				this.updateStationData(result));
-			
+
 			// get data from device via api-call
 			await this.getDeviceData().then(result =>
 				this.updateDeviceData(result));
+
 			/*
 			await this.getRealTimeData().then(result =>
 				this.updateDeviceData(result));
-			*/							
-		} 
+			*/
+		}
 		catch (err) {
 			this.log.error(`[onReady] error: ${err}`);
-		} 
+		}
 		finally {
 			this.log.debug(`[onReady] finished - stopping instance`);
 			if(typeof this.stop === 'function') {
@@ -192,22 +189,21 @@ class Solarmanpv extends utils.Adapter {
 			_type = 'object';
 			value = JSON.stringify(value);
 		}
-		
+
 		await this.setObjectNotExistsAsync(dp_Device, {
 			type: 'state',
 			common: {
 				name: sensorName,
 				role: 'state',
 				type: _type,
+				// @ts-ignore
 				unit: unit,
 				read: true,
 				write: false
 			},
 			native: {}
 		});
-
 		await this.setStateAsync(dp_Device, {val: value, ack: true});
-
 	}
 
 	// update station data in ioBroker
@@ -248,7 +244,7 @@ class Solarmanpv extends utils.Adapter {
 		const self = this;
 		this.log.debug(`[getDeviceData] Device SN >: ${this.deviceSn}`);
 		this.log.debug(`[getDeviceData] Device ID >: ${this.deviceId}`);
-  
+
 		return this.http
 			.post(
 				'/device/v1.0/currentData?language=en', // language parameter does not show any effect
@@ -284,7 +280,7 @@ class Solarmanpv extends utils.Adapter {
 				// this.log.error(`[getStationData] msg: ${response.data.msg}`);
 				if(response.data.msg === 'auth invalid token') return Promise.reject('Invalid-Token');		//throw 'InvalidToken';
 				return response.data;
-				})
+			})
 			.catch(function (error) {
 				self.log.error(`[getStationData] error: ${error}`);
 			});
@@ -295,7 +291,7 @@ class Solarmanpv extends utils.Adapter {
 		const self = this;
 		this.log.debug(`[getRealTimeData] Device SN >: ${this.deviceSn}`);
 		this.log.debug(`[getRealTimeData] Device ID >: ${this.deviceId}`);
-  
+
 		return this.http
 			.post(
 				'/device/v1.0/currentData?language=en', // language parameter does not show any effect
@@ -312,7 +308,7 @@ class Solarmanpv extends utils.Adapter {
 				//console.log(deviceSn);
 				//if(response.data.msg === 'auth invalid token') return Promise.reject('Invalid-Token');
 				//this.log.debug(`[getRealTimeData] Device SN <: ${response.data.deviceListItems[0].deviceSn}`);
-				return response.data
+				return response.data;
 			})
 			.catch(function (error) {
 				console.log(error.request);
@@ -324,14 +320,14 @@ class Solarmanpv extends utils.Adapter {
 	getInverterId() {
 		const self = this;
 		this.log.debug(`[getInverterId] StationID >: ${this.stationId}`);
-  
+
 		return this.http
 			.post(
 				'/station/v1.0/device?language=en', // language parameter does not show any effect
 				{
 					page: 1,
 					size: 10,
-					deviceType: "MICRO_INVERTER",
+					deviceType: 'MICRO_INVERTER',
 					stationId : this.stationId
 				}
 			)
@@ -369,7 +365,7 @@ class Solarmanpv extends utils.Adapter {
 				//console.log('Station ID ====');
 				//console.log(response.data);
 
-				const total = response.data.total;	// Anzahl der Plants
+				//const total = response.data.total;	// Anzahl der Plants
 				const objStationList = response.data.stationList;
 				const stationId = objStationList[0].id;
 
@@ -387,6 +383,7 @@ class Solarmanpv extends utils.Adapter {
 	// get Token from api
 	async getToken() {
 		const self = this;
+
 		console.log(`[getToken] ==== neues ====`);
 		console.log(`[getToken] appId: ${this.config.appId}`);
 		console.log(`[getToken] appSecret: ${this.config.appSecret}`);
