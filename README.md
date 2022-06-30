@@ -58,8 +58,8 @@ für die API mitteilen?". Bei mir kam dann noch eine weitere Rückfrage:
 "Warum bewerben Sie sich für API?". Auch diese Frage habe ich höflich 
 beantwortet und bekam dann am nächsten Tag die notwendigen Daten zugesendet.
 
-Auf der Admin-Seite müssen die 4 Felder der Beschreibung entsprechend aus-
-gefüllt werden. Dieser Adapter ist als "scheduled" Adapter angelegt. Da die 
+Auf der Admin-Seite müssen die 4 Felder der Beschreibung entsprechend 
+ausgefüllt werden. Dieser Adapter ist als "scheduled" Adapter angelegt. Da die 
 Daten in der Cloud nur ca. alle 6 Minuten aktualisiert werden, ist es nicht 
 sinnvoll, den Adapter häufiger starten zu lassen.
 
@@ -69,6 +69,10 @@ sinnvoll, den Adapter häufiger starten zu lassen.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+* (raschy) User warnings addet
+
 ### 0.0.9 (2022-06-20)
 * (raschy) Errorhandling addet
 
