@@ -26,7 +26,6 @@ class Solarmanpv extends utils.Adapter {
 		this.on('ready', this.onReady.bind(this));
 		this.on('unload', this.onUnload.bind(this));
 		//
-		this.tmpStationId = null;
 		this.stationId = null;
 		this.deviceId = null;
 		this.deviceSn = null;
@@ -65,13 +64,12 @@ class Solarmanpv extends utils.Adapter {
 
 				this.token = await this.getToken();
 				console.log(this.token);
-				/*
+
 				this.extendForeignObject('system.adapter.' + 'solarmanpv', {
 					native: {
 						aktiveToken: this.token
 					}
 				});
-				*/
 
 				if(!this.token) return Promise.reject('No valid token.');
 
@@ -117,7 +115,7 @@ class Solarmanpv extends utils.Adapter {
 		const object = await this.getForeignObjectAsync('system.adapter.solarmanpv');
 		if (typeof(object) != 'undefined' && object != null){
 			this.token = object.native.aktiveToken;
-			this.token = 'halloFalscherToken';
+			//this.token = 'halloFalscherToken';
 			this.log.debug('intern token: ' + this.token);
 		}
 
@@ -130,7 +128,6 @@ class Solarmanpv extends utils.Adapter {
 			// get station-id via api-call
 			await this.initializeStation();
 			if (typeof(this.stationId) != 'undefined' && this.stationId != null){
-				//this.stationId = this.tmpStationID;
 				this.log.info('Station ID: ' + this.stationId);
 			} else {
 				this.log.warn('no valid station ID found.');
@@ -140,18 +137,12 @@ class Solarmanpv extends utils.Adapter {
 			// get device-id/sn via api-call
 			await this.initializeInverter();
 
-
 			// get data from station via api-call
 			await this.getStationData().then(result =>
 				this.updateStationData(result));
 
-			/*
 			// get data from device via api-call
 			await this.getDeviceData().then(result =>
-				this.updateDeviceData(result));
-			*/
-
-			await this.getRealTimeData().then(result =>
 				this.updateDeviceData(result));
 
 		}
@@ -298,28 +289,6 @@ class Solarmanpv extends utils.Adapter {
 			});
 	}
 
-	// get realtimedata from api
-	getRealTimeData() {
-		const self = this;
-		this.log.debug(`[getRealTimeData] Device SN >: ${this.deviceSn}`);
-		this.log.debug(`[getRealTimeData] Device ID >: ${this.deviceId}`);
-
-		return this.http
-			.post(
-				'/device/v1.0/currentData?language=en', // language parameter does not show any effect
-				{
-					deviceId: this.deviceId,
-					deviceSn: this.deviceSn
-				}
-			)
-			.then((response) => {
-				return response.data;
-			})
-			.catch(function (error) {
-				self.log.error(`[getRealTimeData] error: ${error}`);
-			});
-	}
-
 	// get inverter-id from api
 	initializeInverter() {
 		const self = this;
@@ -405,7 +374,7 @@ class Solarmanpv extends utils.Adapter {
 				//console.log (error);
 				//self.log.error(`[getToken] error: ${error.data.msg}`);
 			});
-			*/
+		*/
 	}
 
 	apiErrorHandler(error){
@@ -415,7 +384,7 @@ class Solarmanpv extends utils.Adapter {
 		if (typeof(error) == 'object'){
 			try	{
 				const json = JSON.parse(error.data.msg);
-				this.log.info(`[apiErrorHandler] Json: ${json.code}`);
+				this.log.info(`[apiErrorHandler] Json: ${json.code}`);			//AUTH_INVALID_USERNAME_OR_PASSWORD
 			}
 			catch (error) {
 				this.log.info(`[apiErrorHandler] String 1: ${error.data.msg}`);	//auth invalid appId

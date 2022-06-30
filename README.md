@@ -43,7 +43,7 @@ it does not make to start the adapter more frequently.
 
 == DE ==
 
-Dieser Adapter dient dazu, Daten eines Balkonkraftwerks, das durch einen 
+Dieser Adapter dient dazu, Daten eines Balkonkraftwerks, die durch einen 
 Wechselrichter "Bosswerk MI600" bereit gestellt werden, in ioBroker darzustellen.
 
 Ich gehe davon aus, dass die Anlage bisher durch die App "Solarman" beobachtet 
