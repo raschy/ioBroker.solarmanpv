@@ -47,7 +47,6 @@ class Solarmanpv extends utils.Adapter {
 			// Do something with response error
 			return Promise.reject(error);
 		});
-
 	}
 
 	async invalidTokenResponseInterceptor(response){
@@ -87,7 +86,6 @@ class Solarmanpv extends utils.Adapter {
 		return response;
 	}
 
-
 	/**
 	 * Is called when databases are connected and adapter received configuration.
 	 */
@@ -123,7 +121,6 @@ class Solarmanpv extends utils.Adapter {
 		this.http.defaults.headers.common['Authorization'] = 'bearer ' + this.token;
 
 		console.log('==== TRY ====');
-
 		try {
 			// get station-id via api-call
 			await this.initializeStation();
@@ -340,7 +337,6 @@ class Solarmanpv extends utils.Adapter {
 	// get Token from api
 	async getToken() {
 		const self = this;
-		console.log('==== Token ====');
 		this.log.debug('[getToken] config email: ' + this.config.email);
 		this.log.debug('[getToken] config password: ' + this.config.password);
 		this.log.debug('[getToken] config appId: ' + this.config.appId);
@@ -349,7 +345,7 @@ class Solarmanpv extends utils.Adapter {
 		this.hash = crypto(this.config.password).toString();
 		this.log.debug('[getToken] intern hash: ' + this.hash);
 
-		// Kaputt!!
+		// Fehlersimulation!!
 		//this.config.email ='raschy@gmx.de';
 		//this.config.appId = '123456789';
 		//this.config.appSecret = '987654321';
