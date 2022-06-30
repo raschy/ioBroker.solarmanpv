@@ -1,9 +1,33 @@
 {
     "common": {
         "name": "solarmanpv",
-        "version": "0.0.8",
+        "version": "0.0.9",
         "news": {
+            "0.0.9": {
+                "en": "Errorhandling addet",
+                "de": "Fehlerbehebung",
+                "ru": "Ошибка addet",
+                "pt": "Adicionar erro",
+                "nl": "Errorhandling toevoeging",
+                "fr": "Ajout d'erreur",
+                "it": "Addetto di gestione degli errori",
+                "es": "Complemento de error",
+                "pl": "Errorhand",
+                "zh-cn": "增 编"
+            },
             "0.0.8": {
+                "en": "Try after clearing folder",
+                "de": "Versuchen Sie nach dem Löschen Ordner",
+                "ru": "Попробуйте после очистки папки",
+                "pt": "Tente depois de limpar a pasta",
+                "nl": "Probeer na het schoonmaken van de map",
+                "fr": "Essayez après le dossier de déblayage",
+                "it": "Prova dopo la cartella di compensazione",
+                "es": "Pruebe después de limpiar la carpeta",
+                "pl": "Po oczyszczaniu foldera",
+                "zh-cn": "D. 在信息交换箱之后的照射"
+            },
+            "0.0.7": {
                 "en": "Try first release",
                 "de": "Erste Veröffentlichung",
                 "ru": "Попробуйте первый релиз",
