@@ -6,8 +6,6 @@
 // you need to create an adapter
 'use strict';
 const utils = require('@iobroker/adapter-core');
-
-// Load your modules here, e.g.:
 const axios = require('axios').default;
 const crypto = require('crypto-js/sha256');
 
@@ -43,14 +41,12 @@ class Solarmanpv extends utils.Adapter {
 		});
 
 		this.http.interceptors.response.use((response) => this.invalidTokenResponseInterceptor(response), function (error) {
-			// Any status codes that falls outside the range of 2xx cause this function to trigger
-			// Do something with response error
 			return Promise.reject(error);
 		});
 	}
 
 	async invalidTokenResponseInterceptor(response){
-		console.log('==== interceptors ====');
+		console.log('==== interceptor ====');
 		if(response.data.msg){
 
 			if(response.data.msg === 'auth invalid token') {
@@ -63,7 +59,6 @@ class Solarmanpv extends utils.Adapter {
 
 				this.token = await this.getToken();
 				console.log(this.token);
-
 				this.extendForeignObject('system.adapter.' + 'solarmanpv', {
 					native: {
 						aktiveToken: this.token
@@ -111,7 +106,7 @@ class Solarmanpv extends utils.Adapter {
 
 		// read token
 		const object = await this.getForeignObjectAsync('system.adapter.solarmanpv');
-		if (typeof(object) != 'undefined' && object != null){
+		if (typeof(object) !== 'undefined' && object !== null){
 			this.token = object.native.aktiveToken;
 			//this.token = 'halloFalscherToken';
 			this.log.debug('intern token: ' + this.token);
@@ -120,6 +115,8 @@ class Solarmanpv extends utils.Adapter {
 		// add bearer token to header of axios instance for next requests
 		this.http.defaults.headers.common['Authorization'] = 'bearer ' + this.token;
 
+		//	await this.sleep(waitingTime + 300, waitingTime + 400);
+		await this.lag(900);
 		console.log('==== TRY ====');
 		try {
 			// get station-id via api-call
@@ -132,19 +129,24 @@ class Solarmanpv extends utils.Adapter {
 			}
 
 			// get device-id/sn via api-call
-			await this.initializeInverter();
+			if (await this.initializeInverter()) {
+				this.log.error('Konnte Inverter nicht initialisieren!');
+				return;
+			}
 
+			await this.lag(100);
 			// get data from station via api-call
 			await this.getStationData().then(result =>
 				this.updateStationData(result));
 
+			await this.lag(200);
 			// get data from device via api-call
 			await this.getDeviceData().then(result =>
 				this.updateDeviceData(result));
 
 		}
-		catch (err) {
-			this.log.error(`[onReady] error: ${err}`);
+		catch (error) {
+			this.log.error(`[onReady] error: ${error}`);
 		}
 		finally {
 			this.log.debug(`[onReady] finished - stopping instance`);
@@ -169,10 +171,10 @@ class Solarmanpv extends utils.Adapter {
 		}
 	}
 
-	async fillSensorData(device, name, description, value, unit) {
+	async persistData(device, name, description, value, unit) {
 		const dp_Device = this.stationId +'.'+ device +'.'+ name;
 		const sensorName = device +'.'+ description;
-		this.log.debug(`[fillSensorData] Device "${dp_Device}" sensor "${description}" with value: "${value}" and unit "${unit}"`);
+		this.log.debug(`[persistData] Device "${dp_Device}" sensor "${description}" with value: "${value}" and unit "${unit}"`);
 
 		await this.setObjectNotExistsAsync(this.stationId +'.'+ device, {
 			type: 'device',
@@ -190,7 +192,7 @@ class Solarmanpv extends utils.Adapter {
 		*/
 		// Type-Erkennung
 		let	_type = 'string';
-		if (this.isNumeric(value)) {
+		if (isNumeric(value)) {
 			_type = 'number';
 			value = parseFloat(value);
 		}
@@ -212,24 +214,28 @@ class Solarmanpv extends utils.Adapter {
 			},
 			native: {}
 		});
+
 		await this.setStateAsync(dp_Device, {val: value, ack: true});
+
+		// Beschreibe diese Funktion: Prüfen ob Wert numerisch ist
+		function isNumeric(n) {
+			return !isNaN(parseFloat(n)) && isFinite(n);
+		}
 	}
 
 	// update station data in ioBroker
 	updateStationData(data) {
 		// define keys that shall be updated
 		const updateKeys = ['generationPower', 'lastUpdateTime'];
-
 		updateKeys.forEach((key) => {
-			//this.log.info('[updateStationData] '+ key + ' Data: ' + data[key]);
 			if (key == 'generationPower') {
 				//this.log.info('[updateStationData] generationPower : '+ data[key]);
-				this.fillSensorData('StationData', key, key, data[key],'W');
+				this.persistData('StationData', key, key, data[key],'W');
 			}
 			if (key == 'lastUpdateTime') {
 				const lastUpdate = new Date(data[key]*1000);
 				//this.log.info('[updateStationData] lastUpdateTime : '+ lastUpdate);
-				this.fillSensorData('StationData', key, key, lastUpdate,'');
+				this.persistData('StationData', key, key, lastUpdate,'');
 			}
 		});
 	}
@@ -241,15 +247,13 @@ class Solarmanpv extends utils.Adapter {
 		const values = data.dataList.filter((obj) => updateKeys.includes(obj.key));
 		values.forEach((obj) => {
 			//this.log.info('[updateDeviceData] '+ obj.key + ' Data: ' + obj.value + ' Unit: ' + obj.unit + ' Name: ' + obj.name);
-			this.fillSensorData('DeviceData', obj.key, obj.name, obj.value, obj.unit);
+			this.persistData('DeviceData', obj.key, obj.name, obj.value, obj.unit);
 		});
 	}
 
 	// get inverter data from api
 	getDeviceData() {
-		const self = this;
-		this.log.debug(`[getDeviceData] Device SN >: ${this.deviceSn}`);
-		this.log.debug(`[getDeviceData] Device ID >: ${this.deviceId}`);
+		this.log.debug(`[getDeviceData] Device ID >: ${this.deviceId} and Device SN >: ${this.deviceSn}`);
 
 		return this.http
 			.post(
@@ -262,14 +266,13 @@ class Solarmanpv extends utils.Adapter {
 			.then((response) => {
 				return response.data;
 			})
-			.catch(function (error) {
-				self.log.error(`[getDeviceData] error: ${error}`);
+			.catch((error) => {
+				this.log.error(`[getDeviceData] error: ${error}`);
 			});
 	}
 
 	// get station data from api
 	getStationData() {
-		const self = this;
 		this.log.debug(`[getStationData] Station ID >: ${this.stationId}`);
 		return this.http
 			.post(
@@ -277,19 +280,18 @@ class Solarmanpv extends utils.Adapter {
 				{ stationId: this.stationId }
 			)
 			.then((response) => {
-				// this.log.error(`[getStationData] msg: ${response.data.msg}`);
 				if(response.data.msg === 'auth invalid token') return Promise.reject('Invalid-Token');		//throw 'InvalidToken';
 				return response.data;
 			})
-			.catch(function (error) {
-				self.log.error(`[getStationData] error: ${error}`);
+			.catch((error) => {
+				this.log.error(`[getStationData] error: ${error}`);
 			});
 	}
 
 	// get inverter-id from api
 	initializeInverter() {
-		const self = this;
-		this.log.debug(`[getInverterId] StationID >: ${this.stationId}`);
+		//this.stationId = '123456';
+		this.log.debug(`[initializeInverter] StationID >: ${this.stationId}`);
 
 		return this.http
 			.post(
@@ -306,15 +308,16 @@ class Solarmanpv extends utils.Adapter {
 				this.deviceSn = response.data.deviceListItems[0].deviceSn;
 				this.log.debug(`[initializeInverter] Device ID <: ${response.data.deviceListItems[0].deviceId}`);
 				this.deviceId = response.data.deviceListItems[0].deviceId;
+				return 0;
 			})
-			.catch(function (error) {
-				self.log.error(`[getInverterId] error: ${error}`);
+			.catch((error) => {
+				this.log.debug(`[initializeInverter] error: ${error}`);
+				return 1;
 			});
 	}
 
 	// get station-id from api
 	initializeStation() {
-		const self = this;
 		return this.http
 			.post(
 				'/station/v1.0/list?language=en', // language parameter does not show any effect
@@ -328,15 +331,22 @@ class Solarmanpv extends utils.Adapter {
 				const objStationList = response.data.stationList;
 				this.stationId = objStationList[0].id;
 				this.log.debug(`[initializeStation] data <: ${this.stationId}`);
+				return 0;
 			})
+			/*
 			.catch(function (error) {
 				self.log.error(`[initializeStation] error: ${error}`);
+				return 1;
+			*/
+			.catch((error) => {
+				this.log.error(`[initializeStation] error: ${error}`);
+				return 1;
 			});
 	}
 
 	// get Token from api
 	async getToken() {
-		const self = this;
+		console.log('==== Token ====');
 		this.log.debug('[getToken] config email: ' + this.config.email);
 		this.log.debug('[getToken] config password: ' + this.config.password);
 		this.log.debug('[getToken] config appId: ' + this.config.appId);
@@ -357,7 +367,7 @@ class Solarmanpv extends utils.Adapter {
 				password: this.hash,
 			})
 			.then((response) => {
-				self.log.debug(`[getToken] debug: ${response.data.access_token}`);
+				this.log.debug(`[getToken] debug: ${response.data.access_token}`);
 				return response.data.access_token;
 			})
 			.catch(error => this.apiErrorHandler(error));
@@ -388,10 +398,12 @@ class Solarmanpv extends utils.Adapter {
 		}
 	}
 
-	// Beschreibe diese Funktion: Prüfen ob Wert numerisch ist
-	isNumeric(n) {
-		return !isNaN(parseFloat(n)) && isFinite(n);
+	lag(msDelay){
+		const ms = Math.round(Math.random() * msDelay + msDelay);
+		this.log.debug('Lag time is ' + ms + 'ms');
+		return new Promise(resolve => setTimeout(resolve, ms));
 	}
+
 // End Class
 }
 
