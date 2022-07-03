@@ -69,8 +69,8 @@ sinnvoll, den Adapter häufiger starten zu lassen.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
-* (raschy) Create to release 
+### 0.0.11 (2022-07-03)
+* (raschy) Create to release
 
 ### 0.0.10 (2022-07-03)
 * (raschy) User warnings addet

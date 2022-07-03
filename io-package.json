@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "solarmanpv",
-    "version": "0.0.10",
+    "version": "0.0.11",
     "news": {
+      "0.0.11": {
+        "en": "Create to release",
+        "de": "Veröffentlichung erstellen",
+        "ru": "Создать для выхода",
+        "pt": "Criar para liberar",
+        "nl": "Creëer om vrij te laten",
+        "fr": "Créer pour libérer",
+        "it": "Creare per il rilascio",
+        "es": "Crear para liberar",
+        "pl": "W celu uwolnienia",
+        "zh-cn": "创建释放"
+      },
       "0.0.10": {
         "en": "User warnings addet",
         "de": "Benutzerwarnungen Addet",
@@ -74,18 +86,6 @@
         "es": "Crypto versión modificada",
         "pl": "Zmieniona wersja Crypto",
         "zh-cn": "Crypto版本的修改"
-      },
-      "0.0.4": {
-        "en": "Dependecies addet",
-        "de": "Abhängigkeiten hinzugefügt",
-        "ru": "Зависимость аппетит",
-        "pt": "Complementos de dependências",
-        "nl": "Afhankelijk van toevoegingen",
-        "fr": "Addet",
-        "it": "Dipendenze",
-        "es": "Dependencias addet",
-        "pl": "W zależności od dodawania",
-        "zh-cn": "A. 属性增加"
       }
     },
     "titleLang": {
