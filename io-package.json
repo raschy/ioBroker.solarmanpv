@@ -146,20 +146,19 @@
         ],
         "license": "MIT",
         "platform": "Javascript/Node.js",
-        "main": "main.js",
+        "main": "package.json main",
         "icon": "solarmanpv.png",
-        "enabled": true,
+        "enabled": false,
         "extIcon": "https://raw.githubusercontent.com/raschy/ioBroker.solarmanpv/main/admin/solarmanpv.png",
         "readme": "https://github.com/raschy/ioBroker.solarmanpv/blob/main/README.md",
         "loglevel": "info",
         "mode": "schedule",
         "allowInit": true,
-        "schedule": "*/15 * * * *",
+        "schedule": "*/6 * * * *",
         "type": "iot-systems",
         "compact": true,
         "connectionType": "cloud",
         "dataSource": "poll",
-        "materialize": true,
         "adminUI": {
             "config": "json"
         },
@@ -181,6 +180,13 @@
         "appSecret": "",
         "aktiveToken": ""
     },
+    "protectedNative": [
+        "email",
+        "password"
+    ],
+    "encryptedNative": [
+        "password"
+    ],
     "objects": [],
     "instanceObjects": []
 }

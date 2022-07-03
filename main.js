@@ -9,7 +9,6 @@ const utils = require('@iobroker/adapter-core');
 const axios = require('axios').default;
 const crypto = require('crypto-js/sha256');
 
-
 class Solarmanpv extends utils.Adapter {
 
 	/**
@@ -115,7 +114,7 @@ class Solarmanpv extends utils.Adapter {
 		// add bearer token to header of axios instance for next requests
 		this.http.defaults.headers.common['Authorization'] = 'bearer ' + this.token;
 
-		//	await this.sleep(waitingTime + 300, waitingTime + 400);
+		// start delaying
 		await this.lag(900);
 		console.log('==== TRY ====');
 		try {
@@ -143,7 +142,6 @@ class Solarmanpv extends utils.Adapter {
 			// get data from device via api-call
 			await this.getDeviceData().then(result =>
 				this.updateDeviceData(result));
-
 		}
 		catch (error) {
 			this.log.error(`[onReady] error: ${error}`);
@@ -223,6 +221,24 @@ class Solarmanpv extends utils.Adapter {
 		}
 	}
 
+	// update inverter data in ioBroker
+	updateDeviceData(data) {
+		console.log('=== updateDeviceData ===');
+		//console.log(data.stringify());
+
+		if (typeof(data) == 'undefined' || data == null){
+			this.log.warn('Konnte keine Daten abholen!');
+			return;
+		}
+		// define keys that shall be updated (works in dataList only)
+		const updateKeys = ['DV1','DV2','DC1','DC2','DP1','DP2','AV1','Et_ge0','Etdy_ge0','AC_RDT_T1','APo_t1'];
+		const values = data.dataList.filter((obj) => updateKeys.includes(obj.key));
+		values.forEach((obj) => {
+			//this.log.info('[updateDeviceData] '+ obj.key + ' Data: ' + obj.value + ' Unit: ' + obj.unit + ' Name: ' + obj.name);
+			this.persistData('DeviceData', obj.key, obj.name, obj.value, obj.unit);
+		});
+	}
+
 	// update station data in ioBroker
 	updateStationData(data) {
 		// define keys that shall be updated
@@ -240,19 +256,9 @@ class Solarmanpv extends utils.Adapter {
 		});
 	}
 
-	// update inverter data in ioBroker
-	updateDeviceData(data) {
-		// define keys that shall be updated (works in dataList only)
-		const updateKeys = ['DV1','DV2','DC1','DC2','DP1','DP2','AV1','Et_ge0','Etdy_ge0','AC_RDT_T1','APo_t1'];
-		const values = data.dataList.filter((obj) => updateKeys.includes(obj.key));
-		values.forEach((obj) => {
-			//this.log.info('[updateDeviceData] '+ obj.key + ' Data: ' + obj.value + ' Unit: ' + obj.unit + ' Name: ' + obj.name);
-			this.persistData('DeviceData', obj.key, obj.name, obj.value, obj.unit);
-		});
-	}
-
 	// get inverter data from api
 	getDeviceData() {
+		//this.deviceId = '9988776655';
 		this.log.debug(`[getDeviceData] Device ID >: ${this.deviceId} and Device SN >: ${this.deviceSn}`);
 
 		return this.http
@@ -267,7 +273,7 @@ class Solarmanpv extends utils.Adapter {
 				return response.data;
 			})
 			.catch((error) => {
-				this.log.error(`[getDeviceData] error: ${error}`);
+				this.log.error(`[getDeviceData] error: ${error.data.msg}`);		// device no upload records found
 			});
 	}
 
@@ -280,7 +286,7 @@ class Solarmanpv extends utils.Adapter {
 				{ stationId: this.stationId }
 			)
 			.then((response) => {
-				if(response.data.msg === 'auth invalid token') return Promise.reject('Invalid-Token');		//throw 'InvalidToken';
+				//if(response.data.msg === 'auth invalid token') return Promise.reject('Invalid-Token');		//throw 'InvalidToken';
 				return response.data;
 			})
 			.catch((error) => {
@@ -290,7 +296,7 @@ class Solarmanpv extends utils.Adapter {
 
 	// get inverter-id from api
 	initializeInverter() {
-		//this.stationId = '123456';
+		//this.stationId = '1234567';
 		this.log.debug(`[initializeInverter] StationID >: ${this.stationId}`);
 
 		return this.http
@@ -312,6 +318,8 @@ class Solarmanpv extends utils.Adapter {
 			})
 			.catch((error) => {
 				this.log.debug(`[initializeInverter] error: ${error}`);
+				//this.log.debug(error.name);
+				//this.log.debug(error.message);
 				return 1;
 			});
 	}
