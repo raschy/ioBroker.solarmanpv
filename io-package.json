@@ -3,6 +3,18 @@
         "name": "solarmanpv",
         "version": "0.0.9",
         "news": {
+            "0.0.10": {
+                "en": "User warnings addet",
+                "de": "Benutzerwarnungen hinzugefügt",
+                "ru": "Уведомления пользователя addet",
+                "pt": "Avisos de usuário addet",
+                "nl": "Vertaling:",
+                "fr": "Avertissements utilisateur addet",
+                "it": "Addet avvisi utente",
+                "es": "Complemento de advertencias de usuario",
+                "pl": "Ostrzeżenie",
+                "zh-cn": "用户警告"
+              },
             "0.0.9": {
                 "en": "Errorhandling addet",
                 "de": "Fehlerbehebung",
