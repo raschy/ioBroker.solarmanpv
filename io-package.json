@@ -122,7 +122,7 @@
     ],
     "license": "MIT",
     "platform": "Javascript/Node.js",
-    "main": "package.json main",
+    "main": "main.js",
     "icon": "solarmanpv.png",
     "enabled": false,
     "extIcon": "https://raw.githubusercontent.com/raschy/ioBroker.solarmanpv/main/admin/solarmanpv.png",
