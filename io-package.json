@@ -1,192 +1,168 @@
 {
-    "common": {
-        "name": "solarmanpv",
-        "version": "0.0.9",
-        "news": {
-            "0.0.9": {
-                "en": "Errorhandling addet",
-                "de": "Fehlerbehebung",
-                "ru": "Ошибка addet",
-                "pt": "Adicionar erro",
-                "nl": "Errorhandling toevoeging",
-                "fr": "Ajout d'erreur",
-                "it": "Addetto di gestione degli errori",
-                "es": "Complemento de error",
-                "pl": "Errorhand",
-                "zh-cn": "增 编"
-            },
-            "0.0.8": {
-                "en": "Try after clearing folder",
-                "de": "Versuchen Sie nach dem Löschen Ordner",
-                "ru": "Попробуйте после очистки папки",
-                "pt": "Tente depois de limpar a pasta",
-                "nl": "Probeer na het schoonmaken van de map",
-                "fr": "Essayez après le dossier de déblayage",
-                "it": "Prova dopo la cartella di compensazione",
-                "es": "Pruebe después de limpiar la carpeta",
-                "pl": "Po oczyszczaniu foldera",
-                "zh-cn": "D. 在信息交换箱之后的照射"
-            },
-            "0.0.7": {
-                "en": "Try first release",
-                "de": "Erste Veröffentlichung",
-                "ru": "Попробуйте первый релиз",
-                "pt": "Experimente o primeiro lançamento",
-                "nl": "Probeer het",
-                "fr": "Essayez la première version",
-                "it": "Prova la prima versione",
-                "es": "Prueba primero",
-                "pl": "Try first release",
-                "zh-cn": "首次释放"
-            },
-            "0.0.6": {
-                "en": "Crypto version corrected",
-                "de": "Crypto Version korrigiert",
-                "ru": "Исправлена версия Crypto",
-                "pt": "Versão de criptografia corrigida",
-                "nl": "Crypto versie correct",
-                "fr": "Crypto version corrigée",
-                "it": "Crypto versione corretta",
-                "es": "Crypto versión corregida",
-                "pl": "Wersja kryptowa poprawiła",
-                "zh-cn": "更正版本"
-            },
-            "0.0.5": {
-                "en": "Crypto version changed",
-                "de": "Crypto Version geändert",
-                "ru": "Крипто-версия изменена",
-                "pt": "Versão de criptografia alterada",
-                "nl": "Crypto veranderde",
-                "fr": "Version Crypto changée",
-                "it": "Versione Crypto modificata",
-                "es": "Crypto versión modificada",
-                "pl": "Zmieniona wersja Crypto",
-                "zh-cn": "Crypto版本的修改"
-            },
-            "0.0.4": {
-                "en": "Dependecies addet",
-                "de": "Abhängigkeiten hinzugefügt",
-                "ru": "Зависимость аппетит",
-                "pt": "Complementos de dependências",
-                "nl": "Afhankelijk van toevoegingen",
-                "fr": "Addet",
-                "it": "Dipendenze",
-                "es": "Dependencias addet",
-                "pl": "W zależności od dodawania",
-                "zh-cn": "A. 属性增加"
-            },
-            "0.0.3": {
-                "en": "ReadMe changed",
-                "de": "ReadMe angepasst",
-                "ru": "Читать Я изменил",
-                "pt": "Leia mais Eu mudei",
-                "nl": "Lees Ik ben veranderd",
-                "fr": "Read J'ai changé",
-                "it": "Leggi Io cambiato",
-                "es": "Leer Cambié",
-                "pl": "Reader zmienić się",
-                "zh-cn": "阅读 修改"
-            },
-            "0.0.2": {
-                "en": "changed to jsonConfig",
-                "de": "geändert in jsonConfig",
-                "ru": "изменено на jsonConfig",
-                "pt": "mudou para jsonConfig",
-                "nl": "verandering van JsonConfig",
-                "fr": "changé en jsonConfig",
-                "it": "cambiato in jsonConfig",
-                "es": "cambiado a jsonConfig",
-                "pl": "zmienił się na jsonConfig",
-                "zh-cn": "b. 修改"
-            },
-            "0.0.1": {
-                "en": "initial release",
-                "de": "Erstveröffentlichung",
-                "ru": "Начальная версия",
-                "pt": "lançamento inicial",
-                "nl": "Eerste uitgave",
-                "fr": "Première version",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwsze wydanie",
-                "zh-cn": "首次出版"
-            }
-        },
-        "titleLang": {
-            "en": "Solarman PV",
-            "de": "Solarman PV",
-            "ru": "Соларман ПВ",
-            "pt": "Solarman fotovoltaico",
-            "nl": "Solarman PV",
-            "fr": "PV Solarman",
-            "it": "Solarman PV",
-            "es": "fotovoltaica solarman",
-            "pl": "Solarman PV",
-            "zh-cn": "太阳能光伏"
-        },
-        "desc": {
-            "en": "Reading data from balcony power plant",
-            "de": "Auslesen von Daten aus dem Balkonkraftwerk",
-            "ru": "Чтение данных с балконной электростанции",
-            "pt": "Lendo dados da usina de varanda",
-            "nl": "Gegevens lezen van balkoncentrale",
-            "fr": "Lecture des données de la centrale électrique du balcon",
-            "it": "Lettura dei dati dalla centrale elettrica del balcone",
-            "es": "Lectura de datos de la planta de energía del balcón",
-            "pl": "Odczytywanie danych z elektrowni balkonowej",
-            "zh-cn": "从阳台电厂读取数据"
-        },
-        "authors": [
-            "raschy <raschy@gmx.de>"
-        ],
-        "keywords": [
-            "solar",
-            "balcony power plant",
-            "mi600"
-        ],
-        "license": "MIT",
-        "platform": "Javascript/Node.js",
-        "main": "package.json main",
-        "icon": "solarmanpv.png",
-        "enabled": false,
-        "extIcon": "https://raw.githubusercontent.com/raschy/ioBroker.solarmanpv/main/admin/solarmanpv.png",
-        "readme": "https://github.com/raschy/ioBroker.solarmanpv/blob/main/README.md",
-        "loglevel": "info",
-        "mode": "schedule",
-        "allowInit": true,
-        "schedule": "*/6 * * * *",
-        "type": "iot-systems",
-        "compact": true,
-        "connectionType": "cloud",
-        "dataSource": "poll",
-        "adminUI": {
-            "config": "json"
-        },
-        "dependencies": [
-            {
-                "js-controller": ">=3.3.19"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "admin": ">=5.1.28"
-            }
-        ]
+  "common": {
+    "name": "solarmanpv",
+    "version": "0.0.10",
+    "news": {
+      "0.0.10": {
+        "en": "User warnings addet",
+        "de": "Benutzerwarnungen Addet",
+        "ru": "Уведомления пользователя addet",
+        "pt": "Avisos de usuário addet",
+        "nl": "Vertaling:",
+        "fr": "Avertissements utilisateur addet",
+        "it": "Addet avvisi utente",
+        "es": "Complemento de advertencias de usuario",
+        "pl": "Ostrzeżenie",
+        "zh-cn": "用户警告"
+      },
+      "0.0.9": {
+        "en": "Errorhandling addet",
+        "de": "Fehlerbehebung",
+        "ru": "Ошибка addet",
+        "pt": "Adicionar erro",
+        "nl": "Errorhandling toevoeging",
+        "fr": "Ajout d'erreur",
+        "it": "Addetto di gestione degli errori",
+        "es": "Complemento de error",
+        "pl": "Errorhand",
+        "zh-cn": "增 编"
+      },
+      "0.0.8": {
+        "en": "Try after clearing folder",
+        "de": "Versuchen Sie nach dem Löschen Ordner",
+        "ru": "Попробуйте после очистки папки",
+        "pt": "Tente depois de limpar a pasta",
+        "nl": "Probeer na het schoonmaken van de map",
+        "fr": "Essayez après le dossier de déblayage",
+        "it": "Prova dopo la cartella di compensazione",
+        "es": "Pruebe después de limpiar la carpeta",
+        "pl": "Po oczyszczaniu foldera",
+        "zh-cn": "D. 在信息交换箱之后的照射"
+      },
+      "0.0.7": {
+        "en": "Try first release",
+        "de": "Erste Veröffentlichung",
+        "ru": "Попробуйте первый релиз",
+        "pt": "Experimente o primeiro lançamento",
+        "nl": "Probeer het",
+        "fr": "Essayez la première version",
+        "it": "Prova la prima versione",
+        "es": "Prueba primero",
+        "pl": "Try first release",
+        "zh-cn": "首次释放"
+      },
+      "0.0.6": {
+        "en": "Crypto version corrected",
+        "de": "Crypto Version korrigiert",
+        "ru": "Исправлена версия Crypto",
+        "pt": "Versão de criptografia corrigida",
+        "nl": "Crypto versie correct",
+        "fr": "Crypto version corrigée",
+        "it": "Crypto versione corretta",
+        "es": "Crypto versión corregida",
+        "pl": "Wersja kryptowa poprawiła",
+        "zh-cn": "更正版本"
+      },
+      "0.0.5": {
+        "en": "Crypto version changed",
+        "de": "Crypto Version geändert",
+        "ru": "Крипто-версия изменена",
+        "pt": "Versão de criptografia alterada",
+        "nl": "Crypto veranderde",
+        "fr": "Version Crypto changée",
+        "it": "Versione Crypto modificata",
+        "es": "Crypto versión modificada",
+        "pl": "Zmieniona wersja Crypto",
+        "zh-cn": "Crypto版本的修改"
+      },
+      "0.0.4": {
+        "en": "Dependecies addet",
+        "de": "Abhängigkeiten hinzugefügt",
+        "ru": "Зависимость аппетит",
+        "pt": "Complementos de dependências",
+        "nl": "Afhankelijk van toevoegingen",
+        "fr": "Addet",
+        "it": "Dipendenze",
+        "es": "Dependencias addet",
+        "pl": "W zależności od dodawania",
+        "zh-cn": "A. 属性增加"
+      }
     },
-    "native": {
-        "email": "",
-        "password": "",
-        "appId": "",
-        "appSecret": "",
-        "aktiveToken": ""
+    "titleLang": {
+      "en": "Solarman PV",
+      "de": "Solarman PV",
+      "ru": "Соларман ПВ",
+      "pt": "Solarman fotovoltaico",
+      "nl": "Solarman PV",
+      "fr": "PV Solarman",
+      "it": "Solarman PV",
+      "es": "fotovoltaica solarman",
+      "pl": "Solarman PV",
+      "zh-cn": "太阳能光伏"
     },
-    "protectedNative": [
-        "email",
-        "password"
+    "desc": {
+      "en": "Reading data from balcony power plant",
+      "de": "Auslesen von Daten aus dem Balkonkraftwerk",
+      "ru": "Чтение данных с балконной электростанции",
+      "pt": "Lendo dados da usina de varanda",
+      "nl": "Gegevens lezen van balkoncentrale",
+      "fr": "Lecture des données de la centrale électrique du balcon",
+      "it": "Lettura dei dati dalla centrale elettrica del balcone",
+      "es": "Lectura de datos de la planta de energía del balcón",
+      "pl": "Odczytywanie danych z elektrowni balkonowej",
+      "zh-cn": "从阳台电厂读取数据"
+    },
+    "authors": [
+      "raschy <raschy@gmx.de>"
     ],
-    "encryptedNative": [
-        "password"
+    "keywords": [
+      "solar",
+      "balcony power plant",
+      "mi600"
     ],
-    "objects": [],
-    "instanceObjects": []
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "package.json main",
+    "icon": "solarmanpv.png",
+    "enabled": false,
+    "extIcon": "https://raw.githubusercontent.com/raschy/ioBroker.solarmanpv/main/admin/solarmanpv.png",
+    "readme": "https://github.com/raschy/ioBroker.solarmanpv/blob/main/README.md",
+    "loglevel": "info",
+    "mode": "schedule",
+    "allowInit": true,
+    "schedule": "*/6 * * * *",
+    "type": "iot-systems",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=3.3.19"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=5.1.28"
+      }
+    ]
+  },
+  "native": {
+    "email": "",
+    "password": "",
+    "appId": "",
+    "appSecret": "",
+    "aktiveToken": ""
+  },
+  "protectedNative": [
+    "email",
+    "password"
+  ],
+  "encryptedNative": [
+    "password"
+  ],
+  "objects": [],
+  "instanceObjects": []
 }
