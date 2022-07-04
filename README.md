@@ -69,6 +69,9 @@ sinnvoll, den Adapter häufiger starten zu lassen.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (raschy) test and release workflow for npm activated
+
 ### 0.0.11 (2022-07-03)
 * (raschy) Create to release
 
