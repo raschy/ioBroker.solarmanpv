@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "solarmanpv",
-    "version": "0.0.11",
+    "version": "0.0.12",
     "news": {
+      "0.0.12": {
+        "en": "test and release workflow for npm activated",
+        "de": "test- und release-workflow für npm aktiviert",
+        "ru": "тестовый и релизный рабочий процесс для активации npm",
+        "pt": "fluxo de trabalho de teste e liberação para npm ativado",
+        "nl": "test en loslaat werkvloer voor npm geactiveerd",
+        "fr": "essai et sortie du flux de travail pour npm activé",
+        "it": "flusso di lavoro di prova e rilascio per npm attivato",
+        "es": "prueba y flujo de trabajo de liberación para npm activado",
+        "pl": "testy i przepływy pracy dla m.in",
+        "zh-cn": "九. 动植物试验和释放工作流程"
+      },
       "0.0.11": {
         "en": "Create to release",
         "de": "Veröffentlichung erstellen",
@@ -74,18 +86,6 @@
         "es": "Crypto versión corregida",
         "pl": "Wersja kryptowa poprawiła",
         "zh-cn": "更正版本"
-      },
-      "0.0.5": {
-        "en": "Crypto version changed",
-        "de": "Crypto Version geändert",
-        "ru": "Крипто-версия изменена",
-        "pt": "Versão de criptografia alterada",
-        "nl": "Crypto veranderde",
-        "fr": "Version Crypto changée",
-        "it": "Versione Crypto modificata",
-        "es": "Crypto versión modificada",
-        "pl": "Zmieniona wersja Crypto",
-        "zh-cn": "Crypto版本的修改"
       }
     },
     "titleLang": {
