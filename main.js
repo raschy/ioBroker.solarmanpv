@@ -89,7 +89,7 @@ class Solarmanpv extends utils.Adapter {
 		// The adapters config (in the instance object everything under the attribute "native") is accessible via
 		// this.config:
 
-		console.log('==== Start ====');
+		console.log('==== Start <S> ====');
 
 		//this.invalidTokenResponseInterceptor('hallo');
 
@@ -115,7 +115,6 @@ class Solarmanpv extends utils.Adapter {
 		this.http.defaults.headers.common['Authorization'] = 'bearer ' + this.token;
 
 		// start delaying
-		await this.lag(900);
 		console.log('==== TRY ====');
 		try {
 			// get station-id via api-call
@@ -133,12 +132,10 @@ class Solarmanpv extends utils.Adapter {
 				return;
 			}
 
-			await this.lag(100);
 			// get data from station via api-call
 			await this.getStationData().then(result =>
 				this.updateStationData(result));
 
-			await this.lag(200);
 			// get data from device via api-call
 			await this.getDeviceData().then(result =>
 				this.updateDeviceData(result));
@@ -405,13 +402,6 @@ class Solarmanpv extends utils.Adapter {
 			}
 		}
 	}
-
-	lag(msDelay){
-		const ms = Math.round(Math.random() * msDelay + msDelay);
-		this.log.debug('Lag time is ' + ms + 'ms');
-		return new Promise(resolve => setTimeout(resolve, ms));
-	}
-
 // End Class
 }
 
