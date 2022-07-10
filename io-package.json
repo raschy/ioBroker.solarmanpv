@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "solarmanpv",
-    "version": "0.0.12",
+    "version": "0.0.13-alpha.0",
     "news": {
+      "0.0.13-alpha.0": {
+        "en": "ApiClient swapped to separate file",
+        "de": "ApiClient getauscht, um Datei zu trennen",
+        "ru": "ApiClient swapped для отдельного файла",
+        "pt": "ApiClient swaped para arquivo separado",
+        "nl": "ApiCliënt ruilde voor aparte bestanden",
+        "fr": "ApiClient swapped to separate file",
+        "it": "ApiClient scambiato per file separati",
+        "es": "ApiClient se cambió al archivo separado",
+        "pl": "ApiClient przeszedł do osobnego pliku plikowego",
+        "zh-cn": "单独档案的客户"
+      },
       "0.0.12": {
         "en": "test and release workflow for npm activated",
         "de": "test- und release-workflow für npm aktiviert",
@@ -74,18 +86,6 @@
         "es": "Prueba primero",
         "pl": "Try first release",
         "zh-cn": "首次释放"
-      },
-      "0.0.6": {
-        "en": "Crypto version corrected",
-        "de": "Crypto Version korrigiert",
-        "ru": "Исправлена версия Crypto",
-        "pt": "Versão de criptografia corrigida",
-        "nl": "Crypto versie correct",
-        "fr": "Crypto version corrigée",
-        "it": "Crypto versione corretta",
-        "es": "Crypto versión corregida",
-        "pl": "Wersja kryptowa poprawiła",
-        "zh-cn": "更正版本"
       }
     },
     "titleLang": {

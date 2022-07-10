@@ -69,8 +69,7 @@ sinnvoll, den Adapter häufiger starten zu lassen.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 0.0.13-alpha.0 (2022-07-10)
 * (raschy) ApiClient swapped to separate file
 
 ### 0.0.12 (2022-07-04)
