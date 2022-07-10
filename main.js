@@ -6,7 +6,7 @@
 // you need to create an adapter
 'use strict';
 const utils = require('@iobroker/adapter-core');
-const api = require('solarmanpvApiClient');
+const api = require('./solarmanpvApiClient.js');
 
 class Solarmanpv extends utils.Adapter {
 
