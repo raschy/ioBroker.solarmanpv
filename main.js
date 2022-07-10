@@ -6,8 +6,7 @@
 // you need to create an adapter
 'use strict';
 const utils = require('@iobroker/adapter-core');
-const axios = require('axios').default;
-const crypto = require('crypto-js/sha256');
+const api = require('./solarmanpvApiClient.js');
 
 class Solarmanpv extends utils.Adapter {
 
@@ -28,56 +27,20 @@ class Solarmanpv extends utils.Adapter {
 		this.deviceSn = null;
 		this.hash = null;
 		this.token = null;
-		this.maxGetToken = 1;
-		//
-		this.baseUrl = 'https://api.solarmanpv.com';
-		this.http = axios.create({
-			baseURL: this.baseUrl,
-			timeout: 3000,
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		});
 
-		this.http.interceptors.response.use((response) => this.invalidTokenResponseInterceptor(response), function (error) {
-			return Promise.reject(error);
-		});
+		api.eventEmitter.on('tokenChanged', this.onTokenChanged.bind(this));
+
 	}
 
-	async invalidTokenResponseInterceptor(response){
-		console.log('==== interceptor ====');
-		if(response.data.msg){
 
-			if(response.data.msg === 'auth invalid token') {
-				console.log('iTRI');
-				console.log(this.maxGetToken);
-				if(this.maxGetToken < 1) return Promise.reject('could not retrieve token.');
-				this.maxGetToken--;
+	onTokenChanged(token) {
+		console.log('== on token changed ==', token);
 
-				delete this.http.defaults.headers.common['Authorization'];
-
-				this.token = await this.getToken();
-				console.log(this.token);
-				this.extendForeignObject('system.adapter.' + 'solarmanpv', {
-					native: {
-						aktiveToken: this.token
-					}
-				});
-
-				if(!this.token) return Promise.reject('No valid token.');
-
-				this.http.defaults.headers.common['Authorization'] = 'bearer ' + this.token;
-
-				const config = response.config;
-				if (config.headers) {
-					config.headers.Authorization = 'bearer ' + this.token;
-				}
-				response = await this.http.request(config);
-			} else {
-				return Promise.reject(response);
+		this.extendForeignObject('system.adapter.' + 'solarmanpv', {
+			native: {
+				aktiveToken: token
 			}
-		}
-		return response;
+		});
 	}
 
 	/**
@@ -89,10 +52,6 @@ class Solarmanpv extends utils.Adapter {
 		// The adapters config (in the instance object everything under the attribute "native") is accessible via
 		// this.config:
 
-		console.log('==== Start <S> ====');
-
-		//this.invalidTokenResponseInterceptor('hallo');
-
 		if (!this.config.email || !this.config.password) {
 			this.log.error(`User email and/or user password empty - please check instance configuration`);
 			return;
@@ -103,38 +62,36 @@ class Solarmanpv extends utils.Adapter {
 			return;
 		}
 
-		// read token
+		api.email = this.config.email;
+		api.password = this.config.password;
+		api.appId = this.config.appId;
+		api.appSecret = this.config.appSecret;
+
 		const object = await this.getForeignObjectAsync('system.adapter.solarmanpv');
 		if (typeof(object) !== 'undefined' && object !== null){
 			this.token = object.native.aktiveToken;
 			//this.token = 'halloFalscherToken';
 			this.log.debug('intern token: ' + this.token);
+			api.token = this.token;
 		}
-
-		// add bearer token to header of axios instance for next requests
-		this.http.defaults.headers.common['Authorization'] = 'bearer ' + this.token;
 
 		// start delaying
 		console.log('==== TRY ====');
 		try {
 			// get station-id via api-call
-			await this.initializeStation();
-			if (typeof(this.stationId) != 'undefined' && this.stationId != null){
-				this.log.info('Station ID: ' + this.stationId);
-			} else {
-				this.log.warn('no valid station ID found.');
-				return;
-			}
+			await this.initializeStation();//.catch((error) => {
+			//	throw Error('Konnte keine Stationsnummer ermitteln!');
+			//});
 
 			// get device-id/sn via api-call
-			if (await this.initializeInverter()) {
-				this.log.error('Konnte Inverter nicht initialisieren!');
-				return;
-			}
+			await this.initializeInverter();//.catch((error) => {
+			//	throw Error('Konnte Inverter nicht initialisieren!');
+			//});
 
 			// get data from station via api-call
 			await this.getStationData().then(result =>
-				this.updateStationData(result));
+				this.updateStationData(result))
+				.catch(() => { return; }); // DOING NOTHING TO INSURE FURTHER EXECUTION
 
 			// get data from device via api-call
 			await this.getDeviceData().then(result =>
@@ -142,6 +99,7 @@ class Solarmanpv extends utils.Adapter {
 		}
 		catch (error) {
 			this.log.error(`[onReady] error: ${error}`);
+			this.log.debug(JSON.stringify(error));
 		}
 		finally {
 			this.log.debug(`[onReady] finished - stopping instance`);
@@ -220,13 +178,6 @@ class Solarmanpv extends utils.Adapter {
 
 	// update inverter data in ioBroker
 	updateDeviceData(data) {
-		console.log('=== updateDeviceData ===');
-		//console.log(data.stringify());
-
-		if (typeof(data) == 'undefined' || data == null){
-			this.log.warn('Konnte keine Daten abholen!');
-			return;
-		}
 		// define keys that shall be updated (works in dataList only)
 		const updateKeys = ['DV1','DV2','DC1','DC2','DP1','DP2','AV1','Et_ge0','Etdy_ge0','AC_RDT_T1','APo_t1'];
 		const values = data.dataList.filter((obj) => updateKeys.includes(obj.key));
@@ -258,7 +209,7 @@ class Solarmanpv extends utils.Adapter {
 		//this.deviceId = '9988776655';
 		this.log.debug(`[getDeviceData] Device ID >: ${this.deviceId} and Device SN >: ${this.deviceSn}`);
 
-		return this.http
+		return api.axios
 			.post(
 				'/device/v1.0/currentData?language=en', // language parameter does not show any effect
 				{
@@ -270,24 +221,26 @@ class Solarmanpv extends utils.Adapter {
 				return response.data;
 			})
 			.catch((error) => {
-				this.log.error(`[getDeviceData] error: ${error.data.msg}`);		// device no upload records found
+				this.log.warn(`[getDeviceData] error: ${error}`);		// device no upload records found
+				return Promise.reject(error);
 			});
 	}
 
 	// get station data from api
 	getStationData() {
+		//this.stationId = '1234567';
 		this.log.debug(`[getStationData] Station ID >: ${this.stationId}`);
-		return this.http
+		return api.axios
 			.post(
 				'/station/v1.0/realTime?language=en', // language parameter does not show any effect
 				{ stationId: this.stationId }
 			)
 			.then((response) => {
-				//if(response.data.msg === 'auth invalid token') return Promise.reject('Invalid-Token');		//throw 'InvalidToken';
 				return response.data;
 			})
 			.catch((error) => {
-				this.log.error(`[getStationData] error: ${error}`);
+				this.log.warn(`[getStationData] error: ${error}`);
+				return Promise.reject(error);
 			});
 	}
 
@@ -296,7 +249,7 @@ class Solarmanpv extends utils.Adapter {
 		//this.stationId = '1234567';
 		this.log.debug(`[initializeInverter] StationID >: ${this.stationId}`);
 
-		return this.http
+		return api.axios
 			.post(
 				'/station/v1.0/device?language=en', // language parameter does not show any effect
 				{
@@ -311,19 +264,17 @@ class Solarmanpv extends utils.Adapter {
 				this.deviceSn = response.data.deviceListItems[0].deviceSn;
 				this.log.debug(`[initializeInverter] Device ID <: ${response.data.deviceListItems[0].deviceId}`);
 				this.deviceId = response.data.deviceListItems[0].deviceId;
-				return 0;
+				return response;
 			})
 			.catch((error) => {
-				this.log.debug(`[initializeInverter] error: ${error}`);
-				//this.log.debug(error.name);
-				//this.log.debug(error.message);
-				return 1;
+				this.log.warn(`[initializeInverter] error: ${error}`);
+				return Promise.reject(error);
 			});
 	}
 
 	// get station-id from api
 	initializeStation() {
-		return this.http
+		return api.axios
 			.post(
 				'/station/v1.0/list?language=en', // language parameter does not show any effect
 				{
@@ -335,72 +286,14 @@ class Solarmanpv extends utils.Adapter {
 				//const total = response.data.total;	// Anzahl der Plants
 				const objStationList = response.data.stationList;
 				this.stationId = objStationList[0].id;
-				this.log.debug(`[initializeStation] data <: ${this.stationId}`);
-				return 0;
+				this.log.info(`[initializeStation] data <: ${this.stationId}`);
+				return response;
 			})
-			/*
-			.catch(function (error) {
-				self.log.error(`[initializeStation] error: ${error}`);
-				return 1;
-			*/
 			.catch((error) => {
-				this.log.error(`[initializeStation] error: ${error}`);
-				return 1;
+				this.log.warn(`[initializeStation] error: ${error}`);
+				console.log(error);
+				return Promise.reject(error);
 			});
-	}
-
-	// get Token from api
-	async getToken() {
-		console.log('==== Token ====');
-		this.log.debug('[getToken] config email: ' + this.config.email);
-		this.log.debug('[getToken] config password: ' + this.config.password);
-		this.log.debug('[getToken] config appId: ' + this.config.appId);
-		this.log.debug('[getToken] config appSecret: ' + this.config.appSecret);
-		//	Hashwwert (sha256) des Passworts erzeugen
-		this.hash = crypto(this.config.password).toString();
-		this.log.debug('[getToken] intern hash: ' + this.hash);
-
-		// Fehlersimulation!!
-		//this.config.email ='raschy@gmx.de';
-		//this.config.appId = '123456789';
-		//this.config.appSecret = '987654321';
-
-		return await this.http
-			.post('/account/v1.0/token?appId=' + this.config.appId + '&language=en', {
-				appSecret: this.config.appSecret,
-				email: this.config.email,
-				password: this.hash,
-			})
-			.then((response) => {
-				this.log.debug(`[getToken] debug: ${response.data.access_token}`);
-				return response.data.access_token;
-			})
-			.catch(error => this.apiErrorHandler(error));
-		/*
-			.catch(function (error) {
-				//self.apiErrorHandler(error);
-				console.log (`[getToken] error: ${error}`);
-				//self.log.info('Achtung');
-				//self.log.error(`[getToken] error: ${error.data.msg}`);
-				//console.log (error);
-				//self.log.error(`[getToken] error: ${error.data.msg}`);
-			});
-		*/
-	}
-
-	apiErrorHandler(error){
-		if (typeof(error) == 'string'){
-			this.log.info(`[apiErrorHandler] String: ${error}`);
-		}
-		if (typeof(error) == 'object'){
-			try	{
-				const json = JSON.parse(error.data.msg);
-				this.log.info(`[apiErrorHandler] Json: ${json.code}`);			//AUTH_INVALID_USERNAME_OR_PASSWORD
-			}
-			catch (error) {
-				this.log.info(`[apiErrorHandler] String 1: ${error.data.msg}`);	//auth invalid appId
-			}
-		}
 	}
 // End Class
 }
