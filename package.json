@@ -1,6 +1,6 @@
 {
   "name": "iobroker.solarmanpv",
-  "version": "0.0.13-alpha.0",
+  "version": "0.0.13",
   "description": "Reading data from balcony power plant",
   "author": {
     "name": "raschy",
@@ -53,7 +53,7 @@
     "io-package.json",
     "LICENSE",
     "main.js",
-	"solarmanpvApiClient.js"
+    "solarmanpvApiClient.js"
   ],
   "scripts": {
     "test:js": "mocha --config test/mocharc.custom.json \"{!(node_modules|test)/**/*.test.js,*.test.js,test/**/test!(PackageFiles|Startup).js}\"",

@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "solarmanpv",
-    "version": "0.0.13-alpha.0",
+    "version": "0.0.13",
     "news": {
+      "0.0.13": {
+        "en": "Clean up the debug values",
+        "de": "Die Debug-Werte reinigen",
+        "ru": "Очистите значения отладки",
+        "pt": "Limpe os valores de depuração",
+        "nl": "Ruim de debug waarden op",
+        "fr": "Nettoyez les valeurs debug",
+        "it": "Pulire i valori del debug",
+        "es": "Limpiar los valores de depuración",
+        "pl": "Podsumowując wartości debugu",
+        "zh-cn": "B. 清洁的贬值"
+      },
       "0.0.13-alpha.0": {
         "en": "ApiClient swapped to separate file",
         "de": "ApiClient getauscht, um Datei zu trennen",
@@ -74,18 +86,6 @@
         "es": "Pruebe después de limpiar la carpeta",
         "pl": "Po oczyszczaniu foldera",
         "zh-cn": "D. 在信息交换箱之后的照射"
-      },
-      "0.0.7": {
-        "en": "Try first release",
-        "de": "Erste Veröffentlichung",
-        "ru": "Попробуйте первый релиз",
-        "pt": "Experimente o primeiro lançamento",
-        "nl": "Probeer het",
-        "fr": "Essayez la première version",
-        "it": "Prova la prima versione",
-        "es": "Prueba primero",
-        "pl": "Try first release",
-        "zh-cn": "首次释放"
       }
     },
     "titleLang": {
