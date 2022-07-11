@@ -66,12 +66,14 @@ class Solarmanpv extends utils.Adapter {
 		const object = await this.getForeignObjectAsync('system.adapter.solarmanpv');
 		if (typeof(object) !== 'undefined' && object !== null){
 			this.token = object.native.aktiveToken;
-			this.log.debug('intern token: ' + this.token);
+			this.log.debug('[onReady] intern token: ' + this.token);
 			api.token = this.token;
 		}
 
-		// start delaying
+		// start with shift
+		await this.shift(1000);
 		console.log('==== TRY ====');
+
 		try {
 			// get station-id via api-call
 			await this.initializeStation();
@@ -282,6 +284,13 @@ class Solarmanpv extends utils.Adapter {
 				console.log(error);
 				return Promise.reject(error);
 			});
+	}
+
+	// Start shift for api-call
+	shift(msmin) {
+		const ms = Math.floor(Math.random() * 5 * msmin + msmin);
+		this.log.debug('[onReady] Start shift with ' + ms + ' ms');
+		return new Promise(resolve => setTimeout(resolve, ms));
 	}
 // End Class
 }
