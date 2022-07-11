@@ -21,21 +21,17 @@ class Solarmanpv extends utils.Adapter {
 
 		this.on('ready', this.onReady.bind(this));
 		this.on('unload', this.onUnload.bind(this));
+		api.eventEmitter.on('tokenChanged', this.onTokenChanged.bind(this));
 		//
 		this.stationId = null;
 		this.deviceId = null;
 		this.deviceSn = null;
 		this.hash = null;
 		this.token = null;
-
-		api.eventEmitter.on('tokenChanged', this.onTokenChanged.bind(this));
-
 	}
-
 
 	onTokenChanged(token) {
 		console.log('== on token changed ==', token);
-
 		this.extendForeignObject('system.adapter.' + 'solarmanpv', {
 			native: {
 				aktiveToken: token
@@ -49,8 +45,8 @@ class Solarmanpv extends utils.Adapter {
 	async onReady() {
 		// Initialize your adapter here
 		this.log.debug(`[onReady] started`);
-		// The adapters config (in the instance object everything under the attribute "native") is accessible via
-		// this.config:
+		// The adapters config (in the instance object everything under the attribute "native") is
+		// accessible via this.config:
 
 		if (!this.config.email || !this.config.password) {
 			this.log.error(`User email and/or user password empty - please check instance configuration`);
@@ -70,7 +66,6 @@ class Solarmanpv extends utils.Adapter {
 		const object = await this.getForeignObjectAsync('system.adapter.solarmanpv');
 		if (typeof(object) !== 'undefined' && object !== null){
 			this.token = object.native.aktiveToken;
-			//this.token = 'halloFalscherToken';
 			this.log.debug('intern token: ' + this.token);
 			api.token = this.token;
 		}
@@ -79,19 +74,15 @@ class Solarmanpv extends utils.Adapter {
 		console.log('==== TRY ====');
 		try {
 			// get station-id via api-call
-			await this.initializeStation();//.catch((error) => {
-			//	throw Error('Konnte keine Stationsnummer ermitteln!');
-			//});
+			await this.initializeStation();
 
 			// get device-id/sn via api-call
-			await this.initializeInverter();//.catch((error) => {
-			//	throw Error('Konnte Inverter nicht initialisieren!');
-			//});
+			await this.initializeInverter();
 
 			// get data from station via api-call
 			await this.getStationData().then(result =>
 				this.updateStationData(result))
-				.catch(() => { return; }); // DOING NOTHING TO INSURE FURTHER EXECUTION
+				.catch(() => { return; /* DOING NOTHING TO INSURE FURTHER EXECUTION */});
 
 			// get data from device via api-call
 			await this.getDeviceData().then(result =>
@@ -206,7 +197,6 @@ class Solarmanpv extends utils.Adapter {
 
 	// get inverter data from api
 	getDeviceData() {
-		//this.deviceId = '9988776655';
 		this.log.debug(`[getDeviceData] Device ID >: ${this.deviceId} and Device SN >: ${this.deviceSn}`);
 
 		return api.axios
@@ -228,7 +218,6 @@ class Solarmanpv extends utils.Adapter {
 
 	// get station data from api
 	getStationData() {
-		//this.stationId = '1234567';
 		this.log.debug(`[getStationData] Station ID >: ${this.stationId}`);
 		return api.axios
 			.post(
@@ -246,7 +235,6 @@ class Solarmanpv extends utils.Adapter {
 
 	// get inverter-id from api
 	initializeInverter() {
-		//this.stationId = '1234567';
 		this.log.debug(`[initializeInverter] StationID >: ${this.stationId}`);
 
 		return api.axios
@@ -286,7 +274,7 @@ class Solarmanpv extends utils.Adapter {
 				//const total = response.data.total;	// Anzahl der Plants
 				const objStationList = response.data.stationList;
 				this.stationId = objStationList[0].id;
-				this.log.info(`[initializeStation] data <: ${this.stationId}`);
+				this.log.info(`[initializeStation] Station: ${this.stationId}`);
 				return response;
 			})
 			.catch((error) => {
