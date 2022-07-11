@@ -30,8 +30,11 @@ class Solarmanpv extends utils.Adapter {
 		this.token = null;
 	}
 
+	/**
+	 * Is called when ApiClient has received new token.
+	 */
 	onTokenChanged(token) {
-		console.log('== on token changed ==', token);
+		this.log.debug('[onReady] token changed: ' + token);
 		this.extendForeignObject('system.adapter.' + 'solarmanpv', {
 			native: {
 				aktiveToken: token
@@ -45,8 +48,6 @@ class Solarmanpv extends utils.Adapter {
 	async onReady() {
 		// Initialize your adapter here
 		this.log.debug(`[onReady] started`);
-		// The adapters config (in the instance object everything under the attribute "native") is
-		// accessible via this.config:
 
 		if (!this.config.email || !this.config.password) {
 			this.log.error(`User email and/or user password empty - please check instance configuration`);
