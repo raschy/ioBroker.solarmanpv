@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "solarmanpv",
-    "version": "0.0.13",
+    "version": "0.0.14",
     "news": {
+      "0.0.14": {
+        "en": "Extension for multiple plants",
+        "de": "Erweiterung für mehrere Anlagen",
+        "ru": "Расширение для нескольких растений",
+        "pt": "Extensão para várias plantas",
+        "nl": "Verlenging voor meerdere planten",
+        "fr": "Extension pour plusieurs plantes",
+        "it": "Estensione per impianti multipli",
+        "es": "Extensión para múltiples plantas",
+        "pl": "Rozszerzenia roślin wielokrotnych",
+        "zh-cn": "推广多种植物"
+      },
       "0.0.13": {
         "en": "Clean up the debug values",
         "de": "Die Debug-Werte reinigen",
@@ -74,18 +86,6 @@
         "es": "Complemento de error",
         "pl": "Errorhand",
         "zh-cn": "增 编"
-      },
-      "0.0.8": {
-        "en": "Try after clearing folder",
-        "de": "Versuchen Sie nach dem Löschen Ordner",
-        "ru": "Попробуйте после очистки папки",
-        "pt": "Tente depois de limpar a pasta",
-        "nl": "Probeer na het schoonmaken van de map",
-        "fr": "Essayez après le dossier de déblayage",
-        "it": "Prova dopo la cartella di compensazione",
-        "es": "Pruebe después de limpiar la carpeta",
-        "pl": "Po oczyszczaniu foldera",
-        "zh-cn": "D. 在信息交换箱之后的照射"
       }
     },
     "titleLang": {
