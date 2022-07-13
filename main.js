@@ -23,6 +23,7 @@ class Solarmanpv extends utils.Adapter {
 		this.on('unload', this.onUnload.bind(this));
 		api.eventEmitter.on('tokenChanged', this.onTokenChanged.bind(this));
 		//
+		this.plants = [];
 		this.stationId = null;
 		this.deviceId = null;
 		this.deviceSn = null;
@@ -46,7 +47,7 @@ class Solarmanpv extends utils.Adapter {
 	 * Is called when databases are connected and adapter received configuration.
 	 */
 	async onReady() {
-		// Initialize your adapter here
+		// Initialize your adapter here ==> version for multiple plants
 		this.log.debug(`[onReady] started`);
 
 		if (!this.config.email || !this.config.password) {
@@ -73,23 +74,28 @@ class Solarmanpv extends utils.Adapter {
 
 		// start with shift
 		await this.shift(1000);
-		console.log('==== TRY ====');
+		console.log('==== TRY (M) ====');
 
 		try {
 			// get station-id via api-call
 			await this.initializeStation();
 
-			// get device-id/sn via api-call
-			await this.initializeInverter();
+			const anzahlPlants = this.plants.length;
+			for (let i=0; i<anzahlPlants; i++){
+				this.stationId = this.plants[i];
+				// get device-id/sn via api-call
+				await this.initializeInverter();
 
-			// get data from station via api-call
-			await this.getStationData().then(result =>
-				this.updateStationData(result))
-				.catch(() => { return; /* DOING NOTHING TO INSURE FURTHER EXECUTION */});
+				// get data from station via api-call
+				await this.getStationData().then(result =>
+					this.updateStationData(result))
+					.catch(() => { return;} /* DOING NOTHING TO INSURE FURTHER EXECUTION */);
 
-			// get data from device via api-call
-			await this.getDeviceData().then(result =>
-				this.updateDeviceData(result));
+				// get data from device via api-call
+				await this.getDeviceData().then(result =>
+					this.updateDeviceData(result));
+			}
+
 		}
 		catch (error) {
 			this.log.error(`[onReady] error: ${error}`);
@@ -263,7 +269,7 @@ class Solarmanpv extends utils.Adapter {
 			});
 	}
 
-	// get station-id from api
+	// get station-id from api (multiple)
 	initializeStation() {
 		return api.axios
 			.post(
@@ -274,10 +280,13 @@ class Solarmanpv extends utils.Adapter {
 				}
 			)
 			.then((response) => {
-				//const total = response.data.total;	// Anzahl der Plants
+				const numberOfPlants = response.data.total;	// Anzahl der Plants
 				const objStationList = response.data.stationList;
-				this.stationId = objStationList[0].id;
-				this.log.info(`[initializeStation] Station: ${this.stationId}`);
+
+				for(let i=0; i<numberOfPlants; i++){
+					this.plants[i] = objStationList[i].id;
+					this.log.info(`[initializeStation] Station: ${this.plants[i]}`);
+				}
 				return response;
 			})
 			.catch((error) => {
@@ -286,6 +295,7 @@ class Solarmanpv extends utils.Adapter {
 				return Promise.reject(error);
 			});
 	}
+
 
 	// Start shift for api-call
 	shift(msmin) {

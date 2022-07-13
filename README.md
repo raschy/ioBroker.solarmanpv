@@ -69,6 +69,10 @@ sinnvoll, den Adapter häufiger starten zu lassen.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+* (raschy) Extension for multiple plants
+
 ### 0.0.13 (2022-07-11)
 * (raschy) Clean up the debug values
 
