@@ -23,12 +23,7 @@ class Solarmanpv extends utils.Adapter {
 		this.on('unload', this.onUnload.bind(this));
 		api.eventEmitter.on('tokenChanged', this.onTokenChanged.bind(this));
 		//
-		this.plants = [];
-		this.stationId = null;
-		this.deviceId = null;
-		this.deviceSn = null;
-		this.hash = null;
-		this.token = null;
+		this.stationList = [];
 	}
 
 	/**
@@ -47,7 +42,7 @@ class Solarmanpv extends utils.Adapter {
 	 * Is called when databases are connected and adapter received configuration.
 	 */
 	async onReady() {
-		// Initialize your adapter here ==> version for multiple plants
+		// Initialize your adapter here
 		this.log.debug(`[onReady] started`);
 
 		if (!this.config.email || !this.config.password) {
@@ -67,35 +62,27 @@ class Solarmanpv extends utils.Adapter {
 
 		const object = await this.getForeignObjectAsync('system.adapter.solarmanpv');
 		if (typeof(object) !== 'undefined' && object !== null){
-			this.token = object.native.aktiveToken;
-			this.log.debug('[onReady] intern token: ' + this.token);
-			api.token = this.token;
+			api.token = object.native.aktiveToken;
+			this.log.debug('[onReady] intern token: ' + api.token);
 		}
 
 		// start with shift
 		await this.shift(1000);
-		console.log('==== TRY (M) ====');
+		console.log('==== TRY ====');
 
 		try {
 			// get station-id via api-call
-			await this.initializeStation();
+			await this.initializeStation().then(result =>
+				this.updateStationData(result));
 
-			const anzahlPlants = this.plants.length;
-			for (let i=0; i<anzahlPlants; i++){
-				this.stationId = this.plants[i];
-				// get device-id/sn via api-call
-				await this.initializeInverter();
-
-				// get data from station via api-call
-				await this.getStationData().then(result =>
-					this.updateStationData(result))
-					.catch(() => { return;} /* DOING NOTHING TO INSURE FURTHER EXECUTION */);
-
-				// get data from device via api-call
-				await this.getDeviceData().then(result =>
-					this.updateDeviceData(result));
+			for (const station of this.stationList) {
+				await this.initializeInverter(station).then(inverterList => {
+					for (const inverter of inverterList) {
+						this.getDeviceData(inverter.deviceId, inverter.deviceSn).then(data =>
+							this.updateDeviceData(station, inverter.deviceId, data));
+					}
+				});
 			}
-
 		}
 		catch (error) {
 			this.log.error(`[onReady] error: ${error}`);
@@ -124,12 +111,11 @@ class Solarmanpv extends utils.Adapter {
 		}
 	}
 
-	async persistData(device, name, description, value, unit) {
-		const dp_Device = this.stationId +'.'+ device +'.'+ name;
+	async persistData(station, device, name, description, value, role, unit) {
+		const dp_Device = station +'.'+ device +'.'+ name;
 		const sensorName = device +'.'+ description;
-		this.log.debug(`[persistData] Device "${dp_Device}" sensor "${description}" with value: "${value}" and unit "${unit}"`);
-
-		await this.setObjectNotExistsAsync(this.stationId +'.'+ device, {
+		//this.log.debug(`[persistData] Station "${station}" Device "${dp_Device}" sensor "${description}" with value: "${value}" and unit "${unit}" as role "${role}`);
+		await this.setObjectNotExistsAsync(station +'.'+ device, {
 			type: 'device',
 			common: {
 				name: device
@@ -150,7 +136,8 @@ class Solarmanpv extends utils.Adapter {
 			value = parseFloat(value);
 		}
 		if (typeof value === 'object') {
-			_type = 'object';
+			_type = 'string';
+			console.log ('OBJECT');
 			value = JSON.stringify(value);
 		}
 
@@ -158,7 +145,7 @@ class Solarmanpv extends utils.Adapter {
 			type: 'state',
 			common: {
 				name: sensorName,
-				role: 'state',
+				role: role,
 				type: _type,
 				// @ts-ignore
 				unit: unit,
@@ -177,75 +164,69 @@ class Solarmanpv extends utils.Adapter {
 	}
 
 	// update inverter data in ioBroker
-	updateDeviceData(data) {
+	async updateDeviceData(stationId, deviceId, data) {
 		// define keys that shall be updated (works in dataList only)
 		const updateKeys = ['DV1','DV2','DC1','DC2','DP1','DP2','AV1','Et_ge0','Etdy_ge0','AC_RDT_T1','APo_t1'];
 		const values = data.dataList.filter((obj) => updateKeys.includes(obj.key));
 		values.forEach((obj) => {
-			//this.log.info('[updateDeviceData] '+ obj.key + ' Data: ' + obj.value + ' Unit: ' + obj.unit + ' Name: ' + obj.name);
-			this.persistData('DeviceData', obj.key, obj.name, obj.value, obj.unit);
+			if (obj.value != 0) {
+				//this.log.info('[updateDeviceData] '+ obj.key + ' Data: ' + obj.value + ' Unit: ' + obj.unit + ' Name: ' + obj.name);
+				this.persistData(stationId, deviceId, obj.key, obj.name, obj.value, 'state', obj.unit);
+			}
 		});
 	}
 
 	// update station data in ioBroker
 	updateStationData(data) {
-		// define keys that shall be updated
-		const updateKeys = ['generationPower', 'lastUpdateTime'];
-		updateKeys.forEach((key) => {
-			if (key == 'generationPower') {
-				//this.log.info('[updateStationData] generationPower : '+ data[key]);
-				this.persistData('StationData', key, key, data[key],'W');
-			}
-			if (key == 'lastUpdateTime') {
-				const lastUpdate = new Date(data[key]*1000);
-				//this.log.info('[updateStationData] lastUpdateTime : '+ lastUpdate);
-				this.persistData('StationData', key, key, lastUpdate,'');
-			}
-		});
+		for (const obj of data) {
+			let stationId;
+			// define keys that shall be updated
+			const updateKeys = [['id', 'state', ''],
+				['name', 'state', ''],
+				['generationPower','state', 'W'],
+				['networkStatus','state',''],
+				['lastUpdateTime','date', '']];
+
+			updateKeys.forEach(key => {
+				if (key[0] == 'id') { 		// special case 'id'
+					stationId = obj[key[0]];
+					this.stationList.push(stationId);		// StationId's for devices
+				} else {
+					if (key[0] == 'lastUpdateTime') { 		// special case 'lastUpdateTime'
+						obj[key[0]] *= 1000;
+					}
+					//this.log.info('[updateStationData] '+ stationId  +' Name: '+ key[0] +' Data: '+ obj[key[0]] +' Role: '+ key[1] +' Unit: '+ key[2]);
+					this.persistData(stationId, 'StationData', key[0], key[0], obj[key[0]], key[1], key[2]);
+				}
+			});
+		}
 	}
 
 	// get inverter data from api
-	getDeviceData() {
-		this.log.debug(`[getDeviceData] Device ID >: ${this.deviceId} and Device SN >: ${this.deviceSn}`);
+	async getDeviceData(deviceId, deviceSn) {
+		this.log.debug(`[getDeviceData] Device ID >: ${deviceId} and Device SN >: ${deviceSn}`);
 
 		return api.axios
 			.post(
 				'/device/v1.0/currentData?language=en', // language parameter does not show any effect
 				{
-					deviceId: this.deviceId,
-					deviceSn: this.deviceSn
+					deviceId: deviceId,
+					deviceSn: deviceSn
 				}
 			)
 			.then((response) => {
 				return response.data;
 			})
 			.catch((error) => {
-				this.log.warn(`[getDeviceData] error: ${error}`);		// device no upload records found
+				this.log.warn(`[getDeviceData] error: ${error}`);
 				return Promise.reject(error);
 			});
-	}
 
-	// get station data from api
-	getStationData() {
-		this.log.debug(`[getStationData] Station ID >: ${this.stationId}`);
-		return api.axios
-			.post(
-				'/station/v1.0/realTime?language=en', // language parameter does not show any effect
-				{ stationId: this.stationId }
-			)
-			.then((response) => {
-				return response.data;
-			})
-			.catch((error) => {
-				this.log.warn(`[getStationData] error: ${error}`);
-				return Promise.reject(error);
-			});
 	}
 
 	// get inverter-id from api
-	initializeInverter() {
-		this.log.debug(`[initializeInverter] StationID >: ${this.stationId}`);
-
+	async initializeInverter(stationId) {
+		this.log.debug(`[initializeInverter] StationID >: ${stationId}`);
 		return api.axios
 			.post(
 				'/station/v1.0/device?language=en', // language parameter does not show any effect
@@ -253,15 +234,11 @@ class Solarmanpv extends utils.Adapter {
 					page: 1,
 					size: 10,
 					deviceType: 'MICRO_INVERTER',
-					stationId : this.stationId
+					stationId : stationId
 				}
 			)
 			.then((response) => {
-				this.log.debug(`[initializeInverter] Device SN <: ${response.data.deviceListItems[0].deviceSn}`);
-				this.deviceSn = response.data.deviceListItems[0].deviceSn;
-				this.log.debug(`[initializeInverter] Device ID <: ${response.data.deviceListItems[0].deviceId}`);
-				this.deviceId = response.data.deviceListItems[0].deviceId;
-				return response;
+				return(response.data.deviceListItems);
 			})
 			.catch((error) => {
 				this.log.warn(`[initializeInverter] error: ${error}`);
@@ -280,14 +257,7 @@ class Solarmanpv extends utils.Adapter {
 				}
 			)
 			.then((response) => {
-				const numberOfPlants = response.data.total;	// Anzahl der Plants
-				const objStationList = response.data.stationList;
-
-				for(let i=0; i<numberOfPlants; i++){
-					this.plants[i] = objStationList[i].id;
-					this.log.info(`[initializeStation] Station: ${this.plants[i]}`);
-				}
-				return response;
+				return response.data.stationList;
 			})
 			.catch((error) => {
 				this.log.warn(`[initializeStation] error: ${error}`);
@@ -295,7 +265,6 @@ class Solarmanpv extends utils.Adapter {
 				return Promise.reject(error);
 			});
 	}
-
 
 	// Start shift for api-call
 	shift(msmin) {

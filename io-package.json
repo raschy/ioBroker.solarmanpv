@@ -1,168 +1,168 @@
 {
-  "common": {
-    "name": "solarmanpv",
-    "version": "0.0.14",
-    "news": {
-      "0.0.14": {
-        "en": "Extension for multiple plants",
-        "de": "Erweiterung für mehrere Anlagen",
-        "ru": "Расширение для нескольких растений",
-        "pt": "Extensão para várias plantas",
-        "nl": "Verlenging voor meerdere planten",
-        "fr": "Extension pour plusieurs plantes",
-        "it": "Estensione per impianti multipli",
-        "es": "Extensión para múltiples plantas",
-        "pl": "Rozszerzenia roślin wielokrotnych",
-        "zh-cn": "推广多种植物"
-      },
-      "0.0.13": {
-        "en": "Clean up the debug values",
-        "de": "Die Debug-Werte reinigen",
-        "ru": "Очистите значения отладки",
-        "pt": "Limpe os valores de depuração",
-        "nl": "Ruim de debug waarden op",
-        "fr": "Nettoyez les valeurs debug",
-        "it": "Pulire i valori del debug",
-        "es": "Limpiar los valores de depuración",
-        "pl": "Podsumowując wartości debugu",
-        "zh-cn": "B. 清洁的贬值"
-      },
-      "0.0.13-alpha.0": {
-        "en": "ApiClient swapped to separate file",
-        "de": "ApiClient getauscht, um Datei zu trennen",
-        "ru": "ApiClient swapped для отдельного файла",
-        "pt": "ApiClient swaped para arquivo separado",
-        "nl": "ApiCliënt ruilde voor aparte bestanden",
-        "fr": "ApiClient swapped to separate file",
-        "it": "ApiClient scambiato per file separati",
-        "es": "ApiClient se cambió al archivo separado",
-        "pl": "ApiClient przeszedł do osobnego pliku plikowego",
-        "zh-cn": "单独档案的客户"
-      },
-      "0.0.12": {
-        "en": "test and release workflow for npm activated",
-        "de": "test- und release-workflow für npm aktiviert",
-        "ru": "тестовый и релизный рабочий процесс для активации npm",
-        "pt": "fluxo de trabalho de teste e liberação para npm ativado",
-        "nl": "test en loslaat werkvloer voor npm geactiveerd",
-        "fr": "essai et sortie du flux de travail pour npm activé",
-        "it": "flusso di lavoro di prova e rilascio per npm attivato",
-        "es": "prueba y flujo de trabajo de liberación para npm activado",
-        "pl": "testy i przepływy pracy dla m.in",
-        "zh-cn": "九. 动植物试验和释放工作流程"
-      },
-      "0.0.11": {
-        "en": "Create to release",
-        "de": "Veröffentlichung erstellen",
-        "ru": "Создать для выхода",
-        "pt": "Criar para liberar",
-        "nl": "Creëer om vrij te laten",
-        "fr": "Créer pour libérer",
-        "it": "Creare per il rilascio",
-        "es": "Crear para liberar",
-        "pl": "W celu uwolnienia",
-        "zh-cn": "创建释放"
-      },
-      "0.0.10": {
-        "en": "User warnings addet",
-        "de": "Benutzerwarnungen Addet",
-        "ru": "Уведомления пользователя addet",
-        "pt": "Avisos de usuário addet",
-        "nl": "Vertaling:",
-        "fr": "Avertissements utilisateur addet",
-        "it": "Addet avvisi utente",
-        "es": "Complemento de advertencias de usuario",
-        "pl": "Ostrzeżenie",
-        "zh-cn": "用户警告"
-      },
-      "0.0.9": {
-        "en": "Errorhandling addet",
-        "de": "Fehlerbehebung",
-        "ru": "Ошибка addet",
-        "pt": "Adicionar erro",
-        "nl": "Errorhandling toevoeging",
-        "fr": "Ajout d'erreur",
-        "it": "Addetto di gestione degli errori",
-        "es": "Complemento de error",
-        "pl": "Errorhand",
-        "zh-cn": "增 编"
-      }
+    "common": {
+        "name": "solarmanpv",
+        "version": "0.0.14",
+        "news": {
+            "0.0.14": {
+                "en": "Extension for multiple plants",
+                "de": "Erweiterung für mehrere Anlagen",
+                "ru": "Расширение для нескольких растений",
+                "pt": "Extensão para várias plantas",
+                "nl": "Verlenging voor meerdere planten",
+                "fr": "Extension pour plusieurs plantes",
+                "it": "Estensione per impianti multipli",
+                "es": "Extensión para múltiples plantas",
+                "pl": "Rozszerzenia roślin wielokrotnych",
+                "zh-cn": "推广多种植物"
+            },
+            "0.0.13": {
+                "en": "Clean up the debug values",
+                "de": "Die Debug-Werte reinigen",
+                "ru": "Очистите значения отладки",
+                "pt": "Limpe os valores de depuração",
+                "nl": "Ruim de debug waarden op",
+                "fr": "Nettoyez les valeurs debug",
+                "it": "Pulire i valori del debug",
+                "es": "Limpiar los valores de depuración",
+                "pl": "Podsumowując wartości debugu",
+                "zh-cn": "B. 清洁的贬值"
+            },
+            "0.0.13-alpha.0": {
+                "en": "ApiClient swapped to separate file",
+                "de": "ApiClient getauscht, um Datei zu trennen",
+                "ru": "ApiClient swapped для отдельного файла",
+                "pt": "ApiClient swaped para arquivo separado",
+                "nl": "ApiCliënt ruilde voor aparte bestanden",
+                "fr": "ApiClient swapped to separate file",
+                "it": "ApiClient scambiato per file separati",
+                "es": "ApiClient se cambió al archivo separado",
+                "pl": "ApiClient przeszedł do osobnego pliku plikowego",
+                "zh-cn": "单独档案的客户"
+            },
+            "0.0.12": {
+                "en": "test and release workflow for npm activated",
+                "de": "test- und release-workflow für npm aktiviert",
+                "ru": "тестовый и релизный рабочий процесс для активации npm",
+                "pt": "fluxo de trabalho de teste e liberação para npm ativado",
+                "nl": "test en loslaat werkvloer voor npm geactiveerd",
+                "fr": "essai et sortie du flux de travail pour npm activé",
+                "it": "flusso di lavoro di prova e rilascio per npm attivato",
+                "es": "prueba y flujo de trabajo de liberación para npm activado",
+                "pl": "testy i przepływy pracy dla m.in",
+                "zh-cn": "九. 动植物试验和释放工作流程"
+            },
+            "0.0.11": {
+                "en": "Create to release",
+                "de": "Veröffentlichung erstellen",
+                "ru": "Создать для выхода",
+                "pt": "Criar para liberar",
+                "nl": "Creëer om vrij te laten",
+                "fr": "Créer pour libérer",
+                "it": "Creare per il rilascio",
+                "es": "Crear para liberar",
+                "pl": "W celu uwolnienia",
+                "zh-cn": "创建释放"
+            },
+            "0.0.10": {
+                "en": "User warnings addet",
+                "de": "Benutzerwarnungen Addet",
+                "ru": "Уведомления пользователя addet",
+                "pt": "Avisos de usuário addet",
+                "nl": "Vertaling:",
+                "fr": "Avertissements utilisateur addet",
+                "it": "Addet avvisi utente",
+                "es": "Complemento de advertencias de usuario",
+                "pl": "Ostrzeżenie",
+                "zh-cn": "用户警告"
+            },
+            "0.0.9": {
+                "en": "Errorhandling addet",
+                "de": "Fehlerbehebung",
+                "ru": "Ошибка addet",
+                "pt": "Adicionar erro",
+                "nl": "Errorhandling toevoeging",
+                "fr": "Ajout d'erreur",
+                "it": "Addetto di gestione degli errori",
+                "es": "Complemento de error",
+                "pl": "Errorhand",
+                "zh-cn": "增 编"
+            }
+        },
+        "titleLang": {
+            "en": "Solarman PV",
+            "de": "Solarman PV",
+            "ru": "Соларман ПВ",
+            "pt": "Solarman fotovoltaico",
+            "nl": "Solarman PV",
+            "fr": "PV Solarman",
+            "it": "Solarman PV",
+            "es": "fotovoltaica solarman",
+            "pl": "Solarman PV",
+            "zh-cn": "太阳能光伏"
+        },
+        "desc": {
+            "en": "Reading data from balcony power plant",
+            "de": "Auslesen von Daten aus dem Balkonkraftwerk",
+            "ru": "Чтение данных с балконной электростанции",
+            "pt": "Lendo dados da usina de varanda",
+            "nl": "Gegevens lezen van balkoncentrale",
+            "fr": "Lecture des données de la centrale électrique du balcon",
+            "it": "Lettura dei dati dalla centrale elettrica del balcone",
+            "es": "Lectura de datos de la planta de energía del balcón",
+            "pl": "Odczytywanie danych z elektrowni balkonowej",
+            "zh-cn": "从阳台电厂读取数据"
+        },
+        "authors": [
+            "raschy <raschy@gmx.de>"
+        ],
+        "keywords": [
+            "solar",
+            "balcony power plant",
+            "mi600"
+        ],
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "main": "main.js",
+        "icon": "solarmanpv.png",
+        "enabled": false,
+        "extIcon": "https://raw.githubusercontent.com/raschy/ioBroker.solarmanpv/main/admin/solarmanpv.png",
+        "readme": "https://github.com/raschy/ioBroker.solarmanpv/blob/main/README.md",
+        "loglevel": "info",
+        "mode": "schedule",
+        "allowInit": true,
+        "schedule": "*/6 * * * *",
+        "type": "iot-systems",
+        "compact": true,
+        "connectionType": "cloud",
+        "dataSource": "poll",
+        "adminUI": {
+            "config": "json"
+        },
+        "dependencies": [
+            {
+                "js-controller": ">=3.3.19"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=5.1.28"
+            }
+        ]
     },
-    "titleLang": {
-      "en": "Solarman PV",
-      "de": "Solarman PV",
-      "ru": "Соларман ПВ",
-      "pt": "Solarman fotovoltaico",
-      "nl": "Solarman PV",
-      "fr": "PV Solarman",
-      "it": "Solarman PV",
-      "es": "fotovoltaica solarman",
-      "pl": "Solarman PV",
-      "zh-cn": "太阳能光伏"
+    "native": {
+        "email": "",
+        "password": "",
+        "appId": "",
+        "appSecret": "",
+        "aktiveToken": ""
     },
-    "desc": {
-      "en": "Reading data from balcony power plant",
-      "de": "Auslesen von Daten aus dem Balkonkraftwerk",
-      "ru": "Чтение данных с балконной электростанции",
-      "pt": "Lendo dados da usina de varanda",
-      "nl": "Gegevens lezen van balkoncentrale",
-      "fr": "Lecture des données de la centrale électrique du balcon",
-      "it": "Lettura dei dati dalla centrale elettrica del balcone",
-      "es": "Lectura de datos de la planta de energía del balcón",
-      "pl": "Odczytywanie danych z elektrowni balkonowej",
-      "zh-cn": "从阳台电厂读取数据"
-    },
-    "authors": [
-      "raschy <raschy@gmx.de>"
+    "protectedNative": [
+        "email",
+        "password"
     ],
-    "keywords": [
-      "solar",
-      "balcony power plant",
-      "mi600"
+    "encryptedNative": [
+        "password"
     ],
-    "license": "MIT",
-    "platform": "Javascript/Node.js",
-    "main": "main.js",
-    "icon": "solarmanpv.png",
-    "enabled": false,
-    "extIcon": "https://raw.githubusercontent.com/raschy/ioBroker.solarmanpv/main/admin/solarmanpv.png",
-    "readme": "https://github.com/raschy/ioBroker.solarmanpv/blob/main/README.md",
-    "loglevel": "info",
-    "mode": "schedule",
-    "allowInit": true,
-    "schedule": "*/6 * * * *",
-    "type": "iot-systems",
-    "compact": true,
-    "connectionType": "cloud",
-    "dataSource": "poll",
-    "adminUI": {
-      "config": "json"
-    },
-    "dependencies": [
-      {
-        "js-controller": ">=3.3.19"
-      }
-    ],
-    "globalDependencies": [
-      {
-        "admin": ">=5.1.28"
-      }
-    ]
-  },
-  "native": {
-    "email": "",
-    "password": "",
-    "appId": "",
-    "appSecret": "",
-    "aktiveToken": ""
-  },
-  "protectedNative": [
-    "email",
-    "password"
-  ],
-  "encryptedNative": [
-    "password"
-  ],
-  "objects": [],
-  "instanceObjects": []
+    "objects": [],
+    "instanceObjects": []
 }
