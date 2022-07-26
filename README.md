@@ -69,8 +69,7 @@ sinnvoll, den Adapter häufiger starten zu lassen.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 0.1.0 (2022-07-26)
 * (raschy) Also for multiple inverter per station
 
 ### 0.0.14 (2022-07-13)
