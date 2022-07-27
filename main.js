@@ -66,8 +66,8 @@ class Solarmanpv extends utils.Adapter {
 			this.log.debug('[onReady] intern token: ' + api.token);
 		}
 
-		// start with shift
-		await this.shift(1000);
+		// start with delay
+		await this.delay(Math.floor(Math.random() * 5 * 1000));
 		console.log('==== TRY ====');
 
 		try {
@@ -76,9 +76,9 @@ class Solarmanpv extends utils.Adapter {
 				this.updateStationData(result));
 
 			for (const station of this.stationList) {
-				await this.initializeInverter(station).then(inverterList => {
+				await this.initializeInverter(station).then(async inverterList => {
 					for (const inverter of inverterList) {
-						this.getDeviceData(inverter.deviceId, inverter.deviceSn).then(data =>
+						await this.getDeviceData(inverter.deviceId, inverter.deviceSn).then(data =>
 							this.updateDeviceData(station, inverter.deviceId, data));
 					}
 				});
@@ -190,7 +190,7 @@ class Solarmanpv extends utils.Adapter {
 			updateKeys.forEach(key => {
 				if (key[0] == 'id') { 		// special case 'id'
 					stationId = obj[key[0]];
-					this.stationList.push(stationId);		// StationId's for devices
+					//this.stationList.push(stationId);		// StationId's for devices
 				} else {
 					if (key[0] == 'lastUpdateTime') { 		// special case 'lastUpdateTime'
 						obj[key[0]] *= 1000;
@@ -257,6 +257,9 @@ class Solarmanpv extends utils.Adapter {
 				}
 			)
 			.then((response) => {
+				for (const obj of response.data.stationList) {
+					this.stationList.push(obj['id']);		// StationId's for devices
+				}
 				return response.data.stationList;
 			})
 			.catch((error) => {
@@ -266,12 +269,6 @@ class Solarmanpv extends utils.Adapter {
 			});
 	}
 
-	// Start shift for api-call
-	shift(msmin) {
-		const ms = Math.floor(Math.random() * 5 * msmin + msmin);
-		this.log.debug('[onReady] Start shift with ' + ms + ' ms');
-		return new Promise(resolve => setTimeout(resolve, ms));
-	}
 // End Class
 }
 
