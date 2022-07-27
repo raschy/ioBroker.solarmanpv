@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "solarmanpv",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "news": {
+      "0.1.1": {
+        "en": "Clean up the code and start delay",
+        "de": "Den Code reinigen und Verzögerung starten",
+        "ru": "Очистите код и начните задержку",
+        "pt": "Limpe o código e comece o atraso",
+        "nl": "Maak de code schoon en begin met uitstellen",
+        "fr": "Nettoyer le code et commencer à retarder",
+        "it": "Pulire il codice e avviare il ritardo",
+        "es": "Limpiar el código y comenzar el retraso",
+        "pl": "Oczywiście kod i rozpoczynają opóźnienie",
+        "zh-cn": "A. 守则的简化和开始拖延"
+      },
       "0.1.0": {
         "en": "Also for multiple inverter per station",
         "de": "Auch für mehrere Wechselrichter pro Station",
@@ -74,18 +86,6 @@
         "es": "Crear para liberar",
         "pl": "W celu uwolnienia",
         "zh-cn": "创建释放"
-      },
-      "0.0.10": {
-        "en": "User warnings addet",
-        "de": "Benutzerwarnungen Addet",
-        "ru": "Уведомления пользователя addet",
-        "pt": "Avisos de usuário addet",
-        "nl": "Vertaling:",
-        "fr": "Avertissements utilisateur addet",
-        "it": "Addet avvisi utente",
-        "es": "Complemento de advertencias de usuario",
-        "pl": "Ostrzeżenie",
-        "zh-cn": "用户警告"
       }
     },
     "titleLang": {
