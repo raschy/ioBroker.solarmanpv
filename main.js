@@ -24,6 +24,7 @@ class Solarmanpv extends utils.Adapter {
 		api.eventEmitter.on('tokenChanged', this.onTokenChanged.bind(this));
 		//
 		this.stationIdList = [];
+
 	}
 
 	/**
@@ -31,7 +32,7 @@ class Solarmanpv extends utils.Adapter {
 	 */
 	onTokenChanged(token) {
 		this.log.debug('[onReady] token changed: ' + token);
-		this.extendForeignObject('system.adapter.' + 'solarmanpv', {
+		this.extendForeignObject('system.adapter.' + this.namespace, {
 			native: {
 				aktiveToken: token
 			}
@@ -43,7 +44,7 @@ class Solarmanpv extends utils.Adapter {
 	 */
 	async onReady() {
 		// Initialize your adapter here
-		this.log.debug(`[onReady] started`);
+		this.log.debug(`[onReady] started: ${this.namespace}`);
 
 		if (!this.config.email || !this.config.password) {
 			this.log.error(`User email and/or user password empty - please check instance configuration`);
@@ -60,9 +61,9 @@ class Solarmanpv extends utils.Adapter {
 		api.appId = this.config.appId;
 		api.appSecret = this.config.appSecret;
 
-		const object = await this.getForeignObjectAsync('system.adapter.solarmanpv');
-		if (typeof(object) !== 'undefined' && object !== null){
-			api.token = object.native.aktiveToken;
+		const object = this.config.aktiveToken;
+		if (typeof (object) !== 'undefined' && object !== null) {
+			api.token = this.config.aktiveToken;
 			//this.log.debug('[onReady] intern token: ' + api.token);
 		}
 
@@ -72,7 +73,6 @@ class Solarmanpv extends utils.Adapter {
 
 		try {
 			// get station-id via api-call
-
 			await this.initializeStation().then(result =>
 				this.updateStationData(result));
 
