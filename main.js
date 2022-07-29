@@ -23,7 +23,7 @@ class Solarmanpv extends utils.Adapter {
 		this.on('unload', this.onUnload.bind(this));
 		api.eventEmitter.on('tokenChanged', this.onTokenChanged.bind(this));
 		//
-		this.stationList = [];
+		this.stationIdList = [];
 	}
 
 	/**
@@ -63,23 +63,24 @@ class Solarmanpv extends utils.Adapter {
 		const object = await this.getForeignObjectAsync('system.adapter.solarmanpv');
 		if (typeof(object) !== 'undefined' && object !== null){
 			api.token = object.native.aktiveToken;
-			this.log.debug('[onReady] intern token: ' + api.token);
+			//this.log.debug('[onReady] intern token: ' + api.token);
 		}
 
 		// start with delay
 		await this.delay(Math.floor(Math.random() * 5 * 1000));
-		console.log('==== TRY ====');
+		//console.log('==== TRY ====');
 
 		try {
 			// get station-id via api-call
+
 			await this.initializeStation().then(result =>
 				this.updateStationData(result));
 
-			for (const station of this.stationList) {
-				await this.initializeInverter(station).then(async inverterList => {
+			for (const stationId of this.stationIdList) {
+				await this.initializeInverter(stationId).then(async inverterList => {
 					for (const inverter of inverterList) {
 						await this.getDeviceData(inverter.deviceId, inverter.deviceSn).then(data =>
-							this.updateDeviceData(station, inverter.deviceId, data));
+							this.updateDeviceData(stationId, inverter, data));
 					}
 				});
 			}
@@ -112,10 +113,13 @@ class Solarmanpv extends utils.Adapter {
 	}
 
 	async persistData(station, device, name, description, value, role, unit) {
-		const dp_Device = station +'.'+ device +'.'+ name;
+		let dp_Folder = station +'.'+ device;
+		if (device == '') {dp_Folder = String(station);}
+		const dp_Device = dp_Folder +'.'+ name;
 		const sensorName = device +'.'+ description;
-		//this.log.debug(`[persistData] Station "${station}" Device "${dp_Device}" sensor "${description}" with value: "${value}" and unit "${unit}" as role "${role}`);
-		await this.setObjectNotExistsAsync(station +'.'+ device, {
+		//this.log.debug(`[persistData] Station "${station}" Device "${device}" Name "${name}" Sensor "${description}" with value: "${value}" and unit "${unit}" as role "${role}`);
+
+		await this.setObjectNotExistsAsync(dp_Folder, {
 			type: 'device',
 			common: {
 				name: device
@@ -130,14 +134,13 @@ class Solarmanpv extends utils.Adapter {
 						});
 		*/
 		// Type-Erkennung
-		let	_type = 'string';
+		let type = 'string';
 		if (isNumeric(value)) {
-			_type = 'number';
+			type = 'number';
 			value = parseFloat(value);
 		}
 		if (typeof value === 'object') {
-			_type = 'string';
-			console.log ('OBJECT');
+			type = 'string';
 			value = JSON.stringify(value);
 		}
 
@@ -146,7 +149,7 @@ class Solarmanpv extends utils.Adapter {
 			common: {
 				name: sensorName,
 				role: role,
-				type: _type,
+				type: type,
 				// @ts-ignore
 				unit: unit,
 				read: true,
@@ -164,14 +167,18 @@ class Solarmanpv extends utils.Adapter {
 	}
 
 	// update inverter data in ioBroker
-	async updateDeviceData(stationId, deviceId, data) {
+	async updateDeviceData(stationId, inverter, data) {
+
+		this.persistData(stationId, inverter.deviceId, 'connectStatus', 'connectStatus', inverter.connectStatus, 'state', '');
+		this.persistData(stationId, inverter.deviceId, 'collectionTime', 'collectionTime', inverter.collectionTime * 1000, 'date', '');
+
 		// define keys that shall be updated (works in dataList only)
 		const updateKeys = ['DV1','DV2','DC1','DC2','DP1','DP2','AV1','Et_ge0','Etdy_ge0','AC_RDT_T1','APo_t1'];
 		const values = data.dataList.filter((obj) => updateKeys.includes(obj.key));
 		values.forEach((obj) => {
 			if (obj.value != 0) {
 				//this.log.info('[updateDeviceData] '+ obj.key + ' Data: ' + obj.value + ' Unit: ' + obj.unit + ' Name: ' + obj.name);
-				this.persistData(stationId, deviceId, obj.key, obj.name, obj.value, 'state', obj.unit);
+				this.persistData(stationId, inverter.deviceId, obj.key, obj.name, obj.value, 'state', obj.unit);
 			}
 		});
 	}
@@ -179,25 +186,18 @@ class Solarmanpv extends utils.Adapter {
 	// update station data in ioBroker
 	updateStationData(data) {
 		for (const obj of data) {
-			let stationId;
 			// define keys that shall be updated
-			const updateKeys = [['id', 'state', ''],
-				['name', 'state', ''],
+			const updateKeys = [['name', 'state', ''],
 				['generationPower','state', 'W'],
 				['networkStatus','state',''],
 				['lastUpdateTime','date', '']];
 
 			updateKeys.forEach(key => {
-				if (key[0] == 'id') { 		// special case 'id'
-					stationId = obj[key[0]];
-					//this.stationList.push(stationId);		// StationId's for devices
-				} else {
-					if (key[0] == 'lastUpdateTime') { 		// special case 'lastUpdateTime'
-						obj[key[0]] *= 1000;
-					}
-					//this.log.info('[updateStationData] '+ stationId  +' Name: '+ key[0] +' Data: '+ obj[key[0]] +' Role: '+ key[1] +' Unit: '+ key[2]);
-					this.persistData(stationId, 'StationData', key[0], key[0], obj[key[0]], key[1], key[2]);
+				if (key[0] == 'lastUpdateTime') { 	// special case 'lastUpdateTime'
+					obj[key[0]] *= 1000;
 				}
+				//this.log.info('[updateStationData] ' + stationId + ' Name: ' + key[0] + ' Data: ' + obj[key[0]] + ' Role: ' + key[1] + ' Unit: ' + key[2]);
+				this.persistData(obj['id'], '', key[0], key[0], obj[key[0]], key[1], key[2]);
 			});
 		}
 	}
@@ -238,7 +238,8 @@ class Solarmanpv extends utils.Adapter {
 				}
 			)
 			.then((response) => {
-				return(response.data.deviceListItems);
+				const deviceListItems = response.data.deviceListItems.filter(station => station['connectStatus'] !== 0);
+				return(deviceListItems);
 			})
 			.catch((error) => {
 				this.log.warn(`[initializeInverter] error: ${error}`);
@@ -258,13 +259,12 @@ class Solarmanpv extends utils.Adapter {
 			)
 			.then((response) => {
 				for (const obj of response.data.stationList) {
-					this.stationList.push(obj['id']);		// StationId's for devices
+					this.stationIdList.push(obj['id']);		// StationId's for devices
 				}
 				return response.data.stationList;
 			})
 			.catch((error) => {
 				this.log.warn(`[initializeStation] error: ${error}`);
-				console.log(error);
 				return Promise.reject(error);
 			});
 	}
