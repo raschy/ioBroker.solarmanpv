@@ -113,10 +113,17 @@ class Solarmanpv extends utils.Adapter {
 	}
 
 	async persistData(station, device, name, description, value, role, unit) {
-		let dp_Folder = station +'.'+ device;
-		if (device == '') {dp_Folder = String(station);}
+		let dp_Folder;
+		let sensorName;
+		if (device == '') {
+			dp_Folder = String(station);
+			sensorName = station +'.'+ description;
+		} else {
+			dp_Folder = station +'.'+ device;
+			sensorName = device +'.'+ description;
+		}
 		const dp_Device = dp_Folder +'.'+ name;
-		const sensorName = device +'.'+ description;
+		//const sensorName = device +'.'+ description;
 		//this.log.debug(`[persistData] Station "${station}" Device "${device}" Name "${name}" Sensor "${description}" with value: "${value}" and unit "${unit}" as role "${role}`);
 
 		await this.setObjectNotExistsAsync(dp_Folder, {
@@ -238,8 +245,8 @@ class Solarmanpv extends utils.Adapter {
 				}
 			)
 			.then((response) => {
-				const deviceListItems = response.data.deviceListItems.filter(station => station['connectStatus'] !== 0);
-				return(deviceListItems);
+				//const deviceListItems = response.data.deviceListItems.filter(station => station['connectStatus'] !== 0);
+				return(response.data.deviceListItems);
 			})
 			.catch((error) => {
 				this.log.warn(`[initializeInverter] error: ${error}`);
