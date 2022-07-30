@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "solarmanpv",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "news": {
+      "0.1.2": {
+        "en": "Added device status, structure reduced",
+        "de": "Hinzugefügt Gerätestatus, Struktur reduziert",
+        "ru": "Добавлен статус устройства, структура уменьшена",
+        "pt": "Adicionado status do dispositivo, estrutura reduzida",
+        "nl": "Verminderde apparaatstatus",
+        "fr": "État du dispositif ajouté, structure réduite",
+        "it": "Aggiunto stato del dispositivo, struttura ridotta",
+        "es": "Estado del dispositivo añadido, estructura reducida",
+        "pl": "Status ulepszeń urządzenie zredukował strukturę",
+        "zh-cn": "增加装置状况,结构减少"
+      },
       "0.1.1": {
         "en": "Clean up the code and start delay",
         "de": "Den Code reinigen und Verzögerung starten",
@@ -74,18 +86,6 @@
         "es": "prueba y flujo de trabajo de liberación para npm activado",
         "pl": "testy i przepływy pracy dla m.in",
         "zh-cn": "九. 动植物试验和释放工作流程"
-      },
-      "0.0.11": {
-        "en": "Create to release",
-        "de": "Veröffentlichung erstellen",
-        "ru": "Создать для выхода",
-        "pt": "Criar para liberar",
-        "nl": "Creëer om vrij te laten",
-        "fr": "Créer pour libérer",
-        "it": "Creare per il rilascio",
-        "es": "Crear para liberar",
-        "pl": "W celu uwolnienia",
-        "zh-cn": "创建释放"
       }
     },
     "titleLang": {
