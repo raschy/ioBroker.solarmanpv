@@ -69,6 +69,10 @@ sinnvoll, den Adapter häufiger starten zu lassen.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+* (raschy) Added device status, structure reduced
+
 ### 0.1.1 (2022-07-27)
 * (raschy) Clean up the code and start delay
 
