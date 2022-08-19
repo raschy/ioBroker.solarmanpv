@@ -64,12 +64,10 @@ class Solarmanpv extends utils.Adapter {
 		const object = this.config.aktiveToken;
 		if (typeof (object) !== 'undefined' && object !== null) {
 			api.token = this.config.aktiveToken;
-			//this.log.debug('[onReady] intern token: ' + api.token);
 		}
 
 		// start with delay
 		await this.delay(Math.floor(Math.random() * 5 * 1000));
-		//console.log('==== TRY ====');
 
 		try {
 			// get station-id via api-call
@@ -79,21 +77,24 @@ class Solarmanpv extends utils.Adapter {
 			for (const stationId of this.stationIdList) {
 				await this.initializeInverter(stationId).then(async inverterList => {
 					for (const inverter of inverterList) {
-						await this.getDeviceData(inverter.deviceId, inverter.deviceSn).then(data =>
-							this.updateDeviceData(stationId, inverter, data));
+						await this.getDeviceData(inverter.deviceId, inverter.deviceSn).then(async data =>
+							await this.updateDeviceData(stationId, inverter, data));
 					}
 				});
 			}
 		}
 		catch (error) {
-			this.log.error(`[onReady] error: ${error}`);
+			//this.log.error(`[onReady] error: ${error}`);
 			this.log.debug(JSON.stringify(error));
 		}
 		finally {
 			this.log.debug(`[onReady] finished - stopping instance`);
+			this.terminate ? this.terminate('Everything done. Going to terminate till next schedule', 11) : process.exit(0);
+		/*
 			if(typeof this.stop === 'function') {
 				this.stop();
 			}
+		*/
 		}
 	// End onReady
 	}
@@ -123,7 +124,6 @@ class Solarmanpv extends utils.Adapter {
 			sensorName = device +'.'+ description;
 		}
 		const dp_Device = dp_Folder +'.'+ name;
-		//const sensorName = device +'.'+ description;
 		//this.log.debug(`[persistData] Station "${station}" Device "${device}" Name "${name}" Sensor "${description}" with value: "${value}" and unit "${unit}" as role "${role}`);
 
 		await this.setObjectNotExistsAsync(dp_Folder, {
@@ -176,16 +176,16 @@ class Solarmanpv extends utils.Adapter {
 	// update inverter data in ioBroker
 	async updateDeviceData(stationId, inverter, data) {
 
-		this.persistData(stationId, inverter.deviceId, 'connectStatus', 'connectStatus', inverter.connectStatus, 'state', '');
-		this.persistData(stationId, inverter.deviceId, 'collectionTime', 'collectionTime', inverter.collectionTime * 1000, 'date', '');
+		await this.persistData(stationId, inverter.deviceId, 'connectStatus', 'connectStatus', inverter.connectStatus, 'state', '');
+		await this.persistData(stationId, inverter.deviceId, 'collectionTime', 'collectionTime', inverter.collectionTime * 1000, 'date', '');
 
 		// define keys that shall be updated (works in dataList only)
 		const updateKeys = ['DV1','DV2','DC1','DC2','DP1','DP2','AV1','Et_ge0','Etdy_ge0','AC_RDT_T1','APo_t1'];
 		const values = data.dataList.filter((obj) => updateKeys.includes(obj.key));
-		values.forEach((obj) => {
+		values.forEach(async (obj) => {
 			if (obj.value != 0) {
 				//this.log.info('[updateDeviceData] '+ obj.key + ' Data: ' + obj.value + ' Unit: ' + obj.unit + ' Name: ' + obj.name);
-				this.persistData(stationId, inverter.deviceId, obj.key, obj.name, obj.value, 'state', obj.unit);
+				await this.persistData(stationId, inverter.deviceId, obj.key, obj.name, obj.value, 'state', obj.unit);
 			}
 		});
 	}
@@ -245,7 +245,6 @@ class Solarmanpv extends utils.Adapter {
 				}
 			)
 			.then((response) => {
-				//const deviceListItems = response.data.deviceListItems.filter(station => station['connectStatus'] !== 0);
 				return(response.data.deviceListItems);
 			})
 			.catch((error) => {
