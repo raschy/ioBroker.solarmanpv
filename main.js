@@ -222,6 +222,7 @@ class Solarmanpv extends utils.Adapter {
 				}
 			)
 			.then((response) => {
+				//console.log('getDeviceData #', response.data);
 				return response.data;
 			})
 			.catch((error) => {
