@@ -195,7 +195,7 @@ class Solarmanpv extends utils.Adapter {
 		for (const obj of data) {
 			// define keys that shall be updated
 			const updateKeys = [['name', 'state', ''],
-				['generationPower','state', 'W'],
+				['generationPower','value.power', 'W'],
 				['networkStatus','state',''],
 				['lastUpdateTime','date', '']];
 

@@ -18,8 +18,6 @@ Reading data from balcony power plant
 
 ### Getting started
 
-== EN ==
-
 This adapter is used to display data of a balcony power plant, which 
 is provided by a inverter "Bosswerk MI600" in ioBroker.
 
@@ -41,34 +39,14 @@ Since the data in the cloud is updated only about every 6 minutes,
 it does not make to start the adapter more frequently.
 
 
-== DE ==
-
-Dieser Adapter dient dazu, Daten eines Balkonkraftwerks, die durch einen 
-Wechselrichter "Bosswerk MI600" bereit gestellt werden, in ioBroker darzustellen.
-
-Ich gehe davon aus, dass die Anlage bisher durch die App "Solarman" beobachtet 
-wird. Dieser Adapter holt die Daten aus dieser Cloud.
-
-Zunächst muss beim Solarman-Support <service@solarmanpv.com> die benötigten 
-Credentials (app_id & app_secret) beantragt werden.
-Möglicherweise kommt noch eine Rückfrage der Art: "Ich muss fragen, welche 
-Plattform Sie verwenden? Welche Rolle spielen Sie? Sind Sie Einzelperson, 
-OEM-Anbieter, Hersteller oder Distributor? Können Sie mir Ihre E-Mail-Adresse 
-für die API mitteilen?". Bei mir kam dann noch eine weitere Rückfrage: 
-"Warum bewerben Sie sich für API?". Auch diese Frage habe ich höflich 
-beantwortet und bekam dann am nächsten Tag die notwendigen Daten zugesendet.
-
-Auf der Admin-Seite müssen die 4 Felder der Beschreibung entsprechend 
-ausgefüllt werden. Dieser Adapter ist als "scheduled" Adapter angelegt. Da die 
-Daten in der Cloud nur ca. alle 6 Minuten aktualisiert werden, ist es nicht 
-sinnvoll, den Adapter häufiger starten zu lassen.
-
-
 ## Changelog
 <!--
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (raschy) Corrections after first review
+
 ### 0.1.3 (2022-08-19)
 * (raschy) Adapter termination code changed
 
