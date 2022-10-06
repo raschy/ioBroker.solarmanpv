@@ -38,6 +38,14 @@
                     "lg": 6,
 					"label": "APP Secrets",
                     "help": "Secrets from solarmanpv.com"
+                },
+				"bigPlant": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 6,
+                    "lg": 3,
+                    "label": "Inverter",
+					"help": "Switch to big plants"
                 }
             }
         }

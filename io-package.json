@@ -154,6 +154,7 @@
     "password": "",
     "appId": "",
     "appSecret": "",
+	"bigPlant": false,
     "aktiveToken": ""
   },
   "protectedNative": [

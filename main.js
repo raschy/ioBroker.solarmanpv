@@ -24,7 +24,6 @@ class Solarmanpv extends utils.Adapter {
 		api.eventEmitter.on('tokenChanged', this.onTokenChanged.bind(this));
 		//
 		this.stationIdList = [];
-
 	}
 
 	/**
@@ -90,11 +89,6 @@ class Solarmanpv extends utils.Adapter {
 		finally {
 			this.log.debug(`[onReady] finished - stopping instance`);
 			this.terminate ? this.terminate('Everything done. Going to terminate till next schedule', 11) : process.exit(0);
-		/*
-			if(typeof this.stop === 'function') {
-				this.stop();
-			}
-		*/
 		}
 	// End onReady
 	}
@@ -178,9 +172,16 @@ class Solarmanpv extends utils.Adapter {
 
 		await this.persistData(stationId, inverter.deviceId, 'connectStatus', 'connectStatus', inverter.connectStatus, 'state', '');
 		await this.persistData(stationId, inverter.deviceId, 'collectionTime', 'collectionTime', inverter.collectionTime * 1000, 'date', '');
-
+		let updateKeys = [];
 		// define keys that shall be updated (works in dataList only)
-		const updateKeys = ['DV1','DV2','DC1','DC2','DP1','DP2','AV1','Et_ge0','Etdy_ge0','AC_RDT_T1','APo_t1'];
+		if (this.config.bigPlant) {
+			updateKeys = ['Pr1','DV1','DV2','DC1','DC2','DP1','DP2','AV1','AV2','AV3','Et_ge0','Etdy_ge1',
+			'INV_O_P_L1','INV_O_P_L2','INV_O_P_L3','INV_O_P_T','S_P_T',
+			'G_V_L1','G_C_L1','G_P_L1','G_V_L2','G_C_L2','G_P_L2','G_V_L3','G_C_L3','G_P_L3',
+			'PG_Pt1','AC_RDT_T1','APo_t1'];
+		} else {
+			updateKeys = ['DV1','DV2','DC1','DC2','DP1','DP2','AV1','Et_ge0','Etdy_ge0','AC_RDT_T1','APo_t1'];
+		}
 		const values = data.dataList.filter((obj) => updateKeys.includes(obj.key));
 		values.forEach(async (obj) => {
 			if (obj.value != 0) {
@@ -222,26 +223,28 @@ class Solarmanpv extends utils.Adapter {
 				}
 			)
 			.then((response) => {
-				//console.log('getDeviceData #', response.data);
 				return response.data;
 			})
 			.catch((error) => {
 				this.log.warn(`[getDeviceData] error: ${error}`);
 				return Promise.reject(error);
 			});
-
 	}
 
 	// get inverter-id from api
 	async initializeInverter(stationId) {
 		this.log.debug(`[initializeInverter] StationID >: ${stationId}`);
+		let inverterTyp = 'MICRO_INVERTER';
+		if (this.config.bigPlant) {inverterTyp = 'INVERTER'} 
+		this.log.debug(`[initializeInverter] InverterTyp: ${inverterTyp}`);
 		return api.axios
 			.post(
 				'/station/v1.0/device?language=en', // language parameter does not show any effect
 				{
 					page: 1,
 					size: 10,
-					deviceType: 'MICRO_INVERTER',
+					//deviceType: 'MICRO_INVERTER',
+					deviceType: inverterTyp,
 					stationId : stationId
 				}
 			)
