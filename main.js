@@ -180,7 +180,9 @@ class Solarmanpv extends utils.Adapter {
 			'G_V_L1','G_C_L1','G_P_L1','G_V_L2','G_C_L2','G_P_L2','G_V_L3','G_C_L3','G_P_L3',
 			'PG_Pt1','AC_RDT_T1','APo_t1'];
 		} else {
-			updateKeys = ['DV1','DV2','DC1','DC2','DP1','DP2','AV1','Et_ge0','Etdy_ge0','AC_RDT_T1','APo_t1'];
+			updateKeys = ['SN1','DV1','DV2','DV3','DV4','DC1','DC2','DC3','DC4','DP1','DP2','DP3','DP4','AV1','AC1','APo_t1','AC_Fo1',
+			'Et_ge0','Et_ge1','Et_ge2','Et_ge3','Et_ge4','Etdy_ge0','Etdy_ge1','Etdy_ge2','Etdy_ge3','Etdy_ge4','AC_RDT_T1',
+			'PR','NOMP','NOP','ST_w1','D_INF_1','D_INF_2']
 		}
 		const values = data.dataList.filter((obj) => updateKeys.includes(obj.key));
 		values.forEach(async (obj) => {
@@ -249,7 +251,7 @@ class Solarmanpv extends utils.Adapter {
 				}
 			)
 			.then((response) => {
-				return(response.data.deviceListItems);
+					return(response.data.deviceListItems);
 			})
 			.catch((error) => {
 				this.log.warn(`[initializeInverter] error: ${error}`);
