@@ -187,7 +187,6 @@ class Solarmanpv extends utils.Adapter {
 		const values = data.dataList.filter((obj) => updateKeys.includes(obj.key));
 		values.forEach(async (obj) => {
 			if (obj.value != 0) {
-				//this.log.info('[updateDeviceData] '+ obj.key + ' Data: ' + obj.value + ' Unit: ' + obj.unit + ' Name: ' + obj.name);
 				await this.persistData(stationId, inverter.deviceId, obj.key, obj.name, obj.value, 'state', obj.unit);
 			}
 		});
@@ -206,7 +205,6 @@ class Solarmanpv extends utils.Adapter {
 				if (key[0] == 'lastUpdateTime') { 	// special case 'lastUpdateTime'
 					obj[key[0]] *= 1000;
 				}
-				//this.log.info('[updateStationData] ' + stationId + ' Name: ' + key[0] + ' Data: ' + obj[key[0]] + ' Role: ' + key[1] + ' Unit: ' + key[2]);
 				this.persistData(obj['id'], '', key[0], key[0], obj[key[0]], key[1], key[2]);
 			});
 		}

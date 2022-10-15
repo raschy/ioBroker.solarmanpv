@@ -45,7 +45,8 @@ it does not make to start the adapter more frequently.
 	### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
-* (raschy) Added support for hybrid inverters
+* (raschy) Added support for hybrid inverters and 4 MPPTs
+
 ### 0.1.4 (2022-09-17)
 * (raschy) Corrections after first review
 
