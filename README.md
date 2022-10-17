@@ -44,7 +44,7 @@ it does not make to start the adapter more frequently.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.1.5 (2022-10-17)
 * (raschy) Added support for hybrid inverters and 4 MPPTs
 
 ### 0.1.4 (2022-09-17)
