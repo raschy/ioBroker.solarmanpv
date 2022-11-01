@@ -63,7 +63,7 @@ class Solarmanpv extends utils.Adapter {
 
 		const object = this.config.aktiveToken;
 		if (typeof (object) !== 'undefined' && object !== null) {
-			//api.token = this.config.aktiveToken;
+			api.token = this.config.aktiveToken;
 		}
 
 		// start with delay
