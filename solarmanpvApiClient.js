@@ -16,7 +16,7 @@ const wrapper = {
 	password : String(null),
 	appId : String(null),
 	appSecret : String(null),
-	businessName: String(null),
+	businessName : String(null),
 	eventEmitter : new events.EventEmitter()
 };
 
