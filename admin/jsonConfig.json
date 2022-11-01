@@ -46,7 +46,14 @@
                     "lg": 3,
                     "label": "Inverter",
 					"help": "Switch to big plants"
-                }
+                },"businessName": {
+                    "type": "text",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+					"label": "Business Name",
+                    "help": "Name of the plant - only for Solarman-Business - "
+                },
             }
         }
     }

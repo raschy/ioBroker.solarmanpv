@@ -156,6 +156,7 @@
     "appId": "",
     "appSecret": "",
     "bigPlant": false,
+	"businessName": "",
     "aktiveToken": ""
   },
   "protectedNative": [

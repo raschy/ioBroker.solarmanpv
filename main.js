@@ -59,6 +59,7 @@ class Solarmanpv extends utils.Adapter {
 		api.password = this.config.password;
 		api.appId = this.config.appId;
 		api.appSecret = this.config.appSecret;
+		api.businessName = this.config.businessName;
 
 		const object = this.config.aktiveToken;
 		if (typeof (object) !== 'undefined' && object !== null) {
