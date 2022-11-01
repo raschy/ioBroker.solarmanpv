@@ -59,11 +59,11 @@ class Solarmanpv extends utils.Adapter {
 		api.password = this.config.password;
 		api.appId = this.config.appId;
 		api.appSecret = this.config.appSecret;
-		api.businessName = this.config.businessName;
+		api.companyName = this.config.companyName;
 
 		const object = this.config.aktiveToken;
 		if (typeof (object) !== 'undefined' && object !== null) {
-			api.token = this.config.aktiveToken;
+			//api.token = this.config.aktiveToken;
 		}
 
 		// start with delay
@@ -107,7 +107,7 @@ class Solarmanpv extends utils.Adapter {
 			this.log.error('callback catch');
 		}
 	}
-
+	
 	async persistData(station, device, name, description, value, role, unit) {
 		let dp_Folder;
 		let sensorName;

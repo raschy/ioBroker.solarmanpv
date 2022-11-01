@@ -45,15 +45,16 @@
                     "md": 6,
                     "lg": 3,
                     "label": "Inverter",
-					"help": "Switch to big plants"
-                },"businessName": {
+					"help": "Switch to big plants (also Hybrid-Inverter)"
+                },
+				"companyName": {
                     "type": "text",
                     "sm": 12,
                     "md": 6,
                     "lg": 6,
-					"label": "Business Name",
-                    "help": "Name of the plant - only for Solarman-Business - "
-                },
+					"label": "Company Name",
+                    "help": "Name of the company - only for Solarman-Business - "
+                }
             }
         }
     }
