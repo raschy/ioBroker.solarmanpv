@@ -30,7 +30,7 @@ class Solarmanpv extends utils.Adapter {
 	 * Is called when ApiClient has received new token.
 	 */
 	onTokenChanged(token) {
-		this.log.debug('[onReady] token changed: ' + token);
+		this.log.debug('[onTokenChanged] token changed: ' + token);
 		this.extendForeignObject('system.adapter.' + this.namespace, {
 			native: {
 				aktiveToken: token
