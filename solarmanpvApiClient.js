@@ -72,7 +72,7 @@ wrapper.getToken = async function() {
 			.catch(function (error) {
 				//console.log (`[getToken] error: ${error}`);
 			});
-			return promises;
+			return promises1;
 };
 
 wrapper.axios.interceptors.request.use((config) => {
