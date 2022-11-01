@@ -16,12 +16,8 @@ const wrapper = {
 	password : String(null),
 	appId : String(null),
 	appSecret : String(null),
-<<<<<<< Updated upstream
+	businessName: String(null),
 	eventEmitter : new events.EventEmitter()
-=======
-	businessName : String(null),
-	eventEmitter : new events.EventEmitter(),
->>>>>>> Stashed changes
 };
 
 wrapper.getToken = async function() {
@@ -30,12 +26,8 @@ wrapper.getToken = async function() {
 
 	// generate Hashwwert (sha256) from password
 	const hash = crypto(wrapper.password).toString();
-<<<<<<< Updated upstream
-=======
-	//console.log('companyid # ',wrapper.companyId);
->>>>>>> Stashed changes
 
-	return await wrapper.axios
+	let promises1 = await wrapper.axios
 		.post('/account/v1.0/token?appId=' + wrapper.appId + '&language=en', {
 			appSecret: wrapper.appSecret,
 			email: wrapper.email,
@@ -49,42 +41,38 @@ wrapper.getToken = async function() {
 		.catch(function (error) {
 			//console.log (`[getToken] error: ${error}`);
 		});
-<<<<<<< Updated upstream
-=======
-
-	console.log(`[getToken Business] info: ${wrapper.businessName}`);
-	await wrapper.axios
-		.post(
-			'/account/v1.0/info?language=en', // language parameter does not show any effect
-			{}
-		)
-		.then((response) => {
-			console.log('response orgInfoList: ', response.data.orgInfoList);
-			wrapper.companyId = response.data.orgInfoList[1]['companyId'];
-			console.log('CompanyId: #####' ,wrapper.companyId);
-		})
-		.catch((error) => {
-			console.log(`[getBusinessId] error: ${error}`);
-			return Promise.reject(error);
-		});
-
-	let promises2 = await wrapper.axios
-		.post('/account/v1.0/token?appId=' + wrapper.appId + '&language=en', {
-			appSecret: wrapper.appSecret,
-			email: wrapper.email,
-			password: hash,
-			orgId: wrapper.companyId
-		})
-		.then((response) => {
-			console.log(`[getToken] debug: ${response.data.access_token}`);
-			wrapper.token = response.data.access_token;
-			wrapper.eventEmitter.emit('tokenChanged', wrapper.token);
-		})
-		.catch(function (error) {
-			//console.log (`[getToken] error: ${error}`);
-		});
-		return promises;
->>>>>>> Stashed changes
+		console.log(`[getToken Business] info: ${wrapper.businessName}`);
+		await wrapper.axios
+			.post(
+				'/account/v1.0/info?language=en', // language parameter does not show any effect
+				{}
+			)
+			.then((response) => {
+				console.log('response orgInfoList: ', response.data.orgInfoList);
+				wrapper.companyId = response.data.orgInfoList[1]['companyId'];
+				console.log('CompanyId: #####' ,wrapper.companyId);
+			})
+			.catch((error) => {
+				console.log(`[getBusinessId] error: ${error}`);
+				return Promise.reject(error);
+			});
+	
+		let promises2 = await wrapper.axios
+			.post('/account/v1.0/token?appId=' + wrapper.appId + '&language=en', {
+				appSecret: wrapper.appSecret,
+				email: wrapper.email,
+				password: hash,
+				orgId: wrapper.companyId
+			})
+			.then((response) => {
+				console.log(`[getToken] debug: ${response.data.access_token}`);
+				wrapper.token = response.data.access_token;
+				wrapper.eventEmitter.emit('tokenChanged', wrapper.token);
+			})
+			.catch(function (error) {
+				//console.log (`[getToken] error: ${error}`);
+			});
+			return promises;
 };
 
 wrapper.axios.interceptors.request.use((config) => {
