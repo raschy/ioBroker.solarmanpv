@@ -44,7 +44,7 @@ it does not make to start the adapter more frequently.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.2.0 (2022-11-07)
 * (raschy) Adding the battery data from hybrid inverters
 
 ### 0.1.5 (2022-10-17)
