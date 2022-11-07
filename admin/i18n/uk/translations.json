@@ -1,0 +1,9 @@
+{
+    "Credentials": "Облікові дані",
+    "eMail": "електронна пошта",
+    "Password": "Пароль",
+    "appId": "Ідентифікатор програми",
+    "appSecret": "Секрети програми",
+    "App ID from solarmanpv.com": "Ідентифікатор програми з solarmanpv.com",
+    "Secrets from solarmanpv.com": "Секрети від solarmanpv.com"
+}
