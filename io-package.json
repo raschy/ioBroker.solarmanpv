@@ -157,7 +157,7 @@
 	  "appSecret": "",
 	  "bigPlant": false,
 	  "companyName": "",
-	  "aktiveToken": ""
+	  "activeToken": ""
 	},
 	"protectedNative": [
 	  "email",

@@ -21,12 +21,14 @@ const wrapper = {
 };
 
 wrapper.getToken = async function() {
+	//console.log('getToken');
 	if(wrapper.maxGetToken < 1) return Promise.reject('could not retrieve token.');
 	wrapper.maxGetToken--;
 
-	// generate Hashwwert (sha256) from password
+	// generate Hashwert (sha256) from password
 	const hash = crypto(wrapper.password).toString();
 
+	//console.log('promises1');
 	let promises1 = await wrapper.axios
 		.post('/account/v1.0/token?appId=' + wrapper.appId + '&language=en', {
 			appSecret: wrapper.appSecret,
@@ -34,17 +36,17 @@ wrapper.getToken = async function() {
 			password: hash,
 		})
 		.then((response) => {
-			console.log(`[getToken] debug: ${response.data.access_token}`);
+			//console.log(`[getToken] debug: ${response.data.access_token}`);
 			wrapper.token = response.data.access_token;
 			wrapper.eventEmitter.emit('tokenChanged', wrapper.token);
 		})
 		.catch(function (error) {
-			console.log (`[getToken] error: ${error}`);
+			//console.log (`[getToken] error: ${error}`);
 		});
 
 	if (wrapper.companyName == '' || wrapper.companyName == undefined)	return promises1;
 
-	console.log(`[getToken Business] info: ${wrapper.companyName}`);
+	//console.log(`[getToken Business] info: ${wrapper.companyName}`);
 	await wrapper.axios
 		.post(
 			'/account/v1.0/info?language=en', // language parameter does not show any effect
@@ -54,41 +56,42 @@ wrapper.getToken = async function() {
 			//console.log('response orgInfoList: ', response.data.orgInfoList);
 			for (const obj of response.data.orgInfoList) {
 				if (obj['companyName'] == wrapper.companyName){
-					console.log('response companyName: ', obj['companyName']);
+					//console.log('response companyName: ', obj['companyName']);
 					wrapper.companyId = obj['companyId'];
-					console.log('CompanyId: #####' ,wrapper.companyId);
+					//console.log('CompanyId: #####' ,wrapper.companyId);
 				}
 			}
 		})
 		.catch((error) => {
-			console.log(`[getBusinessId] error: ${error}`);
+			//console.log(`[getBusinessId] error: ${error}`);
 			return Promise.reject(error);
 		});
 	
+	//console.log('promises2');
 	let promises2 = await wrapper.axios
-		.post('/account/v1.0/token?appId=' + wrapper.appId + '&language=en', {
+	    .post('/account/v1.0/token?appId=' + wrapper.appId + '&language=en', {
 			appSecret: wrapper.appSecret,
 			email: wrapper.email,
 			password: hash,
 			orgId: wrapper.companyId
 		})
 		.then((response) => {
-			console.log(`[getToken] debug: ${response.data.access_token}`);
+			//console.log(`[getToken] debug: ${response.data.access_token}`);
 			wrapper.token = response.data.access_token;
 			wrapper.eventEmitter.emit('tokenChanged', wrapper.token);
 		})
 		.catch(function (error) {
-			console.log (`[getToken Business] error: ${error}`);
+			//console.log (`[getToken Business] error: ${error}`);
 		});
 		return promises1;
 };
 
 wrapper.axios.interceptors.request.use((config) => {
-	console.log('RequestURL',config.url);
+	//console.log('RequestURL',config.url);
 
 	if(config.url && config.url.substring(0,19) == '/account/v1.0/token')
 	{
-		console.log('TokenUrlFound');
+		//console.log('TokenUrlFound');
 		if (config.headers && config.headers['Authorization'])
 			delete config.headers['Authorization'];
 		return config;
@@ -102,11 +105,11 @@ wrapper.axios.interceptors.request.use((config) => {
 wrapper.axios.interceptors.response.use(async (response) => {
 
 	if(response.data.msg){
-		console.log('==== interceptor ====');
-		console.log(response.data.msg);
+		//console.log('==== interceptor ====');
+		//console.log(response.data.msg);
 
 		if(response.data.msg === 'auth token not found' || response.data.msg === 'auth invalid token' ) {
-			console.log('trying to get new token');
+			//console.log('trying to get new token');
 
 			return await wrapper.getToken()
 				.then(async () => {

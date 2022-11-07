@@ -6,6 +6,7 @@
 // you need to create an adapter
 'use strict';
 const utils = require('@iobroker/adapter-core');
+const crypto5 = require('crypto');
 const api = require('./solarmanpvApiClient.js');
 
 class Solarmanpv extends utils.Adapter {
@@ -33,7 +34,7 @@ class Solarmanpv extends utils.Adapter {
 		this.log.debug('[onTokenChanged] token changed: ' + token);
 		this.extendForeignObject('system.adapter.' + this.namespace, {
 			native: {
-				aktiveToken: token
+				activeToken: token
 			}
 		});
 	}
@@ -55,15 +56,18 @@ class Solarmanpv extends utils.Adapter {
 			return;
 		}
 
+		//	About User changes
+		await this.checkUserData();
+
 		api.email = this.config.email;
 		api.password = this.config.password;
 		api.appId = this.config.appId;
 		api.appSecret = this.config.appSecret;
 		api.companyName = this.config.companyName;
 
-		const object = this.config.aktiveToken;
+		const object = this.config.activeToken;
 		if (typeof (object) !== 'undefined' && object !== null) {
-			api.token = this.config.aktiveToken;
+			api.token = this.config.activeToken;
 		}
 
 		// start with delay
@@ -176,10 +180,10 @@ class Solarmanpv extends utils.Adapter {
 		let updateKeys = [];
 		// define keys that shall be updated (works in dataList only)
 		if (this.config.bigPlant) {
-			updateKeys = ['Pr1','DV1','DV2','DC1','DC2','DP1','DP2','AV1','AV2','AV3','Et_ge0','Etdy_ge1',
-			'INV_O_P_L1','INV_O_P_L2','INV_O_P_L3','INV_O_P_T','S_P_T',
-			'G_V_L1','G_C_L1','G_P_L1','G_V_L2','G_C_L2','G_P_L2','G_V_L3','G_C_L3','G_P_L3',
-			'PG_Pt1','AC_RDT_T1','APo_t1'];
+			updateKeys = ['Pr1','DV1','DV2','DC1','DC2','DP1','DP2','TPG','Vog_o1','Vog_o2','Vog_o3','AV1','AV2','AV3','Et_ge0','Etdy_ge1',
+			'T_AC_OP','INV_O_P_L1','INV_O_P_L2','INV_O_P_L3','INV_O_P_T','S_P_T','L_AP1','L_AP2','L_AP3','PG_F1','E_Puse_t1','Et_use1','Etdy_use1',
+			'G_V_L1','G_C_L1','G_P_L1','G_V_L2','G_C_L2','G_P_L2','G_V_L3','G_C_L3','G_P_L3','E_Cuse1','E_Cuse2','E_Cuse3',
+			'PG_Pt1','AC_RDT_T1','APo_t1','B_left_cap1','t_cg_n1','t_dcg_n1','Etdy_cg1','Etdy_dcg1'];
 		} else {
 			updateKeys = ['SN1','DV1','DV2','DV3','DV4','DC1','DC2','DC3','DC4','DP1','DP2','DP3','DP4','AV1','AC1','APo_t1','AC_Fo1',
 			'Et_ge0','Et_ge1','Et_ge2','Et_ge3','Et_ge4','Etdy_ge0','Etdy_ge1','Etdy_ge2','Etdy_ge3','Etdy_ge4','AC_RDT_T1',
@@ -278,6 +282,55 @@ class Solarmanpv extends utils.Adapter {
 				this.log.warn(`[initializeStation] error: ${error}`);
 				return Promise.reject(error);
 			});
+	}
+
+	async checkUserData(){
+
+		let inputData = this.config.email + this.config.password + this.config.appId + this.config.appSecret + this.config.companyName
+		let crc = crypto5.createHash('md5').update(inputData).digest('hex');
+		// get oldCRC		
+		const object = await this.getStateAsync('checksumUserData');
+		if (typeof (object) !== 'undefined' && object !== null) {
+			this.oldCrc = object?.val;
+		}
+		// compare to previous config
+		if(!this.oldCrc || this.oldCrc != crc) {
+			this.log.debug(`[checkUserData] has changed or is new; previous crc: ${this.oldCrc}`);
+  			// store new crc
+ 			this.log.debug(`[checkUserData] store new hash: ${crc}`);
+			// write datapoint
+			 await this.setObjectNotExistsAsync('checksumUserData', {
+				type: 'state',
+				common: {
+					name: {
+						"en": "Checksum user data",
+						"de": "Checksumme Benutzerdaten",
+						"ru": "Проверьте данные пользователя Checksum",
+						"pt": "Dados do usuário do checksum",
+						"nl": "Vertaling:",
+						"fr": "Vérifier les données utilisateur",
+						"it": "Dati utente di checksum",
+						"es": "Datos de usuario de checksum",
+						"pl": "Checksum data",
+						"uk": "Перевірити дані користувачів",
+						"zh-cn": "用户数据"
+					},
+					type: 'string',
+					role: 'state',
+					read: true,
+					write: false,
+				},
+				native: {},
+			});
+			await this.setStateAsync('checksumUserData', { val: crc, ack: true });
+			// delete Token
+			this.extendForeignObject('system.adapter.' + this.namespace, {
+				native: {
+					activeToken: ''
+				}
+			});
+		}
+		return
 	}
 
 // End Class
