@@ -88,7 +88,6 @@ class Solarmanpv extends utils.Adapter {
 			}
 		}
 		catch (error) {
-			//this.log.error(`[onReady] error: ${error}`);
 			this.log.debug(JSON.stringify(error));
 		}
 		finally {
@@ -119,7 +118,7 @@ class Solarmanpv extends utils.Adapter {
 			dp_Folder = String(station);
 			sensorName = station +'.'+ description;
 		} else {
-			dp_Folder = station +'.'+ device;
+			dp_Folder = String(station) +'.'+ String(device);
 			sensorName = device +'.'+ description;
 		}
 		const dp_Device = dp_Folder +'.'+ name;
@@ -132,13 +131,7 @@ class Solarmanpv extends utils.Adapter {
 			},
 			native: {}
 		});
-		/*
-			await this.extendObjectAsync(Device, {
-				common: {
-					name: sensorName
-				}
-						});
-		*/
+
 		// Type-Erkennung
 		let type = 'string';
 		if (isNumeric(value)) {
@@ -217,8 +210,9 @@ class Solarmanpv extends utils.Adapter {
 
 	// get inverter data from api
 	async getDeviceData(deviceId, deviceSn) {
-		this.log.debug(`[getDeviceData] Device ID >: ${deviceId} and Device SN >: ${deviceSn}`);
 
+		this.log.debug(`[getDeviceData] Device ID >: ${deviceId} and Device SN >: ${deviceSn}`);
+		
 		return api.axios
 			.post(
 				'/device/v1.0/currentData?language=en', // language parameter does not show any effect
@@ -248,13 +242,12 @@ class Solarmanpv extends utils.Adapter {
 				{
 					page: 1,
 					size: 10,
-					//deviceType: 'MICRO_INVERTER',
 					deviceType: inverterTyp,
 					stationId : stationId
 				}
 			)
 			.then((response) => {
-					return(response.data.deviceListItems);
+				return(response.data.deviceListItems);
 			})
 			.catch((error) => {
 				this.log.warn(`[initializeInverter] error: ${error}`);
@@ -273,7 +266,7 @@ class Solarmanpv extends utils.Adapter {
 				}
 			)
 			.then((response) => {
-				for (const obj of response.data.stationList) {
+					for (const obj of response.data.stationList) {
 					this.stationIdList.push(obj['id']);		// StationId's for devices
 				}
 				return response.data.stationList;
