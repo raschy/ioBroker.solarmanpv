@@ -77,7 +77,7 @@ class Solarmanpv extends utils.Adapter {
 			// get station-id via api-call
 			await this.initializeStation().then(result =>
 				this.updateStationData(result));
-				/*
+				
 			for (const stationId of this.stationIdList) {
 				await this.initializeInverter(stationId).then(async inverterList => {
 					for (const inverter of inverterList) {
@@ -86,7 +86,7 @@ class Solarmanpv extends utils.Adapter {
 					}
 				});
 			}
-			*/
+			
 		}
 		catch (error) {
 			this.log.debug(JSON.stringify(error));
@@ -125,6 +125,7 @@ class Solarmanpv extends utils.Adapter {
 		const dp_Device = String(dp_Folder +'.'+ name);
 		//this.log.debug(`[persistData] Station "${station}" Device "${device}" Name "${name}" Sensor "${description}" with value: "${value}" and unit "${unit}" as role "${role}`);
 
+		/*
 		await this.setObjectNotExistsAsync(dp_Folder, {
 			type: 'device',
 			common: {
@@ -132,6 +133,7 @@ class Solarmanpv extends utils.Adapter {
 			},
 			native: {}
 		});
+*/
 
 		// Type-Erkennung
 		let type = 'string';
