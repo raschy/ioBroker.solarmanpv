@@ -77,7 +77,7 @@ class Solarmanpv extends utils.Adapter {
 			// get station-id via api-call
 			await this.initializeStation().then(result =>
 				this.updateStationData(result));
-
+				/*
 			for (const stationId of this.stationIdList) {
 				await this.initializeInverter(stationId).then(async inverterList => {
 					for (const inverter of inverterList) {
@@ -86,6 +86,7 @@ class Solarmanpv extends utils.Adapter {
 					}
 				});
 			}
+			*/
 		}
 		catch (error) {
 			this.log.debug(JSON.stringify(error));
