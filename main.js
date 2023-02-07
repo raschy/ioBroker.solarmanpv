@@ -121,7 +121,7 @@ class Solarmanpv extends utils.Adapter {
 			dp_Folder = String(station) +'.'+ String(device);
 			sensorName = device +'.'+ description;
 		}
-		const dp_Device = dp_Folder +'.'+ name;
+		const dp_Device = String(dp_Folder +'.'+ name);
 		//this.log.debug(`[persistData] Station "${station}" Device "${device}" Name "${name}" Sensor "${description}" with value: "${value}" and unit "${unit}" as role "${role}`);
 
 		await this.setObjectNotExistsAsync(dp_Folder, {
@@ -225,7 +225,9 @@ class Solarmanpv extends utils.Adapter {
 				return response.data;
 			})
 			.catch((error) => {
-				this.log.warn(`[getDeviceData] error: ${error}`);
+				this.log.warn(`[getDeviceData] error (long): ${error}`);
+				console.log(`[getDeviceData] ${error}`);
+				this.log.warn(`[getDeviceData] error: ${error.code}`);
 				return Promise.reject(error);
 			});
 	}
