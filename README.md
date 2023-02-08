@@ -44,6 +44,10 @@ it does not make to start the adapter more frequently.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+-->	(raschy) Release for github/npm
+
 ### 0.2.1 (2023-02-08)
 * (raschy) Timeout extended, type error fixed during setup, some data added from BMS
 
