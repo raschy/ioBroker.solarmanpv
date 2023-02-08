@@ -5,7 +5,7 @@ const crypto = require('crypto-js/sha256');
 const wrapper = {
 	axios: axios.create({
 		baseURL: 'https://api.solarmanpv.com',
-		timeout: 5000,
+		timeout: 4000,
 		headers: {
 			'Content-Type': 'application/json',
 		},

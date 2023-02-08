@@ -176,10 +176,13 @@ class Solarmanpv extends utils.Adapter {
 		let updateKeys = [];
 		// define keys that shall be updated (works in dataList only)
 		if (this.config.bigPlant) {
-			updateKeys = ['Pr1','DV1','DV2','DC1','DC2','DP1','DP2','TPG','Vog_o1','Vog_o2','Vog_o3','AV1','AV2','AV3','Et_ge0','Etdy_ge1',
-			'T_AC_OP','INV_O_P_L1','INV_O_P_L2','INV_O_P_L3','INV_O_P_T','S_P_T','L_AP1','L_AP2','L_AP3','PG_F1','E_Puse_t1','Et_use1','Etdy_use1',
-			'G_V_L1','G_C_L1','G_P_L1','G_V_L2','G_C_L2','G_P_L2','G_V_L3','G_C_L3','G_P_L3','E_Cuse1','E_Cuse2','E_Cuse3',
-			'PG_Pt1','AC_RDT_T1','APo_t1','B_left_cap1','t_cg_n1','t_dcg_n1','Etdy_cg1','Etdy_dcg1'];
+			updateKeys = ['Pr1','DV1','DV2','DV3','DV4','DC1','DC2','DC3','DC4','DP1','DP2','DP3','DP4','AV1','AV2','AV3','AC1','AC2','AC3','A_Fo1',
+			'TPG','Vog_o1','Vog_o2','Vog_o3','Et_ge0','Etdy_ge1','CT1_P_E','CT2_P_E','CT3_P_E','CT_T_E','E_B_D','E_S_D','E_B_TO','E_S_TO','GS_A','GS_B','GS_C','GS_T',
+			'T_AC_OP','INV_O_P_L1','INV_O_P_L2','INV_O_P_L3','INV_O_P_T','S_P_T','L_AP1','L_AP2','L_AP3','PG_F1','Et_use1','Etdy_use1','Etdy_cg1','Etdy_dcg1',
+			'C_V_L1','C_P_L1','C_V_L2','C_P_L2','C_V_L3','C_P_L3','G_V_L1','G_C_L1','G_P_L1','G_V_L2','G_C_L2','G_P_L2','G_V_L3','G_C_L3','G_P_L3','L_F',
+			'LPP_A','LPP_B','LPP_C','E_Cuse1','E_Cuse2','E_Cuse3','E_Puse_t1','E_Suse_t1','E_C_T','PG_Pt1','AC_RDT_T1','APo_t1','t_cg_n1','t_dcg_n1','T_DC','AC_T',
+			'B_ST1','B_V1','B_C1','B_P1','Bcap1','B_left_cap1','B_TYP1','BMS_B_V1','BMS_B_C1','BMST','BMS_C_V','BMS_D_V','BMS_C_C_L','BMS_D_C_L','BMS_SOC','B_T1',
+			'GRID_RELAY_ST1','GEN_V_L1','GEN_C_L1','GEN_P_L1','GEN_V_L2','GEN_C_L2','GEN_P_L2','GEN_V_L3','GEN_C_L3','GEN_P_L3'];
 		} else {
 			updateKeys = ['SN1','DV1','DV2','DV3','DV4','DC1','DC2','DC3','DC4','DP1','DP2','DP3','DP4','AV1','AC1','APo_t1','AC_Fo1',
 			'Et_ge0','Et_ge1','Et_ge2','Et_ge3','Et_ge4','Etdy_ge0','Etdy_ge1','Etdy_ge2','Etdy_ge3','Etdy_ge4','AC_RDT_T1',
@@ -228,8 +231,6 @@ class Solarmanpv extends utils.Adapter {
 				return response.data;
 			})
 			.catch((error) => {
-				this.log.warn(`[getDeviceData] error (long): ${error}`);
-				console.log(`[getDeviceData] ${error}`);
 				this.log.warn(`[getDeviceData] error: ${error.code}`);
 				return Promise.reject(error);
 			});
