@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "solarmanpv",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "news": {
+      "0.2.2": {
+        "en": "->\t(raschy) Release for github/npm",
+        "de": "-> (raschy) Veröffentlichung für github/npm",
+        "ru": "-> (raschy) Релиз для github/npm",
+        "pt": "-> (raschy) Lançamento para github/npm",
+        "nl": "- Laat los voor github/npm",
+        "fr": "- Libération (raschy) pour github/npm",
+        "it": "-> (raschy) Rilasciare per github/npm",
+        "es": "- título para github/npm",
+        "pl": "-> (raschy) Release for github/npm",
+        "uk": "-> (raschy) Реліз для github/npm",
+        "zh-cn": "- 基思布/恩普姆(签名)"
+      },
       "0.2.1": {
         "en": "Timeout extended, type error fixed during setup, some data added from BMS",
         "de": "Timeout erweitert, Typfehler beim Setup behoben, einige Daten von BMS hinzugefügt",
@@ -80,19 +93,6 @@
         "pl": "Status ulepszeń urządzenie zredukował strukturę",
         "zh-cn": "增加装置状况,结构减少",
         "uk": "Додано статус пристрою, зменшено структуру"
-      },
-      "0.1.1": {
-        "en": "Clean up the code and start delay",
-        "de": "Den Code reinigen und Verzögerung starten",
-        "ru": "Очистите код и начните задержку",
-        "pt": "Limpe o código e comece o atraso",
-        "nl": "Maak de code schoon en begin met uitstellen",
-        "fr": "Nettoyer le code et commencer à retarder",
-        "it": "Pulire il codice e avviare il ritardo",
-        "es": "Limpiar el código y comenzar el retraso",
-        "pl": "Oczywiście kod i rozpoczynają opóźnienie",
-        "zh-cn": "A. 守则的简化和开始拖延",
-        "uk": "Очистіть код і відкладіть початок"
       }
     },
     "titleLang": {
