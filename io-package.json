@@ -140,7 +140,7 @@
     "mode": "schedule",
     "allowInit": true,
     "schedule": "*/6 * * * *",
-    "type": "iot-systems",
+    "type": "energy",
     "compact": true,
     "connectionType": "cloud",
     "dataSource": "poll",
