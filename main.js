@@ -6,6 +6,7 @@
 // you need to create an adapter
 'use strict';
 const utils = require('@iobroker/adapter-core');
+const fs = require('fs');
 const crypto5 = require('crypto');
 const api = require('./solarmanpvApiClient.js');
 
@@ -111,7 +112,8 @@ class Solarmanpv extends utils.Adapter {
 			this.log.error('callback catch');
 		}
 	}
-	
+
+	// saving data in ioBroker object
 	async persistData(station, device, name, description, value, role, unit) {
 		let dp_Folder;
 		let sensorName;
@@ -170,27 +172,14 @@ class Solarmanpv extends utils.Adapter {
 
 	// update inverter data in ioBroker
 	async updateDeviceData(stationId, inverter, data) {
-
 		await this.persistData(stationId, inverter.deviceId, 'connectStatus', 'connectStatus', inverter.connectStatus, 'state', '');
 		await this.persistData(stationId, inverter.deviceId, 'collectionTime', 'collectionTime', inverter.collectionTime * 1000, 'date', '');
-		let updateKeys = [];
-		// define keys that shall be updated (works in dataList only)
-		if (this.config.bigPlant) {
-			updateKeys = ['Pr1','DV1','DV2','DV3','DV4','DC1','DC2','DC3','DC4','DP1','DP2','DP3','DP4','AV1','AV2','AV3','AC1','AC2','AC3','A_Fo1',
-			'TPG','Vog_o1','Vog_o2','Vog_o3','Et_ge0','Etdy_ge1','CT1_P_E','CT2_P_E','CT3_P_E','CT_T_E','E_B_D','E_S_D','E_B_TO','E_S_TO','GS_A','GS_B','GS_C','GS_T',
-			'T_AC_OP','INV_O_P_L1','INV_O_P_L2','INV_O_P_L3','INV_O_P_T','S_P_T','L_AP1','L_AP2','L_AP3','PG_F1','Et_use1','Etdy_use1','Etdy_cg1','Etdy_dcg1',
-			'C_V_L1','C_P_L1','C_V_L2','C_P_L2','C_V_L3','C_P_L3','G_V_L1','G_C_L1','G_P_L1','G_V_L2','G_C_L2','G_P_L2','G_V_L3','G_C_L3','G_P_L3','L_F',
-			'LPP_A','LPP_B','LPP_C','E_Cuse1','E_Cuse2','E_Cuse3','E_Puse_t1','E_Suse_t1','E_C_T','PG_Pt1','AC_RDT_T1','APo_t1','t_cg_n1','t_dcg_n1','T_DC','AC_T',
-			'B_ST1','B_V1','B_C1','B_P1','Bcap1','B_left_cap1','B_TYP1','BMS_B_V1','BMS_B_C1','BMST','BMS_C_V','BMS_D_V','BMS_C_C_L','BMS_D_C_L','BMS_SOC','B_T1',
-			'GRID_RELAY_ST1','GEN_V_L1','GEN_C_L1','GEN_P_L1','GEN_V_L2','GEN_C_L2','GEN_P_L2','GEN_V_L3','GEN_C_L3','GEN_P_L3'];
-		} else {
-			updateKeys = ['SN1','DV1','DV2','DV3','DV4','DC1','DC2','DC3','DC4','DP1','DP2','DP3','DP4','AV1','AC1','APo_t1','AC_Fo1',
-			'Et_ge0','Et_ge1','Et_ge2','Et_ge3','Et_ge4','Etdy_ge0','Etdy_ge1','Etdy_ge2','Etdy_ge3','Etdy_ge4','AC_RDT_T1',
-			'PR','NOMP','NOP','ST_w1','D_INF_1','D_INF_2']
-		}
-		const values = data.dataList.filter((obj) => updateKeys.includes(obj.key));
-		values.forEach(async (obj) => {
-			if (obj.value != 0) {
+
+		// define keys that shall not be updated (works in dataList only)
+		const noUpdateKeys = JSON.parse(JSON.stringify(this.config.deviceBlacklist.split(',')));
+		data.dataList.forEach(async (obj) => {
+			const result = noUpdateKeys.includes(obj.key);
+			if (!result) {
 				await this.persistData(stationId, inverter.deviceId, obj.key, obj.name, obj.value, 'state', obj.unit);
 			}
 		});
@@ -249,6 +238,10 @@ class Solarmanpv extends utils.Adapter {
 					page: 1,
 					size: 10,
 					deviceType: inverterTyp,
+					//deviceType: 'MICRO_INVERTER',
+					//deviceType: 'INVERTER',
+					//deviceType: 'BATTERY',
+					//deviceType: 'COLLECTOR',
 					stationId : stationId
 				}
 			)
@@ -256,7 +249,7 @@ class Solarmanpv extends utils.Adapter {
 				return(response.data.deviceListItems);
 			})
 			.catch((error) => {
-				this.log.warn(`[initializeInverter] error: ${error}`);
+				this.log.warn(`[initializeInverter] error: ${error.code}`);
 				return Promise.reject(error);
 			});
 	}
@@ -278,7 +271,7 @@ class Solarmanpv extends utils.Adapter {
 				return response.data.stationList;
 			})
 			.catch((error) => {
-				this.log.warn(`[initializeStation] error: ${error}`);
+				this.log.warn(`[initializeStation] error: ${error.code}`);
 				return Promise.reject(error);
 			});
 	}

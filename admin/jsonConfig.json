@@ -56,6 +56,25 @@
                     "help": "Name of the company - only for Solarman-Business - "
                 }
             }
-        }
-    }
+        },
+		"_blacklist": {
+			"type": "panel",
+			"label": "Blacklist",
+			"items": {
+				"headerDevices": {
+					"newLine": "true",
+					"type": "header",
+					"text": "Devices Blacklist",
+					"size": 2
+				},
+				"deviceBlacklist": {
+					"type": "text",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+					"label": "Terms to be excluded"
+   				}			
+			}
+		}
+	}
 }

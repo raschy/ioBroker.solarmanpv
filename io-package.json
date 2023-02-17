@@ -167,7 +167,8 @@
     "appSecret": "",
     "bigPlant": false,
     "companyName": "",
-    "activeToken": ""
+    "activeToken": "",
+	"deviceBlacklist": ""
   },
   "protectedNative": [
     "email",
