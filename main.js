@@ -218,7 +218,7 @@ class Solarmanpv extends utils.Adapter {
 				return response.data;
 			})
 			.catch((error) => {
-				this.log.warn(`[getDeviceData] error: ${error.code}`);
+				//this.log.warn(`[getDeviceData] ${error}`);
 				return Promise.reject(error);
 			});
 	}
