@@ -165,7 +165,6 @@
         "password": "",
         "appId": "",
         "appSecret": "",
-        "bigPlant": false,
         "companyName": "",
         "activeToken": "",
         "deviceBlacklist": ""
