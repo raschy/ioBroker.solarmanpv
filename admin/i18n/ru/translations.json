@@ -5,5 +5,8 @@
     "appId": "Идентификатор приложения",
     "appSecret": "Секреты приложений",
     "App ID from solarmanpv.com": "Идентификатор приложения с сайта solarmanpv.com",
-    "Secrets from solarmanpv.com": "Секреты от solarmanpv.com"
+    "Secrets from solarmanpv.com": "Секреты от solarmanpv.com",
+    "companyName": "Название компании",
+    "deviceBlacklist": "Черный список устройств",
+    "termsToBeExcluded": "Исключаемые термины"
 }

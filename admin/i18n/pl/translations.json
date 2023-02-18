@@ -5,5 +5,8 @@
     "appId": "Identyfikator aplikacji",
     "appSecret": "Sekrety aplikacji",
     "App ID from solarmanpv.com": "Identyfikator aplikacji ze strony solarmanpv.com",
-    "Secrets from solarmanpv.com": "Sekrety z solarmanpv.com"
+    "Secrets from solarmanpv.com": "Sekrety z solarmanpv.com",
+    "companyName": "Nazwa firmy",
+    "deviceBlacklist": "Czarna lista urządzeń",
+    "termsToBeExcluded": "Warunki do wykluczenia"
 }

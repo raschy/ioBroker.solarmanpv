@@ -5,5 +5,8 @@
     "appId": "ID app",
     "appSecret": "Segreti dell'app",
     "App ID from solarmanpv.com": "ID app da solarmanpv.com",
-    "Secrets from solarmanpv.com": "Segreti da solarmanpv.com"
+    "Secrets from solarmanpv.com": "Segreti da solarmanpv.com",
+    "companyName": "Nome della ditta",
+    "deviceBlacklist": "Lista nera dei dispositivi",
+    "termsToBeExcluded": "Termini da escludere"
 }

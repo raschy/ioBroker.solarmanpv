@@ -5,5 +5,8 @@
     "appId": "应用编号",
     "appSecret": "应用秘密",
     "App ID from solarmanpv.com": "来自 solarmanpv.com 的应用程序 ID",
-    "Secrets from solarmanpv.com": "来自 solarmanpv.com 的秘密"
+    "Secrets from solarmanpv.com": "来自 solarmanpv.com 的秘密",
+    "companyName": "公司名称",
+    "deviceBlacklist": "设备黑名单",
+    "termsToBeExcluded": "要排除的条款"
 }
