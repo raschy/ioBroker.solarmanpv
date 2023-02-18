@@ -39,14 +39,6 @@
 					"label": "APP Secrets",
                     "help": "Secrets from solarmanpv.com"
                 },
-				"bigPlant": {
-                    "type": "checkbox",
-                    "sm": 6,
-                    "md": 6,
-                    "lg": 3,
-                    "label": "Inverter",
-					"help": "Switch to big plants (also Hybrid-Inverter)"
-                },
 				"companyName": {
                     "type": "text",
                     "sm": 12,
@@ -62,7 +54,7 @@
 			"label": "Blacklist",
 			"items": {
 				"headerDevices": {
-					"newLine": "true",
+					"newLine": true,
 					"type": "header",
 					"text": "Devices Blacklist",
 					"size": 2

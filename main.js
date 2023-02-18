@@ -179,7 +179,7 @@ class Solarmanpv extends utils.Adapter {
 		const noUpdateKeys = JSON.parse(JSON.stringify(this.config.deviceBlacklist.split(',')));
 		data.dataList.forEach(async (obj) => {
 			const result = noUpdateKeys.includes(obj.key);
-			if (!result) {
+			if (!result || obj.value == 'none') {
 				await this.persistData(stationId, inverter.deviceId, obj.key, obj.name, obj.value, 'state', obj.unit);
 			}
 		});
@@ -205,9 +205,7 @@ class Solarmanpv extends utils.Adapter {
 
 	// get inverter data from api
 	async getDeviceData(deviceId, deviceSn) {
-
 		this.log.debug(`[getDeviceData] Device ID >: ${deviceId} and Device SN >: ${deviceSn}`);
-		
 		return api.axios
 			.post(
 				'/device/v1.0/currentData?language=en', // language parameter does not show any effect
@@ -228,20 +226,12 @@ class Solarmanpv extends utils.Adapter {
 	// get inverter-id from api
 	async initializeInverter(stationId) {
 		this.log.debug(`[initializeInverter] StationID >: ${stationId}`);
-		let inverterTyp = 'MICRO_INVERTER';
-		if (this.config.bigPlant) {inverterTyp = 'INVERTER'} 
-		this.log.debug(`[initializeInverter] InverterTyp: ${inverterTyp}`);
 		return api.axios
 			.post(
 				'/station/v1.0/device?language=en', // language parameter does not show any effect
 				{
 					page: 1,
 					size: 10,
-					deviceType: inverterTyp,
-					//deviceType: 'MICRO_INVERTER',
-					//deviceType: 'INVERTER',
-					//deviceType: 'BATTERY',
-					//deviceType: 'COLLECTOR',
 					stationId : stationId
 				}
 			)
