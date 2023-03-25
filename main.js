@@ -76,8 +76,8 @@ class Solarmanpv extends utils.Adapter {
 
 		try {
 			// get station-id via api-call
-			await this.initializeStation().then(result =>
-				this.updateStationData(result));
+			await this.initializeStation().then(async result => 
+				await this.updateStationData(result));
 				
 			for (const stationId of this.stationIdList) {
 				await this.initializeInverter(stationId).then(async inverterList => {
@@ -186,7 +186,7 @@ class Solarmanpv extends utils.Adapter {
 	}
 
 	// update station data in ioBroker
-	updateStationData(data) {
+	async updateStationData(data) {
 		for (const obj of data) {
 			// define keys that shall be updated
 			const updateKeys = [['name', 'state', ''],
@@ -271,10 +271,12 @@ class Solarmanpv extends utils.Adapter {
 		let inputData = this.config.email + this.config.password + this.config.appId + this.config.appSecret + this.config.companyName
 		let crc = crypto5.createHash('md5').update(inputData).digest('hex');
 		// get oldCRC		
+		this.log.debug(`[checkUserData] start`);
 		const object = await this.getStateAsync('checksumUserData');
 		if (typeof (object) !== 'undefined' && object !== null) {
 			this.oldCrc = object?.val;
 		}
+		this.log.debug(`[checkUserData] oldCrc ${this.oldCrc}`);
 		// compare to previous config
 		if(!this.oldCrc || this.oldCrc != crc) {
 			this.log.debug(`[checkUserData] has changed or is new; previous crc: ${this.oldCrc}`);
