@@ -177,7 +177,7 @@ class Solarmanpv extends utils.Adapter {
 
 		// define keys that shall not be updated (works in dataList only)
 		const noUpdateKeys = JSON.parse(JSON.stringify(this.config.deviceBlacklist.split(',')));
-		data.dataList.forEach(async (obj) => {
+		data.dataList.forEach(async obj => {
 			const result = noUpdateKeys.includes(obj.key);
 			if (!result || obj.value == 'none') {
 				await this.persistData(stationId, inverter.deviceId, obj.key, obj.name, obj.value, 'state', obj.unit);
@@ -194,11 +194,11 @@ class Solarmanpv extends utils.Adapter {
 				['networkStatus','state',''],
 				['lastUpdateTime','date', '']];
 
-			updateKeys.forEach(key => {
+			updateKeys.forEach(async key => {
 				if (key[0] == 'lastUpdateTime') { 	// special case 'lastUpdateTime'
 					obj[key[0]] *= 1000;
 				}
-				this.persistData(obj['id'], '', key[0], key[0], obj[key[0]], key[1], key[2]);
+				await this.persistData(obj['id'], '', key[0], key[0], obj[key[0]], key[1], key[2]);
 			});
 		}
 	}
