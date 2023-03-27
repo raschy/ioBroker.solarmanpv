@@ -87,14 +87,20 @@ class Solarmanpv extends utils.Adapter {
 					}
 				});
 			}
-			
+			this.log.debug(`[onReady] ready`);
 		}
 		catch (error) {
 			this.log.debug(JSON.stringify(error));
 		}
 		finally {
+			delay (2000);
 			this.log.debug(`[onReady] finished - stopping instance`);
 			this.terminate ? this.terminate('Everything done. Going to terminate till next schedule', 11) : process.exit(0);
+		}
+		
+		// helper function
+		async function delay(ms) {
+    	return await new Promise(resolve => setTimeout(resolve, ms));
 		}
 	// End onReady
 	}
