@@ -87,7 +87,6 @@ class Solarmanpv extends utils.Adapter {
 					}
 				});
 			}
-			this.log.debug(`[onReady] ready`);
 		}
 		catch (error) {
 			this.log.debug(JSON.stringify(error));
