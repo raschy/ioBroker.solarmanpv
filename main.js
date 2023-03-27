@@ -31,9 +31,9 @@ class Solarmanpv extends utils.Adapter {
 	/**
 	 * Is called when ApiClient has received new token.
 	 */
-	onTokenChanged(token) {
+	async onTokenChanged(token) {
 		this.log.debug('[onTokenChanged] token changed: ' + token);
-		this.extendForeignObject('system.adapter.' + this.namespace, {
+		await this.extendForeignObject('system.adapter.' + this.namespace, {
 			native: {
 				activeToken: token
 			}
@@ -93,13 +93,8 @@ class Solarmanpv extends utils.Adapter {
 		}
 		finally {
 			this.log.debug(`[onReady] finished - stopping instance`);
-			await delay (2000);
+			//await this.delay(2000);
 			this.terminate ? this.terminate('Everything done. Going to terminate till next schedule', 11) : process.exit(0);
-		}
-		
-		// helper function
-		async function delay(ms) {
-    		return await new Promise(resolve => setTimeout(resolve, ms));
 		}
 	// End onReady
 	}
@@ -182,12 +177,21 @@ class Solarmanpv extends utils.Adapter {
 
 		// define keys that shall not be updated (works in dataList only)
 		const noUpdateKeys = JSON.parse(JSON.stringify(this.config.deviceBlacklist.split(',')));
+/*
 		data.dataList.forEach(async obj => {
 			const result = noUpdateKeys.includes(obj.key);
 			if (!result || obj.value == 'none') {
 				await this.persistData(stationId, inverter.deviceId, obj.key, obj.name, obj.value, 'state', obj.unit);
 			}
 		});
+*/
+		for(const obj of data.dataList){
+			const result = noUpdateKeys.includes(obj.key);
+			if (!result || obj.value == 'none') {
+				await this.persistData(stationId, inverter.deviceId, obj.key, obj.name, obj.value, 'state', obj.unit);
+			}
+		}
+
 	}
 
 	// update station data in ioBroker
@@ -198,13 +202,21 @@ class Solarmanpv extends utils.Adapter {
 				['generationPower','value.power', 'W'],
 				['networkStatus','state',''],
 				['lastUpdateTime','date', '']];
-
+			/*
 			updateKeys.forEach(async key => {
 				if (key[0] == 'lastUpdateTime') { 	// special case 'lastUpdateTime'
 					obj[key[0]] *= 1000;
 				}
 				await this.persistData(obj['id'], '', key[0], key[0], obj[key[0]], key[1], key[2]);
 			});
+*/
+			for(const key of updateKeys){
+				if (key[0] == 'lastUpdateTime') { 	// special case 'lastUpdateTime'
+					obj[key[0]] *= 1000;
+				}
+				await this.persistData(obj['id'], '', key[0], key[0], obj[key[0]], key[1], key[2]);
+			}
+
 		}
 	}
 
@@ -313,7 +325,7 @@ class Solarmanpv extends utils.Adapter {
 			});
 			await this.setStateAsync('checksumUserData', { val: crc, ack: true });
 			// delete Token
-			this.extendForeignObject('system.adapter.' + this.namespace, {
+			await this.extendForeignObject('system.adapter.' + this.namespace, {
 				native: {
 					activeToken: ''
 				}
