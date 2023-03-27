@@ -93,8 +93,8 @@ class Solarmanpv extends utils.Adapter {
 			this.log.debug(JSON.stringify(error));
 		}
 		finally {
-			await delay (5000);
 			this.log.debug(`[onReady] finished - stopping instance`);
+			await delay (2000);
 			this.terminate ? this.terminate('Everything done. Going to terminate till next schedule', 11) : process.exit(0);
 		}
 		
