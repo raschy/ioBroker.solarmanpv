@@ -51,6 +51,9 @@ makes the number of objects clearer.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (raschy) Error 'DB-closed' fixed
+
 ### 0.3.1 (2023-02-19)
 * (raschy) Inverter-Filter deactivated
 

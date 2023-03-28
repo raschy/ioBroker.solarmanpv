@@ -33,7 +33,7 @@ class Solarmanpv extends utils.Adapter {
 	 */
 	async onTokenChanged(token) {
 		this.log.debug('[onTokenChanged] token changed: ' + token);
-		await this.extendForeignObject('system.adapter.' + this.namespace, {
+		this.extendForeignObject('system.adapter.' + this.namespace, {
 			native: {
 				activeToken: token
 			}
@@ -89,11 +89,10 @@ class Solarmanpv extends utils.Adapter {
 			}
 		}
 		catch (error) {
-			this.log.debug(JSON.stringify(error));
+			this.log.debug(`[try] catch ${JSON.stringify(error)}`);
 		}
 		finally {
 			this.log.debug(`[onReady] finished - stopping instance`);
-			//await this.delay(2000);
 			this.terminate ? this.terminate('Everything done. Going to terminate till next schedule', 11) : process.exit(0);
 		}
 	// End onReady
@@ -177,14 +176,6 @@ class Solarmanpv extends utils.Adapter {
 
 		// define keys that shall not be updated (works in dataList only)
 		const noUpdateKeys = JSON.parse(JSON.stringify(this.config.deviceBlacklist.split(',')));
-/*
-		data.dataList.forEach(async obj => {
-			const result = noUpdateKeys.includes(obj.key);
-			if (!result || obj.value == 'none') {
-				await this.persistData(stationId, inverter.deviceId, obj.key, obj.name, obj.value, 'state', obj.unit);
-			}
-		});
-*/
 		for(const obj of data.dataList){
 			const result = noUpdateKeys.includes(obj.key);
 			if (!result || obj.value == 'none') {
@@ -202,14 +193,7 @@ class Solarmanpv extends utils.Adapter {
 				['generationPower','value.power', 'W'],
 				['networkStatus','state',''],
 				['lastUpdateTime','date', '']];
-			/*
-			updateKeys.forEach(async key => {
-				if (key[0] == 'lastUpdateTime') { 	// special case 'lastUpdateTime'
-					obj[key[0]] *= 1000;
-				}
-				await this.persistData(obj['id'], '', key[0], key[0], obj[key[0]], key[1], key[2]);
-			});
-*/
+
 			for(const key of updateKeys){
 				if (key[0] == 'lastUpdateTime') { 	// special case 'lastUpdateTime'
 					obj[key[0]] *= 1000;
@@ -235,7 +219,7 @@ class Solarmanpv extends utils.Adapter {
 				return response.data;
 			})
 			.catch((error) => {
-				//this.log.warn(`[getDeviceData] ${error}`);
+				this.log.warn(`[getDeviceData] error: ${error.code}`);
 				return Promise.reject(error);
 			});
 	}
@@ -288,12 +272,11 @@ class Solarmanpv extends utils.Adapter {
 		let inputData = this.config.email + this.config.password + this.config.appId + this.config.appSecret + this.config.companyName
 		let crc = crypto5.createHash('md5').update(inputData).digest('hex');
 		// get oldCRC		
-		this.log.debug(`[checkUserData] start`);
 		const object = await this.getStateAsync('checksumUserData');
 		if (typeof (object) !== 'undefined' && object !== null) {
 			this.oldCrc = object?.val;
 		}
-		this.log.debug(`[checkUserData] oldCrc ${this.oldCrc}`);
+		this.log.debug(`[checkUserData] Crc ${this.oldCrc}`);
 		// compare to previous config
 		if(!this.oldCrc || this.oldCrc != crc) {
 			this.log.debug(`[checkUserData] has changed or is new; previous crc: ${this.oldCrc}`);
@@ -325,7 +308,7 @@ class Solarmanpv extends utils.Adapter {
 			});
 			await this.setStateAsync('checksumUserData', { val: crc, ack: true });
 			// delete Token
-			await this.extendForeignObject('system.adapter.' + this.namespace, {
+			this.extendForeignObject('system.adapter.' + this.namespace, {
 				native: {
 					activeToken: ''
 				}
