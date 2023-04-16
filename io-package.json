@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "solarmanpv",
-    "version": "0.3.2",
+    "version": "0.4.0",
     "news": {
+      "0.4.0": {
+        "en": "Solarman has switched to a new platform",
+        "de": "Solarman hat auf eine neue Plattform umgestellt",
+        "ru": "Solarman перешел на новую платформу",
+        "pt": "Solarman mudou para uma nova plataforma",
+        "nl": "Solarman is overgestapt naar een nieuw platform",
+        "fr": "Solarman est passé à une nouvelle plateforme",
+        "it": "Solarman è passato a una nuova piattaforma",
+        "es": "Solarman ha cambiado a una nueva plataforma",
+        "pl": "Solarman przeszedł do nowej platformy",
+        "uk": "Solarman перейшов на нову платформу",
+        "zh-cn": "太阳能man已转向新的平台"
+      },
       "0.3.2": {
         "en": "Error 'DB-closed' fixed",
         "de": "Fehler DB-geschlossen fixiert",
@@ -80,19 +93,6 @@
         "pl": "Dostarczanie danych baterii od inwerterów hybrydowych",
         "uk": "Додавання даних акумулятора від гібридних інверторів",
         "zh-cn": "增加混合喷雾器的电池数据"
-      },
-      "0.1.5": {
-        "en": "Added support for hybrid inverters and 4 MPPTs",
-        "de": "Unterstützung für Hybrid-Wechselrichter und 4 MPPTs",
-        "ru": "Добавлена поддержка гибридных инверторов и 4 MPPT",
-        "pt": "Adicionado suporte para inversores híbridos e 4 MPPTs",
-        "nl": "Vervoegde ondersteuning voor hybride inverters en 4 MPPT's",
-        "fr": "Ajout d'un support pour les convertisseurs hybrides et 4 MPPT",
-        "it": "Aggiunto supporto per inverter ibridi e 4 MPPTs",
-        "es": "Apoyo añadido para inversores híbridos y 4 MPPT",
-        "pl": "Wsparcie dla inwerterów hybrydowych i 4 MPPT",
-        "uk": "Додано підтримку гібридних інверторів та 4 МРТ",
-        "zh-cn": "增加对混合喷雾器和4 MPPT的支助"
       }
     },
     "titleLang": {
