@@ -8,7 +8,7 @@
 const utils = require('@iobroker/adapter-core');
 const fs = require('fs');
 const crypto5 = require('crypto');
-const api = require('./solarmanpvApiClient.js');
+const api = require('./lib/solarmanpvApiClient.js');
 
 class Solarmanpv extends utils.Adapter {
 
