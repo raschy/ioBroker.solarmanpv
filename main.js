@@ -115,24 +115,29 @@ class Solarmanpv extends utils.Adapter {
 		const tempModulIds = [];
 		let enableWriting = false;
 		//
-		for (const obj of tempModulList) {
-			tempModulIds.push(obj['modul']);
-		}
+		try {
+			for (const obj of tempModulList) {
+				tempModulIds.push(obj['modul']);
+			}
 
-		for (let i = 0; i < this.modulIds.length; i++) {
-			const alreadyExist = tempModulIds.includes(this.modulIds[i]);
-			if (!alreadyExist) {
-				enableWriting = true;
+			for (let i = 0; i < this.modulIds.length; i++) {
+				const alreadyExist = tempModulIds.includes(this.modulIds[i]);
+				if (!alreadyExist) {
+					enableWriting = true;
+				}
+			}
+
+			if (enableWriting) {
+				this.log.debug(`[persistConfig] ${JSON.stringify(jsonObj)}`);
+				this.extendForeignObject('system.adapter.' + this.namespace, {
+					native: {
+						deviceModules: jsonObj
+					}
+				});
 			}
 		}
-
-		if (enableWriting) {
-			this.log.debug(`[persistConfig] ${JSON.stringify(jsonObj)}`);
-			this.extendForeignObject('system.adapter.' + this.namespace, {
-				native: {
-					deviceModules: jsonObj
-				}
-			});
+		catch (error) {
+			this.log.debug(`[persistConfig] catch ${JSON.stringify(jsonObj)}`);
 		}
 	}
 	
