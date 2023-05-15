@@ -4,7 +4,7 @@
     "items": {
         "_credentials": {
             "type": "panel",
-            "label": "Credentials",
+            "label": "credentials",
             "items": {
                 "email": {
                     "newLine": true,
@@ -12,7 +12,7 @@
                     "sm": 12,
                     "md": 6,
                     "lg": 6,
-                    "label": "eMail"
+                    "label": "email"
                 },
                 "password": {
                     "type": "password",
@@ -21,51 +21,107 @@
                     "sm": 12,
                     "md": 6,
                     "lg": 6,
-                    "label": "Password"
+                    "label": "password"
                 },
 				"appId": {
                     "type": "number",
                     "sm": 12,
                     "md": 6,
                     "lg": 6,
-                    "label": "APP ID",
-                    "help": "App ID from solarmanpv.com"
+                    "label": "appId",
+                    "help": "appIdfromSolarmanpv"
                 },
                 "appSecret": {
                     "type": "text",
                     "sm": 12,
                     "md": 6,
                     "lg": 6,
-					"label": "APP Secrets",
-                    "help": "Secrets from solarmanpv.com"
+					"label": "appSecrets",
+                    "help": "secretsFromSolarmanpv"
                 },
 				"companyName": {
                     "type": "text",
                     "sm": 12,
                     "md": 6,
                     "lg": 6,
-					"label": "Company Name",
-                    "help": "Name of the company - only for Solarman-Business - "
+					"label": "companyName",
+                    "help": "nameOfCompany"
                 }
             }
         },
 		"_blacklist": {
 			"type": "panel",
-			"label": "Blacklist",
+			"label": "valuesSelection",
 			"items": {
-				"headerDevices": {
+				"_headerBlacklist": {
 					"newLine": true,
 					"type": "header",
-					"text": "Devices Blacklist",
+					"text": "excludedValues",
 					"size": 2
 				},
 				"deviceBlacklist": {
-					"type": "text",
+					"newLine": true,
+					"type": "chips",
+					"delimiter": ",",
+					"label": "termsToBeExcluded",
+					"help": "designateTheValues",
+					"sm": 12
+				},  
+				"headerZero": {
+					"newLine": true,
+					"type": "header",
+					"text": "zeroedValues",
+					"size": 2
+				},
+				"deviceZero": {
+					"newLine": true,
+					"type": "chips",
+					"delimiter": ",",
                     "sm": 12,
                     "md": 12,
                     "lg": 12,
-					"label": "Terms to be excluded"
-   				}			
+					"label": "termsToBeZeroed"
+   				}
+			}
+		},
+		"_systemModules": {
+			"type": "panel",
+			"label": "systemModules",
+			"items": {
+				"_headerModule": {
+					"newLine": true,
+					"type": "header",
+					"text": "selectedSubModules",
+					"size": 2
+				},
+				"deviceModules": {
+					"type": "table",
+					"newLine": true,
+					"sm": 6,
+					"md": 6,
+					"lg": 6,
+					"noDelete": true,
+					"items": [
+						{
+							"type": "number",
+							"attr": "modul",
+							"width": "10%",
+							"title": "modul",
+							"readOnly": true,
+							"filter": false,
+                            "sort": false
+						},
+						{
+							"type": "checkbox",
+							"title": "selected",
+							"attr": "checkSelect",
+							"width": "5%",
+							"readOnly": false,
+							"filter": false,
+                            "sort": false
+						}
+					]
+				}
 			}
 		}
 	}

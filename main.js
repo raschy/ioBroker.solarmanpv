@@ -9,6 +9,7 @@ const utils = require('@iobroker/adapter-core');
 const fs = require('fs');
 const crypto5 = require('crypto');
 const api = require('./lib/solarmanpvApiClient.js');
+const adapterName = require('./package.json').name.split('.').pop();
 
 class Solarmanpv extends utils.Adapter {
 
@@ -25,19 +26,10 @@ class Solarmanpv extends utils.Adapter {
 		this.on('unload', this.onUnload.bind(this));
 		api.eventEmitter.on('tokenChanged', this.onTokenChanged.bind(this));
 		//
-		this.stationIdList = [];
-	}
-
-	/**
-	 * Is called when ApiClient has received new token.
-	 */
-	async onTokenChanged(token) {
-		this.log.debug('[onTokenChanged] token changed: ' + token);
-		this.extendForeignObject('system.adapter.' + this.namespace, {
-			native: {
-				activeToken: token
-			}
-		});
+		this.stationIdList =[];
+		this.modulList =[];
+		this.modulIds =[];
+		this.modulSelect =[];
 	}
 
 	/**
@@ -65,6 +57,7 @@ class Solarmanpv extends utils.Adapter {
 		api.appId = this.config.appId;
 		api.appSecret = this.config.appSecret;
 		api.companyName = this.config.companyName;
+		this.isUnloaded = false;	//??
 
 		const object = this.config.activeToken;
 		if (typeof (object) !== 'undefined' && object !== null) {
@@ -87,6 +80,7 @@ class Solarmanpv extends utils.Adapter {
 					}
 				});
 			}
+			await this.persistConfig(this.modulList);
 		}
 		catch (error) {
 			this.log.debug(`[try] catch ${JSON.stringify(error)}`);
@@ -112,7 +106,46 @@ class Solarmanpv extends utils.Adapter {
 		}
 	}
 
-	// saving data in ioBroker object
+	/**
+	 * Writing the configuration data when the adapter list has changed, normally only once
+	 * @param jsonObj
+	 */
+	async persistConfig(jsonObj) {
+		const tempModulList = JSON.parse(JSON.stringify(this.config.deviceModules));
+		const tempModulIds = [];
+		let enableWriting = false;
+		//
+		for (const obj of tempModulList) {
+			tempModulIds.push(obj['modul']);
+		}
+
+		for (let i = 0; i < this.modulIds.length; i++) {
+			const alreadyExist = tempModulIds.includes(this.modulIds[i]);
+			if (!alreadyExist) {
+				enableWriting = true;
+			}
+		}
+
+		if (enableWriting) {
+			this.log.debug(`[persistConfig] ${JSON.stringify(jsonObj)}`);
+			this.extendForeignObject('system.adapter.' + this.namespace, {
+				native: {
+					deviceModules: jsonObj
+				}
+			});
+		}
+	}
+	
+	/**
+	 * saving data in ioBroker object
+	 * @param {*} station 
+	 * @param {*} device 
+	 * @param {*} name 
+	 * @param {*} description 
+	 * @param {*} value 
+	 * @param {*} role 
+	 * @param {*} unit 
+	 */
 	async persistData(station, device, name, description, value, role, unit) {
 		let dp_Folder;
 		let sensorName;
@@ -125,8 +158,7 @@ class Solarmanpv extends utils.Adapter {
 		}
 		const dp_Device = String(dp_Folder +'.'+ name);
 		//this.log.debug(`[persistData] Station "${station}" Device "${device}" Name "${name}" Sensor "${description}" with value: "${value}" and unit "${unit}" as role "${role}`);
-
-		/*
+		
 		await this.setObjectNotExistsAsync(dp_Folder, {
 			type: 'device',
 			common: {
@@ -134,7 +166,6 @@ class Solarmanpv extends utils.Adapter {
 			},
 			native: {}
 		});
-*/
 
 		// Type-Erkennung
 		let type = 'string';
@@ -161,7 +192,7 @@ class Solarmanpv extends utils.Adapter {
 			native: {}
 		});
 
-		await this.setStateAsync(dp_Device, {val: value, ack: true});
+		await this.setStateAsync(dp_Device, {val: value, ack: true, q:0x00});
 
 		// Beschreibe diese Funktion: Prüfen ob Wert numerisch ist
 		function isNumeric(n) {
@@ -169,23 +200,36 @@ class Solarmanpv extends utils.Adapter {
 		}
 	}
 
-	// update inverter data in ioBroker
+	/**
+	 * update inverter data in ioBroker
+	 * @param {*} stationId 
+	 * @param {*} inverter 
+	 * @param {*} data 
+	 */
 	async updateDeviceData(stationId, inverter, data) {
-		await this.persistData(stationId, inverter.deviceId, 'connectStatus', 'connectStatus', inverter.connectStatus, 'state', '');
-		await this.persistData(stationId, inverter.deviceId, 'collectionTime', 'collectionTime', inverter.collectionTime * 1000, 'date', '');
-
-		// define keys that shall not be updated (works in dataList only)
-		const noUpdateKeys = JSON.parse(JSON.stringify(this.config.deviceBlacklist.split(',')));
-		for(const obj of data.dataList){
-			const result = noUpdateKeys.includes(obj.key);
-			if (!result || obj.value == 'none') {
-				await this.persistData(stationId, inverter.deviceId, obj.key, obj.name, obj.value, 'state', obj.unit);
+		// only selected moduls
+		if (this.modulSelect.includes(inverter.deviceId)) {
+			await this.persistData(stationId, inverter.deviceId, 'connectStatus', 'connectStatus', inverter.connectStatus, 'state', '');
+			await this.persistData(stationId, inverter.deviceId, 'collectionTime', 'collectionTime', inverter.collectionTime * 1000, 'date', '');
+			// blacklist-keys that shall not be updated
+			for (const obj of data.dataList) {
+				if (this.modulSelect.includes(data.deviceId)) {
+					const result = this.config.deviceBlacklist.includes(obj.key);
+					if (!result && obj.value != 'none') {
+						await this.persistData(stationId, inverter.deviceId, obj.key, obj.name, obj.value, 'state', obj.unit);
+					}
+				}
 			}
+		} else {
+			const deviceNameFull = stationId + '.' + inverter.deviceId;
+			await this.deleteObject(deviceNameFull);
 		}
-
 	}
 
-	// update station data in ioBroker
+	/**
+	 * update station data in ioBroker
+	 * @param {*} data 
+	 */
 	async updateStationData(data) {
 		for (const obj of data) {
 			// define keys that shall be updated
@@ -204,9 +248,43 @@ class Solarmanpv extends utils.Adapter {
 		}
 	}
 
-	// get inverter data from api
+	/**
+	* Collects the device IDs that were read in order to subsequently save 
+	* them in the configuration via 'persistConfig'.
+	* @param {number} deviceId Number of the device
+	*/
+	async manageInverterDevice(deviceId) {
+		if (this.modulList.length === 0) {
+			this.modulList = JSON.parse(JSON.stringify(this.config.deviceModules));
+			//
+			for (const obj of this.modulList) {
+				this.modulIds.push(obj['modul']);
+				if (obj['checkSelect']){
+					this.log.debug(`[manageInverterDevice] Checked ID: ${obj['modul']}`);
+					this.modulSelect.push(obj['modul']);
+				} 
+			}
+		}
+		// new devices adding
+		const alreadyExist = this.modulIds.includes(deviceId);
+		if (!alreadyExist) {
+			this.log.debug(`[manageInverterDevice] ADD: ${deviceId}`);
+			this.modulIds.push(deviceId);
+			const jsonObj = { modul: deviceId, checkSelect: true }; //default
+			this.modulList.push(jsonObj);
+		}
+	}
+
+	/**
+	 * get inverter data from api
+	 * @param {*} deviceId 
+	 * @param {*} deviceSn 
+	 * @returns 
+	 */
 	async getDeviceData(deviceId, deviceSn) {
 		this.log.debug(`[getDeviceData] Device ID >: ${deviceId} and Device SN >: ${deviceSn}`);
+		await this.manageInverterDevice(deviceId);
+
 		return api.axios
 			.post(
 				'/device/v1.0/currentData?language=en', // language parameter does not show any effect
@@ -224,9 +302,13 @@ class Solarmanpv extends utils.Adapter {
 			});
 	}
 
-	// get inverter-id from api
+	/**
+	* get inverter-id from api
+	* @param {number} stationId Number of the station
+	* returns deviceListItems
+	*/
 	async initializeInverter(stationId) {
-		this.log.debug(`[initializeInverter] StationID >: ${stationId}`);
+		this.log.debug(`[initializeInverter] Station ID: ${stationId}`);
 		return api.axios
 			.post(
 				'/station/v1.0/device?language=en', // language parameter does not show any effect
@@ -245,7 +327,10 @@ class Solarmanpv extends utils.Adapter {
 			});
 	}
 
-	// get station-id from api (multiple)
+	/**
+	 * Get station id from api (multiple)
+	 * @returns stationlist
+	 */
 	initializeStation() {
 		return api.axios
 			.post(
@@ -267,6 +352,22 @@ class Solarmanpv extends utils.Adapter {
 			});
 	}
 
+	/**
+	 * Is called when ApiClient has received new token.
+	 * @param {*} token 
+	 */
+	async onTokenChanged(token) {
+		this.log.debug('[onTokenChanged] token changed: ' + token);
+		this.extendForeignObject('system.adapter.' + this.namespace, {
+			native: {
+				activeToken: token
+			}
+		});
+	}
+
+	/**
+	* Check whether user data are plausible
+	*/
 	async checkUserData(){
 
 		let inputData = this.config.email + this.config.password + this.config.appId + this.config.appSecret + this.config.companyName
@@ -317,6 +418,28 @@ class Solarmanpv extends utils.Adapter {
 		return
 	}
 
+	/**
+	* Deletes object or states
+	* @param {string} deviceName Name of the Object/State
+	*/
+	async deleteObject(deviceName) {
+		try {
+			// Verify that associated object exists
+			const currentObj = await this.getObjectAsync(deviceName);
+			if (currentObj) {
+				await this.delObjectAsync(deviceName, { recursive: true });
+				this.log.debug(`[deleteObject] Device ID: (${deviceName})`);
+			} else {
+				const currentState = await this.getStateAsync(deviceName);
+				if (currentState) {
+					await this.deleteStateAsync(deviceName);
+					this.log.debug(`[deleteObject] State: (${deviceName})`);
+				}
+			}
+		} catch (e) {
+			this.log.error(`[deleteObject] error while deleting: (${deviceName})`);
+		}
+	}
 // End Class
 }
 
