@@ -80,7 +80,7 @@ class Solarmanpv extends utils.Adapter {
 					}
 				});
 			}
-			await this.persistConfig(this.modulList);
+			// await this.persistConfig(this.modulList);
 		}
 		catch (error) {
 			this.log.debug(`[try] catch ${JSON.stringify(error)}`);
