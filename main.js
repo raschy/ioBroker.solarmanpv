@@ -81,7 +81,6 @@ class Solarmanpv extends utils.Adapter {
 					}
 				});
 			}
-			// await this.persistConfig(this.modulList);
 		}
 		catch (error) {
 			this.log.debug(`[try] catch ${JSON.stringify(error)}`);
@@ -104,41 +103,6 @@ class Solarmanpv extends utils.Adapter {
 		} catch (e) {
 			callback();
 			this.log.error('callback catch');
-		}
-	}
-
-	/**
-	 * Writing the configuration data when the adapter list has changed, normally only once
-	 * @param jsonObj
-	 */
-	async persistConfig(jsonObj) {
-		const tempModulList = JSON.parse(JSON.stringify(this.config.deviceModules));
-		const tempModulIds = [];
-		let enableWriting = false;
-		//
-		try {
-			for (const obj of tempModulList) {
-				tempModulIds.push(obj['modul']);
-			}
-
-			for (let i = 0; i < this.modulIds.length; i++) {
-				const alreadyExist = tempModulIds.includes(this.modulIds[i]);
-				if (!alreadyExist) {
-					enableWriting = true;
-				}
-			}
-
-			if (enableWriting) {
-				this.log.debug(`[persistConfig] ${JSON.stringify(jsonObj)}`);
-				this.extendForeignObject('system.adapter.' + this.namespace, {
-					native: {
-						deviceModules: jsonObj
-					}
-				});
-			}
-		}
-		catch (error) {
-			this.log.debug(`[persistConfig] catch ${JSON.stringify(jsonObj)}`);
 		}
 	}
 	
@@ -214,17 +178,28 @@ class Solarmanpv extends utils.Adapter {
 	 */
 	async updateDeviceData(stationId, inverter, data) {
 		// only selected moduls
+
+		console.log(`[updateDeviceData]  ${JSON.stringify(this.modulList)}`);
+		
+		for (const obj of this.modulList) {
+			this.modulIds.push(obj['modul']);
+			if (obj['checkSelect']) {
+				this.log.debug(`[updateDeviceData] Checked ID: ${obj['modul']}`);
+				this.modulSelect.push(obj['modul']);
+			}
+		}
+		
 		if (this.modulSelect.includes(inverter.deviceId)) {
 			await this.persistData(stationId, inverter.deviceId, 'connectStatus', 'connectStatus', inverter.connectStatus, 'state', '');
 			await this.persistData(stationId, inverter.deviceId, 'collectionTime', 'collectionTime', inverter.collectionTime * 1000, 'date', '');
 			// blacklist-keys that shall not be updated
 			for (const obj of data.dataList) {
-				if (this.modulSelect.includes(data.deviceId)) {
+				//if (this.modulSelect.includes(data.deviceId)) {
 					const result = this.config.deviceBlacklist.includes(obj.key);
 					if (!result && obj.value != 'none') {
 						await this.persistData(stationId, inverter.deviceId, obj.key, obj.name, obj.value, 'state', obj.unit);
 					}
-				}
+				//}
 			}
 		} else {
 			const deviceNameFull = stationId + '.' + inverter.deviceId;
@@ -254,32 +229,7 @@ class Solarmanpv extends utils.Adapter {
 		}
 	}
 
-	/**
-	* Collects the device IDs that were read in order to subsequently save 
-	* them in the configuration via 'persistConfig'.
-	* @param {number} deviceId Number of the device
-	*/
-	async _manageInverterDevice(deviceId) {
-		if (this.modulList.length === 0) {
-			this.modulList = JSON.parse(JSON.stringify(this.config.deviceModules));
-			//
-			for (const obj of this.modulList) {
-				this.modulIds.push(obj['modul']);
-				if (obj['checkSelect']){
-					this.log.debug(`[manageInverterDevice] Checked ID: ${obj['modul']}`);
-					this.modulSelect.push(obj['modul']);
-				} 
-			}
-		}
-		// new devices adding
-		const alreadyExist = this.modulIds.includes(deviceId);
-		if (!alreadyExist) {
-			this.log.debug(`[manageInverterDevice] ADD: ${deviceId}`);
-			this.modulIds.push(deviceId);
-			const jsonObj = { modul: deviceId, checkSelect: true }; //default
-			this.modulList.push(jsonObj);
-		}
-	}
+
 
 	/**
 	 * get inverter data from api
@@ -308,55 +258,27 @@ class Solarmanpv extends utils.Adapter {
 			});
 	}
 
+	/**
+	 * Collects the device IDs that were read in order to subsequently save 
+	 * them in the configuration.
+ 	 * @param {*} inverterList 
+	 */
 	async manageInverterDevice(inverterList) {
-
 		this.modulList = JSON.parse(JSON.stringify(this.config.deviceModules));
 		if (this.modulList.length === 0) {
 			const jsonObj = [];
 			for (const inverter of inverterList) {
-				console.log(`[manageInverterDevice] ${JSON.stringify(inverter.deviceId)} `)
 				this.log.debug(`[manageInverterDevice] ADD: ${inverter.deviceId}`);
 				this.modulIds.push(inverter.deviceId);
 				const jsonObj = { modul: inverter.deviceId, checkSelect: true }; //default
 				this.modulList.push(jsonObj);
 			}
-			console.log(`[persistConfig] ${JSON.stringify(this.modulList)}`);
 			this.extendForeignObject('system.adapter.' + this.namespace, {
 				native: {
 					deviceModules: this.modulList
 				}
 			});
 		}
-		// slected modules
-		for (const obj of this.modulList) {
-			this.modulIds.push(obj['modul']);
-			if (obj['checkSelect']) {
-				this.log.debug(`[manageInverterDevice] Checked ID: ${obj['modul']}`);
-				this.modulSelect.push(obj['modul']);
-			}
-		}
-
-		/*
-		if (this.modulList.length === 0) {
-			this.modulList = JSON.parse(JSON.stringify(this.config.deviceModules));
-			//
-			for (const obj of this.modulList) {
-				this.modulIds.push(obj['modul']);
-				if (obj['checkSelect']){
-					this.log.debug(`[manageInverterDevice] Checked ID: ${obj['modul']}`);
-					this.modulSelect.push(obj['modul']);
-				} 
-			}
-		}
-		// new devices adding
-		const alreadyExist = this.modulIds.includes(deviceId);
-		if (!alreadyExist) {
-			this.log.debug(`[manageInverterDevice] ADD: ${deviceId}`);
-			this.modulIds.push(deviceId);
-			const jsonObj = { modul: deviceId, checkSelect: true }; //default
-			this.modulList.push(jsonObj);
-		}
-		*/
 	}
 
 	//for (const inverter of inverterList) {
