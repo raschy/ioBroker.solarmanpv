@@ -56,7 +56,6 @@ class Solarmanpv extends utils.Adapter {
 		api.appId = this.config.appId;
 		api.appSecret = this.config.appSecret;
 		api.companyName = this.config.companyName;
-		this.isUnloaded = false;	//??
 
 		const object = this.config.activeToken;
 		if (typeof (object) !== 'undefined' && object !== null) {
@@ -418,7 +417,7 @@ class Solarmanpv extends utils.Adapter {
 				}
 			}
 		} catch (e) {
-			this.log.error(`[deleteObject] error while deleting: (${deviceName})`);
+			this.log.error(`[deleteObject] error ${e} while deleting: (${deviceName})`);
 		}
 	}
 // End Class
