@@ -28,7 +28,6 @@ class Solarmanpv extends utils.Adapter {
 		//
 		this.stationIdList =[];
 		this.modulList =[];
-		this.modulIds =[];
 		this.modulSelect =[];
 	}
 
@@ -132,7 +131,7 @@ class Solarmanpv extends utils.Adapter {
 		await this.setObjectNotExistsAsync(dp_Folder, {
 			type: 'device',
 			common: {
-				name: device
+				name: String(device)
 			},
 			native: {}
 		});
@@ -178,28 +177,24 @@ class Solarmanpv extends utils.Adapter {
 	 */
 	async updateDeviceData(stationId, inverter, data) {
 		// only selected moduls
-
-		console.log(`[updateDeviceData]  ${JSON.stringify(this.modulList)}`);
-		
 		for (const obj of this.modulList) {
-			this.modulIds.push(obj['modul']);
-			if (obj['checkSelect']) {
-				this.log.debug(`[updateDeviceData] Checked ID: ${obj['modul']}`);
-				this.modulSelect.push(obj['modul']);
+			if (!this.modulSelect.includes(obj['modul'])) {
+				if (obj['checkSelect']) {
+					this.modulSelect.push(obj['modul']);
+				}
 			}
 		}
-		
+
 		if (this.modulSelect.includes(inverter.deviceId)) {
+			this.log.debug(`[updateDeviceData] Device ID: ${inverter.deviceId}`);
 			await this.persistData(stationId, inverter.deviceId, 'connectStatus', 'connectStatus', inverter.connectStatus, 'state', '');
 			await this.persistData(stationId, inverter.deviceId, 'collectionTime', 'collectionTime', inverter.collectionTime * 1000, 'date', '');
 			// blacklist-keys that shall not be updated
 			for (const obj of data.dataList) {
-				//if (this.modulSelect.includes(data.deviceId)) {
 					const result = this.config.deviceBlacklist.includes(obj.key);
 					if (!result && obj.value != 'none') {
 						await this.persistData(stationId, inverter.deviceId, obj.key, obj.name, obj.value, 'state', obj.unit);
 					}
-				//}
 			}
 		} else {
 			const deviceNameFull = stationId + '.' + inverter.deviceId;
@@ -228,8 +223,6 @@ class Solarmanpv extends utils.Adapter {
 
 		}
 	}
-
-
 
 	/**
 	 * get inverter data from api
@@ -269,7 +262,6 @@ class Solarmanpv extends utils.Adapter {
 			const jsonObj = [];
 			for (const inverter of inverterList) {
 				this.log.debug(`[manageInverterDevice] ADD: ${inverter.deviceId}`);
-				this.modulIds.push(inverter.deviceId);
 				const jsonObj = { modul: inverter.deviceId, checkSelect: true }; //default
 				this.modulList.push(jsonObj);
 			}
@@ -350,7 +342,6 @@ class Solarmanpv extends utils.Adapter {
 	* Check whether user data are plausible
 	*/
 	async checkUserData(){
-
 		let inputData = this.config.email + this.config.password + this.config.appId + this.config.appSecret + this.config.companyName
 		let crc = crypto5.createHash('md5').update(inputData).digest('hex');
 		// get oldCRC		
@@ -395,6 +386,15 @@ class Solarmanpv extends utils.Adapter {
 					activeToken: ''
 				}
 			});
+			console.log (`Token deleted`);
+			// delete config.deviceModules
+			this.extendForeignObject('system.adapter.' + this.namespace, {
+				native: {
+					deviceModules: []
+				}
+			});
+			console.log (`DeviceModules deleted from ${this.namespace}`);
+
 		}
 		return
 	}
