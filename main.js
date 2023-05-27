@@ -9,7 +9,6 @@ const utils = require('@iobroker/adapter-core');
 const fs = require('fs');
 const crypto5 = require('crypto');
 const api = require('./lib/solarmanpvApiClient.js');
-const adapterName = require('./package.json').name.split('.').pop();
 
 class Solarmanpv extends utils.Adapter {
 
@@ -230,7 +229,7 @@ class Solarmanpv extends utils.Adapter {
 	 * @returns 
 	 */
 	async getDeviceData(deviceId, deviceSn) {
-		this.log.debug(`[getDeviceData] Device ID >: ${deviceId} and Device SN >: ${deviceSn}`);
+		this.log.debug(`[getDeviceData] Device ID: ${deviceId} and Device SN: ${deviceSn}`);
 		await this.manageInverterDevice(deviceId);
 
 		return api.axios
