@@ -53,7 +53,7 @@ adaptations of the api, as far as they exist, have not been made.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.4.1 (2023-05-27)
 * (raschy) Do not display devices that are not required
 
 ### 0.4.0 (2023-04-16)

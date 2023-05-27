@@ -1,183 +1,183 @@
 {
-    "common": {
-        "name": "solarmanpv",
-        "version": "0.4.0",
-        "news": {
-            "0.4.0": {
-                "en": "Solarman has switched to a new platform",
-                "de": "Solarman hat auf eine neue Plattform umgestellt",
-                "ru": "Solarman перешел на новую платформу",
-                "pt": "Solarman mudou para uma nova plataforma",
-                "nl": "Solarman is overgestapt naar een nieuw platform",
-                "fr": "Solarman est passé à une nouvelle plateforme",
-                "it": "Solarman è passato a una nuova piattaforma",
-                "es": "Solarman ha cambiado a una nueva plataforma",
-                "pl": "Solarman przeszedł do nowej platformy",
-                "uk": "Solarman перейшов на нову платформу",
-                "zh-cn": "太阳能man已转向新的平台"
-            },
-            "0.3.2": {
-                "en": "Error 'DB-closed' fixed",
-                "de": "Fehler DB-geschlossen fixiert",
-                "ru": "Ошибка DB-closed исправлена",
-                "pt": "Erro DB-closeed corrigido",
-                "nl": "Error DB-closseert",
-                "fr": "Erreur DB-closed fixed",
-                "it": "Errore DB chiuso fisso",
-                "es": "Error DB",
-                "pl": "Error DB-closed fixed (ang.)",
-                "uk": "Помилка DB-закривається фіксованою",
-                "zh-cn": "Error DB-闭门固定"
-            },
-            "0.3.1": {
-                "en": "Inverter-Filter deactivated",
-                "de": "Inverter-Filter deaktiviert",
-                "ru": "Inverter-Filter деактивирован",
-                "pt": "Inverter-Filter desativado",
-                "nl": "Inverter-Filter gedeactiveerd",
-                "fr": "Inverter-Filter désactivé",
-                "it": "Inverter-Filter disattivato",
-                "es": "Inverter-Filter desactivado",
-                "pl": "Inverter dezaktywował",
-                "uk": "Інвертор-Фільтр деактивований",
-                "zh-cn": "动植物"
-            },
-            "0.3.0": {
-                "en": "Blacklist added",
-                "de": "Blacklist hinzugefügt",
-                "ru": "Blacklist добавлен",
-                "pt": "Lista negra adicionada",
-                "nl": "Blacklist toegevoegd",
-                "fr": "Blacklist ajouté",
-                "it": "Blacklist aggiunto",
-                "es": "Lista negra",
-                "pl": "Blacklist dodał",
-                "uk": "Чорний список додано",
-                "zh-cn": "黑名单"
-            },
-            "0.2.2": {
-                "en": "->\t(raschy) Release for github/npm",
-                "de": "-> (raschy) Veröffentlichung für github/npm",
-                "ru": "-> (raschy) Релиз для github/npm",
-                "pt": "-> (raschy) Lançamento para github/npm",
-                "nl": "- Laat los voor github/npm",
-                "fr": "- Libération (raschy) pour github/npm",
-                "it": "-> (raschy) Rilasciare per github/npm",
-                "es": "- título para github/npm",
-                "pl": "-> (raschy) Release for github/npm",
-                "uk": "-> (raschy) Реліз для github/npm",
-                "zh-cn": "- 基思布/恩普姆(签名)"
-            },
-            "0.2.1": {
-                "en": "Timeout extended, type error fixed during setup, some data added from BMS",
-                "de": "Timeout erweitert, Typfehler beim Setup behoben, einige Daten von BMS hinzugefügt",
-                "ru": "Timeout расширен, ошибка типа исправлена во время установки, некоторые данные добавлены из BMS",
-                "pt": "Timeout estendido, erro de tipo fixo durante a configuração, alguns dados adicionados do BMS",
-                "nl": "Time-out uitgebreid, typefout gerepareerd tijdens de opstelling, wat gegevens van BMS",
-                "fr": "Timeout prolongé, erreur de type corrigée lors de la configuration, quelques données ajoutées de BMS",
-                "it": "Timeout esteso, errore di tipo fisso durante la configurazione, alcuni dati aggiunti da BMS",
-                "es": "Timeout extended, tipo error fijo durante la configuración, algunos datos añadidos de BMS",
-                "pl": "Rozszerzenia czasu, błędy typu ustalono podczas zestawu danych z BMS",
-                "uk": "Розширення часу, виправлена помилка типу під час налаштування, деякі дані, додані з BMS",
-                "zh-cn": "时间延长、固定期间固定的类型错误、从内部管理处增加的一些数据"
-            },
-            "0.2.0": {
-                "en": "Adding the battery data from hybrid inverters",
-                "de": "Hinzufügen der Batteriedaten von Hybrid-Wechselrichtern",
-                "ru": "Добавление данных батареи от гибридных инверторов",
-                "pt": "Adicionando os dados da bateria de inversores híbridos",
-                "nl": "Voeg de batterij gegevens toe van hybride invers",
-                "fr": "Ajout des données de batterie des onduleurs hybrides",
-                "it": "Aggiungere i dati della batteria da inverter ibridi",
-                "es": "Añadiendo los datos de la batería de los inversores híbridos",
-                "pl": "Dostarczanie danych baterii od inwerterów hybrydowych",
-                "uk": "Додавання даних акумулятора від гібридних інверторів",
-                "zh-cn": "增加混合喷雾器的电池数据"
-            }
-        },
-        "titleLang": {
-            "en": "Solarman PV",
-            "de": "Solarman PV",
-            "ru": "Соларман ПВ",
-            "pt": "Solarman fotovoltaico",
-            "nl": "Solarman PV",
-            "fr": "PV Solarman",
-            "it": "Solarman PV",
-            "es": "fotovoltaica solarman",
-            "pl": "Solarman PV",
-            "zh-cn": "太阳能光伏",
-            "uk": "Соларман П.В"
-        },
-        "desc": {
-            "en": "Reading data from balcony power plant",
-            "de": "Auslesen von Daten aus dem Balkonkraftwerk",
-            "ru": "Чтение данных с балконной электростанции",
-            "pt": "Lendo dados da usina de varanda",
-            "nl": "Gegevens lezen van balkoncentrale",
-            "fr": "Lecture des données de la centrale électrique du balcon",
-            "it": "Lettura dei dati dalla centrale elettrica del balcone",
-            "es": "Lectura de datos de la planta de energía del balcón",
-            "pl": "Odczytywanie danych z elektrowni balkonowej",
-            "zh-cn": "从阳台电厂读取数据",
-            "uk": "Зчитування даних з балконної електростанції"
-        },
-        "authors": [
-            "raschy <raschy@gmx.de>"
-        ],
-        "keywords": [
-            "solar",
-            "balcony power plant",
-            "mi600"
-        ],
-        "license": "MIT",
-        "platform": "Javascript/Node.js",
-        "main": "main.js",
-        "icon": "solarmanpv.png",
-        "enabled": false,
-        "extIcon": "https://raw.githubusercontent.com/raschy/ioBroker.solarmanpv/main/admin/solarmanpv.png",
-        "readme": "https://github.com/raschy/ioBroker.solarmanpv/blob/main/README.md",
-        "loglevel": "info",
-        "mode": "schedule",
-        "allowInit": true,
-        "schedule": "*/6 * * * *",
-        "type": "energy",
-        "compact": true,
-        "connectionType": "cloud",
-        "dataSource": "poll",
-        "stopBeforeUpdate": true,
-        "stopTimeout": 1000,
-        "adminUI": {
-            "config": "json"
-        },
-        "dependencies": [
-            {
-                "js-controller": ">=4.0.0"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "admin": ">=5.1.28"
-            }
-        ]
+  "common": {
+    "name": "solarmanpv",
+    "version": "0.4.1",
+    "news": {
+      "0.4.1": {
+        "en": "Do not display devices that are not required",
+        "de": "Keine Geräte anzeigen, die nicht benötigt werden",
+        "ru": "Не отображать устройства, которые не требуются",
+        "pt": "Não exibir dispositivos que não são necessários",
+        "nl": "Vertoon geen apparaten die niet nodig zijn",
+        "fr": "Ne pas afficher les appareils qui ne sont pas nécessaires",
+        "it": "Non visualizzare dispositivi che non sono necessari",
+        "es": "No mostrar dispositivos que no son necesarios",
+        "pl": "Nie posiada urządzeń, które nie są wymagane, nie są wymagane",
+        "uk": "Не потрібно відображати пристрої, які не потрібні",
+        "zh-cn": "不显示不需要的设备"
+      },
+      "0.4.0": {
+        "en": "Solarman has switched to a new platform",
+        "de": "Solarman hat auf eine neue Plattform umgestellt",
+        "ru": "Solarman перешел на новую платформу",
+        "pt": "Solarman mudou para uma nova plataforma",
+        "nl": "Solarman is overgestapt naar een nieuw platform",
+        "fr": "Solarman est passé à une nouvelle plateforme",
+        "it": "Solarman è passato a una nuova piattaforma",
+        "es": "Solarman ha cambiado a una nueva plataforma",
+        "pl": "Solarman przeszedł do nowej platformy",
+        "uk": "Solarman перейшов на нову платформу",
+        "zh-cn": "太阳能man已转向新的平台"
+      },
+      "0.3.2": {
+        "en": "Error 'DB-closed' fixed",
+        "de": "Fehler DB-geschlossen fixiert",
+        "ru": "Ошибка DB-closed исправлена",
+        "pt": "Erro DB-closeed corrigido",
+        "nl": "Error DB-closseert",
+        "fr": "Erreur DB-closed fixed",
+        "it": "Errore DB chiuso fisso",
+        "es": "Error DB",
+        "pl": "Error DB-closed fixed (ang.)",
+        "uk": "Помилка DB-закривається фіксованою",
+        "zh-cn": "Error DB-闭门固定"
+      },
+      "0.3.1": {
+        "en": "Inverter-Filter deactivated",
+        "de": "Inverter-Filter deaktiviert",
+        "ru": "Inverter-Filter деактивирован",
+        "pt": "Inverter-Filter desativado",
+        "nl": "Inverter-Filter gedeactiveerd",
+        "fr": "Inverter-Filter désactivé",
+        "it": "Inverter-Filter disattivato",
+        "es": "Inverter-Filter desactivado",
+        "pl": "Inverter dezaktywował",
+        "uk": "Інвертор-Фільтр деактивований",
+        "zh-cn": "动植物"
+      },
+      "0.3.0": {
+        "en": "Blacklist added",
+        "de": "Blacklist hinzugefügt",
+        "ru": "Blacklist добавлен",
+        "pt": "Lista negra adicionada",
+        "nl": "Blacklist toegevoegd",
+        "fr": "Blacklist ajouté",
+        "it": "Blacklist aggiunto",
+        "es": "Lista negra",
+        "pl": "Blacklist dodał",
+        "uk": "Чорний список додано",
+        "zh-cn": "黑名单"
+      },
+      "0.2.2": {
+        "en": "->\t(raschy) Release for github/npm",
+        "de": "-> (raschy) Veröffentlichung für github/npm",
+        "ru": "-> (raschy) Релиз для github/npm",
+        "pt": "-> (raschy) Lançamento para github/npm",
+        "nl": "- Laat los voor github/npm",
+        "fr": "- Libération (raschy) pour github/npm",
+        "it": "-> (raschy) Rilasciare per github/npm",
+        "es": "- título para github/npm",
+        "pl": "-> (raschy) Release for github/npm",
+        "uk": "-> (raschy) Реліз для github/npm",
+        "zh-cn": "- 基思布/恩普姆(签名)"
+      },
+      "0.2.1": {
+        "en": "Timeout extended, type error fixed during setup, some data added from BMS",
+        "de": "Timeout erweitert, Typfehler beim Setup behoben, einige Daten von BMS hinzugefügt",
+        "ru": "Timeout расширен, ошибка типа исправлена во время установки, некоторые данные добавлены из BMS",
+        "pt": "Timeout estendido, erro de tipo fixo durante a configuração, alguns dados adicionados do BMS",
+        "nl": "Time-out uitgebreid, typefout gerepareerd tijdens de opstelling, wat gegevens van BMS",
+        "fr": "Timeout prolongé, erreur de type corrigée lors de la configuration, quelques données ajoutées de BMS",
+        "it": "Timeout esteso, errore di tipo fisso durante la configurazione, alcuni dati aggiunti da BMS",
+        "es": "Timeout extended, tipo error fijo durante la configuración, algunos datos añadidos de BMS",
+        "pl": "Rozszerzenia czasu, błędy typu ustalono podczas zestawu danych z BMS",
+        "uk": "Розширення часу, виправлена помилка типу під час налаштування, деякі дані, додані з BMS",
+        "zh-cn": "时间延长、固定期间固定的类型错误、从内部管理处增加的一些数据"
+      }
     },
-    "native": {
-        "email": "",
-        "password": "",
-        "appId": "",
-        "appSecret": "",
-        "companyName": "",
-        "activeToken": "",
-        "deviceBlacklist": "",
-        "deviceZero": "",
-        "deviceModules": ""
+    "titleLang": {
+      "en": "Solarman PV",
+      "de": "Solarman PV",
+      "ru": "Соларман ПВ",
+      "pt": "Solarman fotovoltaico",
+      "nl": "Solarman PV",
+      "fr": "PV Solarman",
+      "it": "Solarman PV",
+      "es": "fotovoltaica solarman",
+      "pl": "Solarman PV",
+      "zh-cn": "太阳能光伏",
+      "uk": "Соларман П.В"
     },
-    "protectedNative": [
-        "email",
-        "password"
+    "desc": {
+      "en": "Reading data from balcony power plant",
+      "de": "Auslesen von Daten aus dem Balkonkraftwerk",
+      "ru": "Чтение данных с балконной электростанции",
+      "pt": "Lendo dados da usina de varanda",
+      "nl": "Gegevens lezen van balkoncentrale",
+      "fr": "Lecture des données de la centrale électrique du balcon",
+      "it": "Lettura dei dati dalla centrale elettrica del balcone",
+      "es": "Lectura de datos de la planta de energía del balcón",
+      "pl": "Odczytywanie danych z elektrowni balkonowej",
+      "zh-cn": "从阳台电厂读取数据",
+      "uk": "Зчитування даних з балконної електростанції"
+    },
+    "authors": [
+      "raschy <raschy@gmx.de>"
     ],
-    "encryptedNative": [
-        "password"
+    "keywords": [
+      "solar",
+      "balcony power plant",
+      "mi600"
     ],
-    "objects": [],
-    "instanceObjects": []
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "main.js",
+    "icon": "solarmanpv.png",
+    "enabled": false,
+    "extIcon": "https://raw.githubusercontent.com/raschy/ioBroker.solarmanpv/main/admin/solarmanpv.png",
+    "readme": "https://github.com/raschy/ioBroker.solarmanpv/blob/main/README.md",
+    "loglevel": "info",
+    "mode": "schedule",
+    "allowInit": true,
+    "schedule": "*/6 * * * *",
+    "type": "energy",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "stopBeforeUpdate": true,
+    "stopTimeout": 1000,
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=4.0.0"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=5.1.28"
+      }
+    ]
+  },
+  "native": {
+    "email": "",
+    "password": "",
+    "appId": "",
+    "appSecret": "",
+    "companyName": "",
+    "activeToken": "",
+    "deviceBlacklist": "",
+    "deviceZero": "",
+    "deviceModules": ""
+  },
+  "protectedNative": [
+    "email",
+    "password"
+  ],
+  "encryptedNative": [
+    "password"
+  ],
+  "objects": [],
+  "instanceObjects": []
 }
