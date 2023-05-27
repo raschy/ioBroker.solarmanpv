@@ -11,7 +11,7 @@
     "valuesSelection": "Werteauswahl",
     "excludedValues": "Ausgeschlossene Werte",
     "termsToBeExcluded": "Auszuschließende Begriffe",
-	"designateTheValues": "Benennen Sie die Werte. (Durch Komma getrennt, z. B. „LG_F_L1,MICROINV_port3“)",
+    "designateTheValues": "Benennen Sie die Werte. (Durch Komma getrennt, z. B. „LG_F_L1,MICROINV_port3“)",
     "zeroedValues": "Auf Null setzen",
     "termsToBeZeroed": "Werte, die auf Null gesetzt werden",
     "systemModules": "Systemmodule",
