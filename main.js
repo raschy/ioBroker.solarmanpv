@@ -384,15 +384,14 @@ class Solarmanpv extends utils.Adapter {
 					activeToken: ''
 				}
 			});
-			console.log (`Token deleted`);
+			this.log.debug(`Token deleted`);
 			// delete config.deviceModules
 			this.extendForeignObject('system.adapter.' + this.namespace, {
 				native: {
 					deviceModules: []
 				}
 			});
-			console.log (`DeviceModules deleted from ${this.namespace}`);
-
+			this.log.debug(`DeviceModules deleted from ${this.namespace}`);
 		}
 		return
 	}
