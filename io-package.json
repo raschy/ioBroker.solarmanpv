@@ -169,7 +169,7 @@
     "activeToken": "",
     "deviceBlacklist": "",
     "deviceZero": "",
-    "deviceModules": ""
+    "deviceModules": []
   },
   "protectedNative": [
     "email",
