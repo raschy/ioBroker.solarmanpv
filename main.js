@@ -262,6 +262,7 @@ class Solarmanpv extends utils.Adapter {
 		let isArray = Array.isArray(this.modulList);
 		if (!isArray || this.config.clearModules) {
 			this.modulList = [];
+			this.config.clearModules = false;
 			this.log.debug(`[manageInverterDevice] Modullist cleared`);
 		}
 		/*			
