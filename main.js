@@ -425,16 +425,14 @@ class Solarmanpv extends utils.Adapter {
 		return
 	}
 
-	//	console.log (`[updateDeviceData] to delete: ${obj.key}`);
 	/**
 	 * Deletes states
-	 * @param {*} stationID 
-	 * @param {*} deviceName 
+	 * @param {number} stationID 
+	 * @param {number} deviceName 
 	 * @param {*} stateName 
 	 */
 	async deleteDeviceState(stationID, deviceName, stateName) {
 		const stateToDelete = stationID + '.' + deviceName + '.' + stateName;
-		//console.log(`[deleteDeviceState] to delete: ${stateToDelete}`);
 		try {
 			// Verify that associated object exists
 			const currentObj = await this.getStateAsync(stateToDelete);
@@ -455,8 +453,8 @@ class Solarmanpv extends utils.Adapter {
 
 	/**
 	 * Deletes object or states
-	 * @param {*} stationId 
-	 * @param {*} deviceId 
+	 * @param {number} stationId 
+	 * @param {number} deviceId 
 	 */
 	async deleteDeviceObject(stationId, deviceId) {
 		const deviceName = stationId + '.' + deviceId;
