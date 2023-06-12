@@ -170,7 +170,7 @@
         "deviceBlacklist": "",
         "deviceZero": "",
         "deviceModules": [],
-		"clearModules": false
+        "clearModules": false
     },
     "protectedNative": [
         "email",
