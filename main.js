@@ -6,7 +6,6 @@
 // you need to create an adapter
 'use strict';
 const utils = require('@iobroker/adapter-core');
-const fs = require('fs');
 const crypto5 = require('crypto');
 const api = require('./lib/solarmanpvApiClient.js');
 
@@ -258,26 +257,16 @@ class Solarmanpv extends utils.Adapter {
 	async manageInverterDevice(inverterList) {
 		let modulListChanged = false;
 		this.modulList = this.config.deviceModules;
-		console.log(`Known Modules: ${JSON.stringify(this.modulList)}`);
 		let isArray = Array.isArray(this.modulList);
 		if (!isArray || this.config.clearModules) {
 			this.modulList = [];
-			this.config.clearModules = false;
 			this.log.debug(`[manageInverterDevice] Modullist cleared`);
 		}
-		/*			
-				// removing devices, if not longer exist
-				this.modulList = this.modulList.filter(device => inverterList.find(inverter => device.modul == inverter.deviceId));
-				if (modulListMember != this.modulList.length) {
-					this.log.debug(`[manageInverterDevice] Devicelist changed: ${this.modulList.length}`);
-					modulListChanged = true;
-				}
-		*/
+
 		// add new devices
 		for (const inverter of inverterList) {
 			if (!this.modulList.find(element => element.modul == inverter.deviceId)) {
 				this.log.debug(`[manageInverterDevice] ADD: ${inverter.deviceId}`);
-				console.log(`ADD ${inverter.deviceId}`);
 				this.modulList.push({ modul: inverter.deviceId, checkSelect: true });	//default
 				modulListChanged = true;
 			}
@@ -300,10 +289,11 @@ class Solarmanpv extends utils.Adapter {
 						});
 						// config.clearModules reset
 						if (this.config.clearModules) {
-							obj.native.clearModules = false; // modify object
+							this.config.clearModules = false;
+							obj.native.clearModules = this.config.clearModules
 							this.setForeignObject(obj._id, obj, (err) => {
 								if (err) {
-									this.log.error(`[manageInverterDevice] Error while reset clearModules: ${err}`);
+									this.log.error(`[manageInverterDevice] Error while resetting clearModules: ${err}`);
 								} else {
 									this.log.debug(`[manageInverterDevice] clearModules resettet`);
 								}
@@ -468,7 +458,7 @@ class Solarmanpv extends utils.Adapter {
 	}
 
 	/**
-	 * Deletes object or states
+	 * Deletes object or states (recursive)
 	 * @param {number} stationId 
 	 * @param {number} deviceId 
 	 */
