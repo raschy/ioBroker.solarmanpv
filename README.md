@@ -53,6 +53,10 @@ adaptations of the api, as far as they exist, have not been made.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (raschy) Blacklist also deletes data points
+* (raschy) Fixed error with multiple inverters
+
 ### 0.4.2 (2023-05-31)
 * (raschy) Module selection activated
 
@@ -132,19 +136,15 @@ adaptations of the api, as far as they exist, have not been made.
 * (raschy) Crypto version changed
 
 ### 0.0.4 (2022-06-19)
-
 * (raschy) Dependecies addet
 
 ### 0.0.3 (2022-06-19)
-
 * (raschy) ReadMe changed
 
 ### 0.0.2 (2022-06-19)
-
 * (raschy) changed to jsonConfig
 
-### 0.0.1 (2022-06-16
-
+### 0.0.1 (2022-06-16)
 * (raschy) initial release
 
 ## License

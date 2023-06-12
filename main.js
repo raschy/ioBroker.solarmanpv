@@ -25,9 +25,9 @@ class Solarmanpv extends utils.Adapter {
 		this.on('unload', this.onUnload.bind(this));
 		api.eventEmitter.on('tokenChanged', this.onTokenChanged.bind(this));
 		//
-		this.stationIdList =[];
-		this.modulList =[];
-		this.modulSelect =[];
+		this.stationIdList = [];
+		this.modulList = [];
+		this.modulSelect = [];
 	}
 
 	/**
@@ -66,9 +66,9 @@ class Solarmanpv extends utils.Adapter {
 
 		try {
 			// get station-id via api-call
-			await this.initializeStation().then(async result => 
+			await this.initializeStation().then(async result =>
 				await this.updateStationData(result));
-				
+
 			for (const stationId of this.stationIdList) {
 				await this.initializeInverter(stationId).then(async inverterList => {
 					await this.manageInverterDevice(inverterList);
@@ -86,7 +86,7 @@ class Solarmanpv extends utils.Adapter {
 			this.log.debug(`[onReady] finished - stopping instance`);
 			this.terminate ? this.terminate('Everything done. Going to terminate till next schedule', 11) : process.exit(0);
 		}
-	// End onReady
+		// End onReady
 	}
 	/**
 	 * Is called when adapter shuts down - callback has to be called under any circumstances!
@@ -102,7 +102,7 @@ class Solarmanpv extends utils.Adapter {
 			this.log.error('callback catch');
 		}
 	}
-	
+
 	/**
 	 * saving data in ioBroker object
 	 * @param {*} station 
@@ -118,14 +118,14 @@ class Solarmanpv extends utils.Adapter {
 		let sensorName;
 		if (device == '') {
 			dp_Folder = String(station);
-			sensorName = station +'.'+ description;
+			sensorName = station + '.' + description;
 		} else {
-			dp_Folder = String(station) +'.'+ String(device);
-			sensorName = device +'.'+ description;
+			dp_Folder = String(station) + '.' + String(device);
+			sensorName = device + '.' + description;
 		}
-		const dp_Device = String(dp_Folder +'.'+ name);
+		const dp_Device = String(dp_Folder + '.' + name);
 		//this.log.debug(`[persistData] Station "${station}" Device "${device}" Name "${name}" Sensor "${description}" with value: "${value}" and unit "${unit}" as role "${role}`);
-		
+
 		await this.setObjectNotExistsAsync(dp_Folder, {
 			type: 'device',
 			common: {
@@ -150,6 +150,7 @@ class Solarmanpv extends utils.Adapter {
 			common: {
 				name: sensorName,
 				role: role,
+				// @ts-ignore
 				type: type,
 				// @ts-ignore
 				unit: unit,
@@ -159,7 +160,7 @@ class Solarmanpv extends utils.Adapter {
 			native: {}
 		});
 
-		await this.setStateAsync(dp_Device, {val: value, ack: true, q:0x00});
+		await this.setStateAsync(dp_Device, { val: value, ack: true, q: 0x00 });
 
 		// Beschreibe diese Funktion: Prüfen ob Wert numerisch ist
 		function isNumeric(n) {
@@ -185,18 +186,20 @@ class Solarmanpv extends utils.Adapter {
 
 		if (this.modulSelect.includes(inverter.deviceId)) {
 			this.log.debug(`[updateDeviceData] Device ID: ${inverter.deviceId}`);
+			await this.persistData(stationId, inverter.deviceId, 'deviceType', 'deviceType', inverter.deviceType, 'state', '');
 			await this.persistData(stationId, inverter.deviceId, 'connectStatus', 'connectStatus', inverter.connectStatus, 'state', '');
 			await this.persistData(stationId, inverter.deviceId, 'collectionTime', 'collectionTime', inverter.collectionTime * 1000, 'date', '');
 			// blacklist-keys that shall not be updated
 			for (const obj of data.dataList) {
-					const result = this.config.deviceBlacklist.includes(obj.key);
-					if (!result && obj.value != 'none') {
-						await this.persistData(stationId, inverter.deviceId, obj.key, obj.name, obj.value, 'state', obj.unit);
-					}
+				const result = this.config.deviceBlacklist.includes(obj.key);
+				if (!result && obj.value != 'none') {
+					await this.persistData(stationId, inverter.deviceId, obj.key, obj.name, obj.value, 'state', obj.unit);
+				} else {
+					await this.deleteDeviceState(stationId, inverter.deviceId, obj.key);
+				}
 			}
 		} else {
-			const deviceNameFull = stationId + '.' + inverter.deviceId;
-			await this.deleteObject(deviceNameFull);
+			await this.deleteDeviceObject(stationId, inverter.deviceId);
 		}
 	}
 
@@ -208,11 +211,11 @@ class Solarmanpv extends utils.Adapter {
 		for (const obj of data) {
 			// define keys that shall be updated
 			const updateKeys = [['name', 'state', ''],
-				['generationPower','value.power', 'W'],
-				['networkStatus','state',''],
-				['lastUpdateTime','date', '']];
+			['generationPower', 'value.power', 'W'],
+			['networkStatus', 'state', ''],
+			['lastUpdateTime', 'date', '']];
 
-			for(const key of updateKeys){
+			for (const key of updateKeys) {
 				if (key[0] == 'lastUpdateTime') { 	// special case 'lastUpdateTime'
 					obj[key[0]] *= 1000;
 				}
@@ -230,8 +233,6 @@ class Solarmanpv extends utils.Adapter {
 	 */
 	async getDeviceData(deviceId, deviceSn) {
 		this.log.debug(`[getDeviceData] Device ID: ${deviceId} and Device SN: ${deviceSn}`);
-		await this.manageInverterDevice(deviceId);
-
 		return api.axios
 			.post(
 				'/device/v1.0/currentData?language=en', // language parameter does not show any effect
@@ -252,26 +253,51 @@ class Solarmanpv extends utils.Adapter {
 	/**
 	 * Collects the device IDs that were read in order to subsequently save 
 	 * them in the configuration.
- 	 * @param {*} inverterList 
+	   * @param {*} inverterList 
 	 */
 	async manageInverterDevice(inverterList) {
-		this.modulList = JSON.parse(JSON.stringify(this.config.deviceModules));
-		if (this.modulList.length === 0) {
-			const jsonObj = [];
-			for (const inverter of inverterList) {
+		let modulListChanged = false;
+		this.modulList = this.config.deviceModules;
+		let isArray = Array.isArray(this.modulList);
+		if (!isArray) this.modulList = [];
+		const modulListMember = this.modulList.length;
+
+		// removing devices, if not longer exist
+		this.modulList = this.modulList.filter(device => inverterList.find(inverter => device.modul == inverter.deviceId));
+		if (modulListMember != this.modulList.length) {
+			this.log.debug(`[manageInverterDevice] Devicelist changed: ${this.modulList.length}`);
+			modulListChanged = true;
+		}
+
+		// add new devices
+		for (const inverter of inverterList) {
+			if (!this.modulList.find(element => element.modul == inverter.deviceId)) {
 				this.log.debug(`[manageInverterDevice] ADD: ${inverter.deviceId}`);
-				const jsonObj = { modul: inverter.deviceId, checkSelect: true }; //default
-				this.modulList.push(jsonObj);
+				this.modulList.push({ modul: inverter.deviceId, checkSelect: true });	//default
+				modulListChanged = true;
 			}
-			this.extendForeignObject('system.adapter.' + this.namespace, {
-				native: {
-					deviceModules: this.modulList
+		}
+
+		// write into config if changes
+		if (modulListChanged) {
+			this.getForeignObject('system.adapter.' + this.namespace, (err, obj) => {
+				if (err) {
+					this.log.error(`[manageInverterDevice] ${err}`);
+				} else {
+					if (obj) {
+						obj.native.deviceModules = this.modulList; // modify object
+						this.setForeignObject(obj._id, obj, (err) => {
+							if (err) {
+								this.log.error(`[manageInverterDevice] Error while DeviceListUpdate: ${err}`);
+							} else {
+								this.log.debug(`[manageInverterDevice] New Devicelist: ${JSON.stringify(this.modulList)}`);
+							}
+						});
+					}
 				}
 			});
 		}
 	}
-
-	//for (const inverter of inverterList) {
 
 	/**
 	* get inverter-id from api
@@ -286,11 +312,11 @@ class Solarmanpv extends utils.Adapter {
 				{
 					page: 1,
 					size: 10,
-					stationId : stationId
+					stationId: stationId
 				}
 			)
 			.then((response) => {
-				return(response.data.deviceListItems);
+				return (response.data.deviceListItems);
 			})
 			.catch((error) => {
 				this.log.warn(`[initializeInverter] error: ${error.code}`);
@@ -312,7 +338,7 @@ class Solarmanpv extends utils.Adapter {
 				}
 			)
 			.then((response) => {
-					for (const obj of response.data.stationList) {
+				for (const obj of response.data.stationList) {
 					this.stationIdList.push(obj['id']);		// StationId's for devices
 				}
 				return response.data.stationList;
@@ -339,7 +365,7 @@ class Solarmanpv extends utils.Adapter {
 	/**
 	* Check whether user data are plausible
 	*/
-	async checkUserData(){
+	async checkUserData() {
 		let inputData = this.config.email + this.config.password + this.config.appId + this.config.appSecret + this.config.companyName
 		let crc = crypto5.createHash('md5').update(inputData).digest('hex');
 		// get oldCRC		
@@ -349,12 +375,12 @@ class Solarmanpv extends utils.Adapter {
 		}
 		this.log.debug(`[checkUserData] Crc ${this.oldCrc}`);
 		// compare to previous config
-		if(!this.oldCrc || this.oldCrc != crc) {
+		if (!this.oldCrc || this.oldCrc != crc) {
 			this.log.debug(`[checkUserData] has changed or is new; previous crc: ${this.oldCrc}`);
-  			// store new crc
- 			this.log.debug(`[checkUserData] store new hash: ${crc}`);
+			// store new crc
+			this.log.debug(`[checkUserData] store new hash: ${crc}`);
 			// write datapoint
-			 await this.setObjectNotExistsAsync('checksumUserData', {
+			await this.setObjectNotExistsAsync('checksumUserData', {
 				type: 'state',
 				common: {
 					name: {
@@ -379,46 +405,79 @@ class Solarmanpv extends utils.Adapter {
 			});
 			await this.setStateAsync('checksumUserData', { val: crc, ack: true });
 			// delete Token
-			this.extendForeignObject('system.adapter.' + this.namespace, {
-				native: {
-					activeToken: ''
+			this.getForeignObject('system.adapter.' + this.namespace, (err, obj) => {
+				if (err) {
+					this.log.error(`[checkUserData] ${err}`);
+				} else {
+					if (obj) {
+						obj.native.activeToken = ''; // delete object
+						this.setForeignObject(obj._id, obj, (err) => {
+							if (err) {
+								this.log.error(`[checkUserData] Error while deleting token: ${err}`);
+							} else {
+								this.log.debug(`[checkUserData] Token deleted`);
+							}
+						});
+					}
 				}
 			});
-			this.log.debug(`Token deleted`);
-			// delete config.deviceModules
-			this.extendForeignObject('system.adapter.' + this.namespace, {
-				native: {
-					deviceModules: []
-				}
-			});
-			this.log.debug(`DeviceModules deleted from ${this.namespace}`);
 		}
 		return
 	}
 
+	//	console.log (`[updateDeviceData] to delete: ${obj.key}`);
 	/**
-	* Deletes object or states
-	* @param {string} deviceName Name of the Object/State
-	*/
-	async deleteObject(deviceName) {
+	 * Deletes states
+	 * @param {*} stationID 
+	 * @param {*} deviceName 
+	 * @param {*} stateName 
+	 */
+	async deleteDeviceState(stationID, deviceName, stateName) {
+		const stateToDelete = stationID + '.' + deviceName + '.' + stateName;
+		//console.log(`[deleteDeviceState] to delete: ${stateToDelete}`);
+		try {
+			// Verify that associated object exists
+			const currentObj = await this.getStateAsync(stateToDelete);
+			if (currentObj) {
+				await this.delObjectAsync(stateToDelete)
+				this.log.debug(`[deleteDeviceState] Device ID: (${stateToDelete})`);
+			} else {
+				const currentState = await this.getStateAsync(stateName);
+				if (currentState) {
+					//await this.deleteStateAsync(deviceName);
+					this.log.debug(`[deleteDeviceState] State: (${stateToDelete})`);
+				}
+			}
+		} catch (e) {
+			this.log.error(`[deleteDeviceState] error ${e} while deleting: (${stateToDelete})`);
+		}
+	}
+
+	/**
+	 * Deletes object or states
+	 * @param {*} stationId 
+	 * @param {*} deviceId 
+	 */
+	async deleteDeviceObject(stationId, deviceId) {
+		const deviceName = stationId + '.' + deviceId;
 		try {
 			// Verify that associated object exists
 			const currentObj = await this.getObjectAsync(deviceName);
 			if (currentObj) {
 				await this.delObjectAsync(deviceName, { recursive: true });
-				this.log.debug(`[deleteObject] Device ID: (${deviceName})`);
+				this.log.debug(`[deleteDeviceObject] Device ID: (${deviceName})`);
 			} else {
 				const currentState = await this.getStateAsync(deviceName);
 				if (currentState) {
 					await this.deleteStateAsync(deviceName);
-					this.log.debug(`[deleteObject] State: (${deviceName})`);
+					this.log.debug(`[deleteDeviceObject] State: (${deviceName})`);
 				}
 			}
 		} catch (e) {
-			this.log.error(`[deleteObject] error ${e} while deleting: (${deviceName})`);
+			this.log.error(`[deleteDeviceObject] error ${e} while deleting: (${deviceName})`);
 		}
 	}
-// End Class
+	// End Class
 }
 
 if (require.main !== module) {
