@@ -17,5 +17,7 @@
     "systemModules": "Systemmodule",
     "selectedSubModules": "Ausgewählte Untermodule",
     "modul": "Modul",
-    "selected": "Ausgewählt"
+    "selected": "Ausgewählt",
+    "clearSubModules": "Löschen der Modulliste",
+    "tooltipClearModuleList": "Dadurch wird die gesamte Modulliste gelöscht"
 }

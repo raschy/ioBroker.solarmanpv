@@ -17,5 +17,7 @@
     "selectedSubModules": "Submódulo selecionado",
     "modul": "módulo",
     "selected": "Selecionado",
-    "designateTheValues": "Designe os valores. (Dividido por vírgula, por exemplo, 'LG_F_L1,MICROINV_port3')"
+    "designateTheValues": "Designe os valores. (Dividido por vírgula, por exemplo, 'LG_F_L1,MICROINV_port3')",
+    "clearSubModules": "Excluir a lista de módulos",
+    "tooltipClearModuleList": "Isso exclui toda a lista de módulos"
 }

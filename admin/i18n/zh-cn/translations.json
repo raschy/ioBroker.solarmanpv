@@ -17,5 +17,7 @@
     "selectedSubModules": "选定的子模块",
     "modul": "模块",
     "selected": "已选",
-    "designateTheValues": "指定值。 （以逗号分隔，例如'LG_F_L1,MICROINV_port3'）"
+    "designateTheValues": "指定值。 （以逗号分隔，例如'LG_F_L1,MICROINV_port3'）",
+    "clearSubModules": "删除模块列表",
+    "tooltipClearModuleList": "这将删除整个模块列表"
 }

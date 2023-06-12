@@ -258,21 +258,25 @@ class Solarmanpv extends utils.Adapter {
 	async manageInverterDevice(inverterList) {
 		let modulListChanged = false;
 		this.modulList = this.config.deviceModules;
+		console.log(`Known Modules: ${JSON.stringify(this.modulList)}`);
 		let isArray = Array.isArray(this.modulList);
-		if (!isArray) this.modulList = [];
-		const modulListMember = this.modulList.length;
-
-		// removing devices, if not longer exist
-		this.modulList = this.modulList.filter(device => inverterList.find(inverter => device.modul == inverter.deviceId));
-		if (modulListMember != this.modulList.length) {
-			this.log.debug(`[manageInverterDevice] Devicelist changed: ${this.modulList.length}`);
-			modulListChanged = true;
+		if (!isArray || this.config.clearModules) {
+			this.modulList = [];
+			this.log.debug(`[manageInverterDevice] Modullist cleared`);
 		}
-
+		/*			
+				// removing devices, if not longer exist
+				this.modulList = this.modulList.filter(device => inverterList.find(inverter => device.modul == inverter.deviceId));
+				if (modulListMember != this.modulList.length) {
+					this.log.debug(`[manageInverterDevice] Devicelist changed: ${this.modulList.length}`);
+					modulListChanged = true;
+				}
+		*/
 		// add new devices
 		for (const inverter of inverterList) {
 			if (!this.modulList.find(element => element.modul == inverter.deviceId)) {
 				this.log.debug(`[manageInverterDevice] ADD: ${inverter.deviceId}`);
+				console.log(`ADD ${inverter.deviceId}`);
 				this.modulList.push({ modul: inverter.deviceId, checkSelect: true });	//default
 				modulListChanged = true;
 			}
@@ -293,6 +297,17 @@ class Solarmanpv extends utils.Adapter {
 								this.log.debug(`[manageInverterDevice] New Devicelist: ${JSON.stringify(this.modulList)}`);
 							}
 						});
+						// config.clearModules reset
+						if (this.config.clearModules) {
+							obj.native.clearModules = false; // modify object
+							this.setForeignObject(obj._id, obj, (err) => {
+								if (err) {
+									this.log.error(`[manageInverterDevice] Error while reset clearModules: ${err}`);
+								} else {
+									this.log.debug(`[manageInverterDevice] clearModules resettet`);
+								}
+							});
+						}
 					}
 				}
 			});

@@ -17,5 +17,7 @@
     "selectedSubModules": "Выбранный подмодуль",
     "modul": "Модуль",
     "selected": "Выбрано",
-    "designateTheValues": "Обозначьте значения. (разделенные запятой, например, «LG_F_L1,MICROINV_port3»)"
+    "designateTheValues": "Обозначьте значения. (разделенные запятой, например, «LG_F_L1,MICROINV_port3»)",
+    "clearSubModules": "Удалить список модулей",
+    "tooltipClearModuleList": "Это удаляет весь список модулей"
 }

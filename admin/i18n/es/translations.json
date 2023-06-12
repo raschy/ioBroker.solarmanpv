@@ -17,5 +17,7 @@
     "selectedSubModules": "Submódulo seleccionado",
     "modul": "Módulo",
     "selected": "Seleccionado",
-    "designateTheValues": "Designar los valores. (Dividido por coma, por ejemplo, 'LG_F_L1,MICROINV_port3')"
+    "designateTheValues": "Designar los valores. (Dividido por coma, por ejemplo, 'LG_F_L1,MICROINV_port3')",
+    "clearSubModules": "Eliminar la lista de módulos",
+    "tooltipClearModuleList": "Esto elimina toda la lista de módulos."
 }

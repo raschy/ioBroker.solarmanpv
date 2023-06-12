@@ -17,5 +17,7 @@
     "selectedSubModules": "Wybrany moduł podrzędny",
     "modul": "Moduł",
     "selected": "Wybrany",
-    "designateTheValues": "Wyznacz wartości. (Dzielone przecinkiem, np. „LG_F_L1,MICROINV_port3”)"
+    "designateTheValues": "Wyznacz wartości. (Dzielone przecinkiem, np. „LG_F_L1,MICROINV_port3”)",
+    "clearSubModules": "Usuń listę modułów",
+    "tooltipClearModuleList": "Spowoduje to usunięcie całej listy modułów"
 }

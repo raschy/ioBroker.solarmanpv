@@ -17,5 +17,7 @@
     "selectedSubModules": "Вибраний підмодуль",
     "modul": "Модуль",
     "selected": "Вибране",
-    "designateTheValues": "Позначте значення. (Розділені комою, наприклад, 'LG_F_L1,MICROINV_port3')"
+    "designateTheValues": "Позначте значення. (Розділені комою, наприклад, 'LG_F_L1,MICROINV_port3')",
+    "clearSubModules": "Видалити список модулів",
+    "tooltipClearModuleList": "Це видаляє весь список модулів"
 }

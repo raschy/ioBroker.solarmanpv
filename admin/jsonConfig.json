@@ -121,7 +121,15 @@
                             "sort": false
 						}
 					]
-				}
+				},
+				"clearModules": {
+                    "type": "checkbox",
+                    "label": "clearSubModules",
+                    "tooltip": "tooltipClearModuleList",
+                    "help":"Helptext possible",
+                    "default":false,
+                    "newLine": true
+                }
 			}
 		}
 	}

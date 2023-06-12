@@ -17,5 +17,7 @@
     "selectedSubModules": "Geselecteerde submodule",
     "modul": "module",
     "selected": "Geselecteerd",
-    "designateTheValues": "Benoem de waarden. (Gedeeld door een komma, bijv. 'LG_F_L1,MICROINV_port3')"
+    "designateTheValues": "Benoem de waarden. (Gedeeld door een komma, bijv. 'LG_F_L1,MICROINV_port3')",
+    "clearSubModules": "Verwijder de lijst met modules",
+    "tooltipClearModuleList": "Hiermee wordt de volledige lijst met modules verwijderd"
 }
