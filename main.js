@@ -63,8 +63,8 @@ class Solarmanpv extends utils.Adapter {
 		// start with delay
 		await this.delay(Math.floor(Math.random() * 5 * 1000));
 
-		try {
-			// get station-id via api-call
+		try { // [main]
+ 			// get station-id via api-call
 			await this.initializeStation().then(async result =>
 				await this.updateStationData(result));
 
@@ -73,13 +73,14 @@ class Solarmanpv extends utils.Adapter {
 					await this.manageInverterDevice(inverterList);
 					for (const inverter of inverterList) {
 						await this.getDeviceData(inverter.deviceId, inverter.deviceSn).then(async data =>
-							await this.updateDeviceData(stationId, inverter, data));
+							await this.updateDeviceData(stationId, inverter, data)).catch ((error) => {
+								this.log.debug(`[iterate devices] Device ID: ${inverter.deviceId} skipped`);});
 					}
 				});
 			}
 		}
 		catch (error) {
-			this.log.debug(`[try] catch ${JSON.stringify(error)}`);
+			this.log.debug(`[main] catch ${JSON.stringify(error)}`);
 		}
 		finally {
 			this.log.debug(`[onReady] finished - stopping instance`);
@@ -244,7 +245,7 @@ class Solarmanpv extends utils.Adapter {
 				return response.data;
 			})
 			.catch((error) => {
-				this.log.warn(`[getDeviceData] error: ${error.code}`);
+				this.log.warn(`[getDeviceData] ${error} ID: ${deviceId}`);
 				return Promise.reject(error);
 			});
 	}
