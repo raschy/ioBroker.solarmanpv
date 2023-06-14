@@ -61,7 +61,7 @@ class Solarmanpv extends utils.Adapter {
 		}
 
 		// start with delay
-		await this.delay(Math.floor(Math.random() * 5 * 1000));
+		await this.delay(Math.floor(Math.random() * 5000));
 
 		try { // [main]
  			// get station-id via api-call
@@ -227,12 +227,12 @@ class Solarmanpv extends utils.Adapter {
 
 	/**
 	 * get inverter data from api
-	 * @param {*} deviceId 
-	 * @param {*} deviceSn 
+	 * @param {number} deviceId 
+	 * @param {number} deviceSn 
 	 * @returns 
 	 */
 	async getDeviceData(deviceId, deviceSn) {
-		this.log.debug(`[getDeviceData] Device ID: ${deviceId} and Device SN: ${deviceSn}`);
+		this.log.debug(`[getDeviceData] Device ID: ${deviceId} with Device SN: ${deviceSn}`);
 		return api.axios
 			.post(
 				'/device/v1.0/currentData?language=en', // language parameter does not show any effect
