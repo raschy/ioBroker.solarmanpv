@@ -53,6 +53,9 @@ adaptations of the api, as far as they exist, have not been made.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (raschy) Set selected values to zero
+
 ### 0.4.3 (2023-06-12)
 * (raschy) Blacklist also deletes data points
 * (raschy) Fixed error with multiple inverters

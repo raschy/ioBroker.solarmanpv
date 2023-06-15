@@ -27,6 +27,7 @@ class Solarmanpv extends utils.Adapter {
 		this.stationIdList = [];
 		this.modulList = [];
 		this.modulSelect = [];
+		this.toZero = false;
 	}
 
 	/**
@@ -64,7 +65,7 @@ class Solarmanpv extends utils.Adapter {
 		await this.delay(Math.floor(Math.random() * 5000));
 
 		try { // [main]
- 			// get station-id via api-call
+			// get station-id via api-call
 			await this.initializeStation().then(async result =>
 				await this.updateStationData(result));
 
@@ -73,8 +74,9 @@ class Solarmanpv extends utils.Adapter {
 					await this.manageInverterDevice(inverterList);
 					for (const inverter of inverterList) {
 						await this.getDeviceData(inverter.deviceId, inverter.deviceSn).then(async data =>
-							await this.updateDeviceData(stationId, inverter, data)).catch ((error) => {
-								this.log.debug(`[iterate devices] Device ID: ${inverter.deviceId} skipped`);});
+							await this.updateDeviceData(stationId, inverter, data)).catch((error) => {
+								this.log.debug(`[iterate devices] Device ID: ${inverter.deviceId} skipped`);
+							});
 					}
 				});
 			}
@@ -113,7 +115,7 @@ class Solarmanpv extends utils.Adapter {
 	 * @param {*} role 
 	 * @param {*} unit 
 	 */
-	async persistData(station, device, name, description, value, role, unit) {
+	async persistData(station, device, name, description, value, role, unit, nullable) {
 		let dp_Folder;
 		let sensorName;
 		if (device == '') {
@@ -159,9 +161,12 @@ class Solarmanpv extends utils.Adapter {
 			},
 			native: {}
 		});
-
-		await this.setStateAsync(dp_Device, { val: value, ack: true, q: 0x00 });
-
+		// Differentiated writing of data
+		if (nullable) {
+			await this.setStateAsync(dp_Device, { val: 0, ack: true, q: 0x42 }); // Nullable values while device is not present
+		} else {
+			await this.setStateAsync(dp_Device, { val: value, ack: true, q: 0x00 });
+		}
 		// Beschreibe diese Funktion: Prüfen ob Wert numerisch ist
 		function isNumeric(n) {
 			return !isNaN(parseFloat(n)) && isFinite(n);
@@ -170,7 +175,7 @@ class Solarmanpv extends utils.Adapter {
 
 	/**
 	 * update inverter data in ioBroker
-	 * @param {*} stationId 
+7	 * @param {*} stationId 
 	 * @param {*} inverter 
 	 * @param {*} data 
 	 */
@@ -186,14 +191,16 @@ class Solarmanpv extends utils.Adapter {
 
 		if (this.modulSelect.includes(inverter.deviceId)) {
 			this.log.debug(`[updateDeviceData] Device ID: ${inverter.deviceId}`);
-			await this.persistData(stationId, inverter.deviceId, 'deviceType', 'deviceType', inverter.deviceType, 'state', '');
-			await this.persistData(stationId, inverter.deviceId, 'connectStatus', 'connectStatus', inverter.connectStatus, 'state', '');
-			await this.persistData(stationId, inverter.deviceId, 'collectionTime', 'collectionTime', inverter.collectionTime * 1000, 'date', '');
+			await this.persistData(stationId, inverter.deviceId, 'deviceType', 'deviceType', inverter.deviceType, 'state', '', false);
+			await this.persistData(stationId, inverter.deviceId, 'connectStatus', 'connectStatus', inverter.connectStatus, 'state', '', false);
+			await this.persistData(stationId, inverter.deviceId, 'collectionTime', 'collectionTime', inverter.collectionTime * 1000, 'date', '', false);
 			// blacklist-keys that shall not be updated
 			for (const obj of data.dataList) {
 				const result = this.config.deviceBlacklist.includes(obj.key);
 				if (!result && obj.value != 'none') {
-					await this.persistData(stationId, inverter.deviceId, obj.key, obj.name, obj.value, 'state', obj.unit);
+					//const setToZero = (this.toZero && this.config.deviceZero.includes(obj.key));
+					const setToZero = (inverter.connectStatus && this.config.deviceZero.includes(obj.key));
+					await this.persistData(stationId, inverter.deviceId, obj.key, obj.name, obj.value, 'state', obj.unit, setToZero);
 				} else {
 					await this.deleteDeviceState(stationId, inverter.deviceId, obj.key);
 				}
@@ -219,7 +226,7 @@ class Solarmanpv extends utils.Adapter {
 				if (key[0] == 'lastUpdateTime') { 	// special case 'lastUpdateTime'
 					obj[key[0]] *= 1000;
 				}
-				await this.persistData(obj['id'], '', key[0], key[0], obj[key[0]], key[1], key[2]);
+				await this.persistData(obj['id'], '', key[0], key[0], obj[key[0]], key[1], key[2], false);
 			}
 
 		}
