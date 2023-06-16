@@ -114,6 +114,7 @@ class Solarmanpv extends utils.Adapter {
 	 * @param {*} value 
 	 * @param {*} role 
 	 * @param {*} unit 
+	 * @param {boolean} nullable 
 	 */
 	async persistData(station, device, name, description, value, role, unit, nullable) {
 		let dp_Folder;
@@ -175,7 +176,7 @@ class Solarmanpv extends utils.Adapter {
 
 	/**
 	 * update inverter data in ioBroker
-7	 * @param {*} stationId 
+ 	 * @param {*} stationId 
 	 * @param {*} inverter 
 	 * @param {*} data 
 	 */
@@ -194,12 +195,13 @@ class Solarmanpv extends utils.Adapter {
 			await this.persistData(stationId, inverter.deviceId, 'deviceType', 'deviceType', inverter.deviceType, 'state', '', false);
 			await this.persistData(stationId, inverter.deviceId, 'connectStatus', 'connectStatus', inverter.connectStatus, 'state', '', false);
 			await this.persistData(stationId, inverter.deviceId, 'collectionTime', 'collectionTime', inverter.collectionTime * 1000, 'date', '', false);
+			const isOffline = inverter.connectStatus == 0 ? true : false;
 			// blacklist-keys that shall not be updated
 			for (const obj of data.dataList) {
 				const result = this.config.deviceBlacklist.includes(obj.key);
 				if (!result && obj.value != 'none') {
 					//const setToZero = (this.toZero && this.config.deviceZero.includes(obj.key));
-					const setToZero = (inverter.connectStatus && this.config.deviceZero.includes(obj.key));
+					const setToZero = (isOffline && this.config.deviceZero.includes(obj.key));
 					await this.persistData(stationId, inverter.deviceId, obj.key, obj.name, obj.value, 'state', obj.unit, setToZero);
 				} else {
 					await this.deleteDeviceState(stationId, inverter.deviceId, obj.key);
@@ -424,7 +426,7 @@ class Solarmanpv extends utils.Adapter {
 					this.log.error(`[checkUserData] ${err}`);
 				} else {
 					if (obj) {
-						obj.native.activeToken = ''; // delete object
+						obj.native.activeToken = '';
 						this.setForeignObject(obj._id, obj, (err) => {
 							if (err) {
 								this.log.error(`[checkUserData] Error while deleting token: ${err}`);
