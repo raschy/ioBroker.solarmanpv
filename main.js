@@ -200,7 +200,6 @@ class Solarmanpv extends utils.Adapter {
 			for (const obj of data.dataList) {
 				const result = this.config.deviceBlacklist.includes(obj.key);
 				if (!result && obj.value != 'none') {
-					//const setToZero = (this.toZero && this.config.deviceZero.includes(obj.key));
 					const setToZero = (isOffline && this.config.deviceZero.includes(obj.key));
 					await this.persistData(stationId, inverter.deviceId, obj.key, obj.name, obj.value, 'state', obj.unit, setToZero);
 				} else {
