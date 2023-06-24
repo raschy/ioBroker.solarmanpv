@@ -27,7 +27,6 @@ class Solarmanpv extends utils.Adapter {
 		this.stationIdList = [];
 		this.modulList = [];
 		this.modulSelect = [];
-		this.toZero = false;
 	}
 
 	/**
