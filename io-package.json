@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "solarmanpv",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "news": {
+      "0.5.1": {
+        "en": "Expanded number of modules",
+        "de": "Erweiterte Anzahl der Module",
+        "ru": "Расширенное количество модулей",
+        "pt": "Número expandido de módulos",
+        "nl": "Vertaling:",
+        "fr": "Nombre accru de modules",
+        "it": "Numero esteso di moduli",
+        "es": "Número ampliado de módulos",
+        "pl": "Expanded number of modules (ang.)",
+        "uk": "Розширена кількість модулів",
+        "zh-cn": "扩大单元数量"
+      },
       "0.5.0": {
         "en": "Set selected values to zero",
         "de": "Ausgewählte Werte auf Null einstellen",
@@ -80,19 +93,6 @@
         "pl": "Error DB-closed fixed (ang.)",
         "uk": "Помилка DB-закривається фіксованою",
         "zh-cn": "Error DB-闭门固定"
-      },
-      "0.3.1": {
-        "en": "Inverter-Filter deactivated",
-        "de": "Inverter-Filter deaktiviert",
-        "ru": "Inverter-Filter деактивирован",
-        "pt": "Inverter-Filter desativado",
-        "nl": "Inverter-Filter gedeactiveerd",
-        "fr": "Inverter-Filter désactivé",
-        "it": "Inverter-Filter disattivato",
-        "es": "Inverter-Filter desactivado",
-        "pl": "Inverter dezaktywował",
-        "uk": "Інвертор-Фільтр деактивований",
-        "zh-cn": "动植物"
       }
     },
     "titleLang": {
