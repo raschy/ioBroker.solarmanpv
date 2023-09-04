@@ -53,6 +53,9 @@ adaptations of the api, as far as they exist, have not been made.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (raschy) Expanded number of modules
+
 ### 0.5.0 (2023-06-16)
 * (raschy) Set selected values to zero
 

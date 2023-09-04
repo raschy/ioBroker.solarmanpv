@@ -325,7 +325,7 @@ class Solarmanpv extends utils.Adapter {
 				'/station/v1.0/device?language=en', // language parameter does not show any effect
 				{
 					page: 1,
-					size: 10,
+					size: 19,
 					stationId: stationId
 				}
 			)
