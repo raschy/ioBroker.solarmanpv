@@ -129,7 +129,10 @@
             "balcony power plant",
             "mi600"
         ],
-        "license": "MIT",
+		"licenseInformation": {
+            "license": "MIT",
+            "type": "free"
+        },
         "platform": "Javascript/Node.js",
         "main": "main.js",
         "icon": "solarmanpv.png",
@@ -138,6 +141,7 @@
         "readme": "https://github.com/raschy/ioBroker.solarmanpv/blob/main/README.md",
         "loglevel": "info",
         "mode": "schedule",
+		"tier": 2,
         "allowInit": true,
         "schedule": "*/6 * * * *",
         "type": "energy",
