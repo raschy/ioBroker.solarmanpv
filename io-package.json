@@ -127,14 +127,14 @@
         "keywords": [
             "solar",
             "balcony power plant",
-            "mi600"
+            "mi600",
+			"ioBroker"
         ],
 		"licenseInformation": {
             "license": "MIT",
             "type": "free"
         },
         "platform": "Javascript/Node.js",
-        "main": "main.js",
         "icon": "solarmanpv.png",
         "enabled": false,
         "extIcon": "https://raw.githubusercontent.com/raschy/ioBroker.solarmanpv/main/admin/solarmanpv.png",
@@ -155,7 +155,7 @@
         },
         "dependencies": [
             {
-                "js-controller": ">=4.0.0"
+                "js-controller": ">=5.0.19"
             }
         ],
         "globalDependencies": [
