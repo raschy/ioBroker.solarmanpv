@@ -1,187 +1,187 @@
 {
-    "common": {
-        "name": "solarmanpv",
-        "version": "0.5.1",
-        "news": {
-            "0.5.1": {
-                "en": "Expanded number of modules",
-                "de": "Erweiterte Anzahl der Module",
-                "ru": "Расширенное количество модулей",
-                "pt": "Número expandido de módulos",
-                "nl": "Vertaling:",
-                "fr": "Nombre accru de modules",
-                "it": "Numero esteso di moduli",
-                "es": "Número ampliado de módulos",
-                "pl": "Expanded number of modules (ang.)",
-                "uk": "Розширена кількість модулів",
-                "zh-cn": "扩大单元数量"
-            },
-            "0.5.0": {
-                "en": "Set selected values to zero",
-                "de": "Ausgewählte Werte auf Null einstellen",
-                "ru": "Установить выбранные значения до нуля",
-                "pt": "Definir valores selecionados para zero",
-                "nl": "Geselecteerde waarden tot nul",
-                "fr": "Définir les valeurs sélectionnées à zéro",
-                "it": "Impostare i valori selezionati a zero",
-                "es": "Establecer valores seleccionados a cero",
-                "pl": "Wybrane wartości do zera",
-                "uk": "Встановити вибрані значення до нуля",
-                "zh-cn": "A. 特定的零数值"
-            },
-            "0.4.3": {
-                "en": "Blacklist also deletes data points\nFixed error with multiple inverters",
-                "de": "Blacklist löscht auch Datenpunkte\nFehler behoben mit mehreren Wechselrichtern",
-                "ru": "Blacklist также удаляет пункты данных\nИсправлена ошибка с несколькими инверторами",
-                "pt": "Blacklist também exclui pontos de dados\nErro fixo com vários inversores",
-                "nl": "Blacklist verwijdert ook gegevens\nVervormingsfout",
-                "fr": "Blacklist supprime également les points de données\nErreur fixe avec plusieurs inverseurs",
-                "it": "Blacklist elimina anche i punti di dati\nErrore fisso con inverter multipli",
-                "es": "Blacklist también elimina los puntos de datos\nError fijo con múltiples inversores",
-                "pl": "Blacklist również usuwa punkty danych\nBłąd z wieloma odwzorcami",
-                "uk": "Чорний список також видаляє дані\nВиправлена помилка з декількома інверторами",
-                "zh-cn": "黑名单也删除数据要点\n混合的错误与多种防务器"
-            },
-            "0.4.2": {
-                "en": "Module selection activated",
-                "de": "Modulauswahl aktiviert",
-                "ru": "Выбор модуля активирован",
-                "pt": "Seleção do módulo ativada",
-                "nl": "Module selectie geactiveerd",
-                "fr": "Sélection du module activé",
-                "it": "Selezione modulo attivato",
-                "es": "Selección del módulo activada",
-                "pl": "Dobór modułów aktywowany",
-                "uk": "Налаштування модуля",
-                "zh-cn": "导 言"
-            },
-            "0.4.1": {
-                "en": "Do not display devices that are not required",
-                "de": "Keine Geräte anzeigen, die nicht benötigt werden",
-                "ru": "Не отображать устройства, которые не требуются",
-                "pt": "Não exibir dispositivos que não são necessários",
-                "nl": "Vertoon geen apparaten die niet nodig zijn",
-                "fr": "Ne pas afficher les appareils qui ne sont pas nécessaires",
-                "it": "Non visualizzare dispositivi che non sono necessari",
-                "es": "No mostrar dispositivos que no son necesarios",
-                "pl": "Nie posiada urządzeń, które nie są wymagane, nie są wymagane",
-                "uk": "Не потрібно відображати пристрої, які не потрібні",
-                "zh-cn": "不显示不需要的设备"
-            },
-            "0.4.0": {
-                "en": "Solarman has switched to a new platform",
-                "de": "Solarman hat auf eine neue Plattform umgestellt",
-                "ru": "Solarman перешел на новую платформу",
-                "pt": "Solarman mudou para uma nova plataforma",
-                "nl": "Solarman is overgestapt naar een nieuw platform",
-                "fr": "Solarman est passé à une nouvelle plateforme",
-                "it": "Solarman è passato a una nuova piattaforma",
-                "es": "Solarman ha cambiado a una nueva plataforma",
-                "pl": "Solarman przeszedł do nowej platformy",
-                "uk": "Solarman перейшов на нову платформу",
-                "zh-cn": "太阳能man已转向新的平台"
-            },
-            "0.3.2": {
-                "en": "Error 'DB-closed' fixed",
-                "de": "Fehler DB-geschlossen fixiert",
-                "ru": "Ошибка DB-closed исправлена",
-                "pt": "Erro DB-closeed corrigido",
-                "nl": "Error DB-closseert",
-                "fr": "Erreur DB-closed fixed",
-                "it": "Errore DB chiuso fisso",
-                "es": "Error DB",
-                "pl": "Error DB-closed fixed (ang.)",
-                "uk": "Помилка DB-закривається фіксованою",
-                "zh-cn": "Error DB-闭门固定"
-            }
-        },
-        "titleLang": {
-            "en": "Solarman PV",
-            "de": "Solarman PV",
-            "ru": "Соларман ПВ",
-            "pt": "Solarman fotovoltaico",
-            "nl": "Solarman PV",
-            "fr": "PV Solarman",
-            "it": "Solarman PV",
-            "es": "fotovoltaica solarman",
-            "pl": "Solarman PV",
-            "zh-cn": "太阳能光伏",
-            "uk": "Соларман П.В"
-        },
-        "desc": {
-            "en": "Reading data from balcony power plant",
-            "de": "Auslesen von Daten aus dem Balkonkraftwerk",
-            "ru": "Чтение данных с балконной электростанции",
-            "pt": "Lendo dados da usina de varanda",
-            "nl": "Gegevens lezen van balkoncentrale",
-            "fr": "Lecture des données de la centrale électrique du balcon",
-            "it": "Lettura dei dati dalla centrale elettrica del balcone",
-            "es": "Lectura de datos de la planta de energía del balcón",
-            "pl": "Odczytywanie danych z elektrowni balkonowej",
-            "zh-cn": "从阳台电厂读取数据",
-            "uk": "Зчитування даних з балконної електростанції"
-        },
-        "authors": [
-            "raschy <raschy@gmx.de>"
-        ],
-        "keywords": [
-            "solar",
-            "balcony power plant",
-            "mi600"
-        ],
-		"licenseInformation": {
-            "license": "MIT",
-            "type": "free"
-        },
-        "platform": "Javascript/Node.js",
-        "icon": "solarmanpv.png",
-        "enabled": false,
-        "extIcon": "https://raw.githubusercontent.com/raschy/ioBroker.solarmanpv/main/admin/solarmanpv.png",
-        "readme": "https://github.com/raschy/ioBroker.solarmanpv/blob/main/README.md",
-        "loglevel": "info",
-        "mode": "schedule",
-		"tier": 2,
-        "allowInit": true,
-        "schedule": "*/6 * * * *",
-        "type": "energy",
-        "compact": true,
-        "connectionType": "cloud",
-        "dataSource": "poll",
-        "stopBeforeUpdate": true,
-        "stopTimeout": 1000,
-        "adminUI": {
-            "config": "json"
-        },
-        "dependencies": [
-            {
-                "js-controller": ">=5.0.19"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "admin": ">=5.1.28"
-            }
-        ]
+  "common": {
+    "name": "solarmanpv",
+    "version": "0.5.2",
+    "news": {
+      "0.5.2": {
+        "en": "updated dependencies\nNodeJS >= 18.x and js-controller >= 5 is required",
+        "de": "aktualisierte abhängigkeiten\nNodeJS >= 18.x und js-Controller >= 5 ist erforderlich",
+        "ru": "обновленные зависимости\nNodeJS >= 18.x и js-контроллер >= 5 требуется",
+        "pt": "dependências atualizadas\nNodeJS >= 18.x e js-controller >= 5 é necessário",
+        "nl": "bijgewerkte afhankelijkheden\nVoor de toepassing van de onderverdelingen 870190 tot en met 870290 wordt onder post 8702 verstaan: 5 is vereist",
+        "fr": "dépendances actualisées\nNodeJS >= 18.x et js-controller >= 5 est nécessaire",
+        "it": "dipendenze aggiornate\nNodeJS >= 18.x e js-controller 5 è richiesto",
+        "es": "dependencias actualizadas\nNodeJS >= 18.x y js-controller Se requiere 5",
+        "pl": "zaktualizowane zależności\nNodeJS > = 18.x i kontroler js- > = 5 jest wymagane",
+        "uk": "оновлені залежності\nNodeJS >= 18.x та js-controller >= 5 обов'язково",
+        "zh-cn": "更新的依赖关系\n节点JS18x和js控制器QQ 需要5个"
+      },
+      "0.5.1": {
+        "en": "Expanded number of modules",
+        "de": "Erweiterte Anzahl der Module",
+        "ru": "Расширенное количество модулей",
+        "pt": "Número expandido de módulos",
+        "nl": "Vertaling:",
+        "fr": "Nombre accru de modules",
+        "it": "Numero esteso di moduli",
+        "es": "Número ampliado de módulos",
+        "pl": "Expanded number of modules (ang.)",
+        "uk": "Розширена кількість модулів",
+        "zh-cn": "扩大单元数量"
+      },
+      "0.5.0": {
+        "en": "Set selected values to zero",
+        "de": "Ausgewählte Werte auf Null einstellen",
+        "ru": "Установить выбранные значения до нуля",
+        "pt": "Definir valores selecionados para zero",
+        "nl": "Geselecteerde waarden tot nul",
+        "fr": "Définir les valeurs sélectionnées à zéro",
+        "it": "Impostare i valori selezionati a zero",
+        "es": "Establecer valores seleccionados a cero",
+        "pl": "Wybrane wartości do zera",
+        "uk": "Встановити вибрані значення до нуля",
+        "zh-cn": "A. 特定的零数值"
+      },
+      "0.4.3": {
+        "en": "Blacklist also deletes data points\nFixed error with multiple inverters",
+        "de": "Blacklist löscht auch Datenpunkte\nFehler behoben mit mehreren Wechselrichtern",
+        "ru": "Blacklist также удаляет пункты данных\nИсправлена ошибка с несколькими инверторами",
+        "pt": "Blacklist também exclui pontos de dados\nErro fixo com vários inversores",
+        "nl": "Blacklist verwijdert ook gegevens\nVervormingsfout",
+        "fr": "Blacklist supprime également les points de données\nErreur fixe avec plusieurs inverseurs",
+        "it": "Blacklist elimina anche i punti di dati\nErrore fisso con inverter multipli",
+        "es": "Blacklist también elimina los puntos de datos\nError fijo con múltiples inversores",
+        "pl": "Blacklist również usuwa punkty danych\nBłąd z wieloma odwzorcami",
+        "uk": "Чорний список також видаляє дані\nВиправлена помилка з декількома інверторами",
+        "zh-cn": "黑名单也删除数据要点\n混合的错误与多种防务器"
+      },
+      "0.4.2": {
+        "en": "Module selection activated",
+        "de": "Modulauswahl aktiviert",
+        "ru": "Выбор модуля активирован",
+        "pt": "Seleção do módulo ativada",
+        "nl": "Module selectie geactiveerd",
+        "fr": "Sélection du module activé",
+        "it": "Selezione modulo attivato",
+        "es": "Selección del módulo activada",
+        "pl": "Dobór modułów aktywowany",
+        "uk": "Налаштування модуля",
+        "zh-cn": "导 言"
+      },
+      "0.4.1": {
+        "en": "Do not display devices that are not required",
+        "de": "Keine Geräte anzeigen, die nicht benötigt werden",
+        "ru": "Не отображать устройства, которые не требуются",
+        "pt": "Não exibir dispositivos que não são necessários",
+        "nl": "Vertoon geen apparaten die niet nodig zijn",
+        "fr": "Ne pas afficher les appareils qui ne sont pas nécessaires",
+        "it": "Non visualizzare dispositivi che non sono necessari",
+        "es": "No mostrar dispositivos que no son necesarios",
+        "pl": "Nie posiada urządzeń, które nie są wymagane, nie są wymagane",
+        "uk": "Не потрібно відображати пристрої, які не потрібні",
+        "zh-cn": "不显示不需要的设备"
+      },
+      "0.4.0": {
+        "en": "Solarman has switched to a new platform",
+        "de": "Solarman hat auf eine neue Plattform umgestellt",
+        "ru": "Solarman перешел на новую платформу",
+        "pt": "Solarman mudou para uma nova plataforma",
+        "nl": "Solarman is overgestapt naar een nieuw platform",
+        "fr": "Solarman est passé à une nouvelle plateforme",
+        "it": "Solarman è passato a una nuova piattaforma",
+        "es": "Solarman ha cambiado a una nueva plataforma",
+        "pl": "Solarman przeszedł do nowej platformy",
+        "uk": "Solarman перейшов на нову платформу",
+        "zh-cn": "太阳能man已转向新的平台"
+      }
     },
-    "native": {
-        "email": "",
-        "password": "",
-        "appId": "",
-        "appSecret": "",
-        "companyName": "",
-        "activeToken": "",
-        "deviceBlacklist": "",
-        "deviceZero": "",
-        "deviceModules": [],
-        "clearModules": false
+    "titleLang": {
+      "en": "Solarman PV",
+      "de": "Solarman PV",
+      "ru": "Соларман ПВ",
+      "pt": "Solarman fotovoltaico",
+      "nl": "Solarman PV",
+      "fr": "PV Solarman",
+      "it": "Solarman PV",
+      "es": "fotovoltaica solarman",
+      "pl": "Solarman PV",
+      "zh-cn": "太阳能光伏",
+      "uk": "Соларман П.В"
     },
-    "protectedNative": [
-        "email",
-        "password"
+    "desc": {
+      "en": "Reading data from balcony power plant",
+      "de": "Auslesen von Daten aus dem Balkonkraftwerk",
+      "ru": "Чтение данных с балконной электростанции",
+      "pt": "Lendo dados da usina de varanda",
+      "nl": "Gegevens lezen van balkoncentrale",
+      "fr": "Lecture des données de la centrale électrique du balcon",
+      "it": "Lettura dei dati dalla centrale elettrica del balcone",
+      "es": "Lectura de datos de la planta de energía del balcón",
+      "pl": "Odczytywanie danych z elektrowni balkonowej",
+      "zh-cn": "从阳台电厂读取数据",
+      "uk": "Зчитування даних з балконної електростанції"
+    },
+    "authors": [
+      "raschy <raschy@gmx.de>"
     ],
-    "encryptedNative": [
-        "password"
+    "keywords": [
+      "solar",
+      "balcony power plant",
+      "mi600"
     ],
-    "objects": [],
-    "instanceObjects": []
+    "licenseInformation": {
+      "license": "MIT",
+      "type": "free"
+    },
+    "platform": "Javascript/Node.js",
+    "icon": "solarmanpv.png",
+    "enabled": false,
+    "extIcon": "https://raw.githubusercontent.com/raschy/ioBroker.solarmanpv/main/admin/solarmanpv.png",
+    "readme": "https://github.com/raschy/ioBroker.solarmanpv/blob/main/README.md",
+    "loglevel": "info",
+    "mode": "schedule",
+    "tier": 2,
+    "allowInit": true,
+    "schedule": "*/6 * * * *",
+    "type": "energy",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "stopBeforeUpdate": true,
+    "stopTimeout": 1000,
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=5.0.19"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=5.1.28"
+      }
+    ]
+  },
+  "native": {
+    "email": "",
+    "password": "",
+    "appId": "",
+    "appSecret": "",
+    "companyName": "",
+    "activeToken": "",
+    "deviceBlacklist": "",
+    "deviceZero": "",
+    "deviceModules": [],
+    "clearModules": false
+  },
+  "protectedNative": [
+    "email",
+    "password"
+  ],
+  "encryptedNative": [
+    "password"
+  ],
+  "objects": [],
+  "instanceObjects": []
 }

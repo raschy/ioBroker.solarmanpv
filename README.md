@@ -53,7 +53,7 @@ adaptations of the api, as far as they exist, have not been made.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.5.2 (2024-08-10)
 * (raschy) 	updated dependencies
 * (raschy)  NodeJS >= 18.x and js-controller >= 5 is required
 

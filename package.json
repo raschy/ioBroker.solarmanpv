@@ -1,6 +1,6 @@
 {
   "name": "iobroker.solarmanpv",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Reading data from balcony power plant",
   "author": {
     "name": "raschy",
@@ -12,7 +12,7 @@
     "solar",
     "balcony power plant",
     "mi600",
-	"ioBroker"
+    "ioBroker"
   ],
   "repository": {
     "type": "git",
@@ -31,13 +31,13 @@
     "@alcalzone/release-script": "^3.8.0",
     "@alcalzone/release-script-plugin-iobroker": "^3.7.2",
     "@alcalzone/release-script-plugin-license": "^3.7.0",
-	"@alcalzone/release-script-plugin-manual-review": "^3.7.0",
+    "@alcalzone/release-script-plugin-manual-review": "^3.7.0",
     "@iobroker/adapter-dev": "^1.3.0",
     "@iobroker/testing": "^4.1.3",
     "@types/chai": "^4.3.11",
     "@types/chai-as-promised": "^7.1.8",
     "@types/mocha": "^10.0.7",
-	"@types/node": "^20.14.9",
+    "@types/node": "^20.14.9",
     "@types/proxyquire": "^1.3.31",
     "@types/sinon": "^17.0.3",
     "@types/sinon-chai": "^3.2.12",
