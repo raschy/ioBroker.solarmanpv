@@ -11,7 +11,8 @@
   "keywords": [
     "solar",
     "balcony power plant",
-    "mi600"
+    "mi600",
+	"ioBroker"
   ],
   "repository": {
     "type": "git",
