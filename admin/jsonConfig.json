@@ -100,25 +100,18 @@
 					"sm": 6,
 					"md": 6,
 					"lg": 6,
-					"noDelete": true,
 					"items": [
 						{
 							"type": "number",
-							"attr": "modul",
-							"width": "10%",
 							"title": "modul",
-							"readOnly": true,
-							"filter": false,
-                            "sort": false
+							"attr": "modul",
+							"width": "10%"
 						},
 						{
 							"type": "checkbox",
 							"title": "selected",
 							"attr": "checkSelect",
-							"width": "5%",
-							"readOnly": false,
-							"filter": false,
-                            "sort": false
+							"width": "5%"
 						}
 					]
 				},
@@ -127,8 +120,7 @@
                     "label": "clearSubModules",
                     "tooltip": "tooltipClearModuleList",
                     "help":"Helptext possible",
-                    "default":false,
-                    "newLine": true
+                    "default":false
                 }
 			}
 		}
