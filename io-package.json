@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "solarmanpv",
-    "version": "0.5.2",
+    "version": "0.5.3",
     "news": {
+      "0.5.3": {
+        "en": "Warning in schema corrected",
+        "de": "Warnung im Schema korrigiert",
+        "ru": "Предупреждение с поправкой на схему",
+        "pt": "Aviso em schema corrigido",
+        "nl": "Waarschuwing in schema gecorrigeerd",
+        "fr": "Avertissement dans le schéma corrigé",
+        "it": "Avvertenza nello schema corretto",
+        "es": "Advertencia en esquema corregido",
+        "pl": "Ostrzeżenie w schemacie poprawione",
+        "uk": "Попередження в схемі виправлення",
+        "zh-cn": "已更正的计划中的警告"
+      },
       "0.5.2": {
         "en": "updated dependencies\nNodeJS >= 18.x and js-controller >= 5 is required",
         "de": "aktualisierte abhängigkeiten\nNodeJS >= 18.x und js-Controller >= 5 ist erforderlich",
@@ -80,19 +93,6 @@
         "pl": "Nie posiada urządzeń, które nie są wymagane, nie są wymagane",
         "uk": "Не потрібно відображати пристрої, які не потрібні",
         "zh-cn": "不显示不需要的设备"
-      },
-      "0.4.0": {
-        "en": "Solarman has switched to a new platform",
-        "de": "Solarman hat auf eine neue Plattform umgestellt",
-        "ru": "Solarman перешел на новую платформу",
-        "pt": "Solarman mudou para uma nova plataforma",
-        "nl": "Solarman is overgestapt naar een nieuw platform",
-        "fr": "Solarman est passé à une nouvelle plateforme",
-        "it": "Solarman è passato a una nuova piattaforma",
-        "es": "Solarman ha cambiado a una nueva plataforma",
-        "pl": "Solarman przeszedł do nowej platformy",
-        "uk": "Solarman перейшов на нову платформу",
-        "zh-cn": "太阳能man已转向新的平台"
       }
     },
     "titleLang": {
