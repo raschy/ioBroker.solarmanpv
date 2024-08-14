@@ -174,9 +174,9 @@ class Solarmanpv extends utils.Adapter {
 		}
 		// Differentiated writing of data
 		if (nullable) {
-			await this.setStateAsync(dp_Device, { val: 0, ack: true, q: 0x42 }); // Nullable values while device is not present
+			await this.setState(dp_Device, { val: 0, ack: true, q: 0x42 }); // Nullable values while device is not present
 		} else {
-			await this.setStateAsync(dp_Device, { val: value, ack: true, q: 0x00 });
+			await this.setState(dp_Device, { val: value, ack: true, q: 0x00 });
 		}
 		//
 		function isNumber(n) {
@@ -435,7 +435,7 @@ class Solarmanpv extends utils.Adapter {
 				},
 				native: {},
 			});
-			await this.setStateAsync('checksumUserData', { val: crc, ack: true });
+			await this.setState('checksumUserData', { val: crc, ack: true });
 			// delete Token
 			this.getForeignObject('system.adapter.' + this.namespace, (err, obj) => {
 				if (err) {
@@ -474,7 +474,6 @@ class Solarmanpv extends utils.Adapter {
 			} else {
 				const currentState = await this.getStateAsync(stateName);
 				if (currentState) {
-					//await this.deleteStateAsync(deviceName);
 					this.log.debug(`[deleteDeviceState] State: (${stateToDelete})`);
 				}
 			}
