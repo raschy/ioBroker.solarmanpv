@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "solarmanpv",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "news": {
+      "0.6.1": {
+        "en": "renewed version without changes\nDependencies require minor releases",
+        "de": "neue version ohne änderungen\nAbhängigkeiten erfordern kleinere Freigaben",
+        "ru": "обновленная версия без изменений\nЗависимость требует незначительных выбросов",
+        "pt": "versão renovada sem alterações\nDependências requerem versões menores",
+        "nl": "vernieuwde versie zonder wijzigingen\nAfhankelijkheden vereisen kleine releases",
+        "fr": "version renouvelée sans modifications\nLes dépendances nécessitent des rejets mineurs",
+        "it": "versione rinnovata senza modifiche\nLe dipendenze richiedono comunicati minori",
+        "es": "versión renovada sin cambios\nLas dependencias requieren liberaciones menores",
+        "pl": "odnowiona wersja bez zmian\nZależności wymagają drobnych uwolnień",
+        "uk": "оновлюється версія без змін\nЗалежності вимагають незначних релізів",
+        "zh-cn": "未经修改的更新版本\n依赖性需要少量释放"
+      },
       "0.6.0": {
         "en": "Dependencies require minor releases",
         "de": "Abhängigkeiten erfordern kleinere Freigaben",
@@ -80,19 +93,6 @@
         "pl": "Blacklist również usuwa punkty danych\nBłąd z wieloma odwzorcami",
         "uk": "Чорний список також видаляє дані\nВиправлена помилка з декількома інверторами",
         "zh-cn": "黑名单也删除数据要点\n混合的错误与多种防务器"
-      },
-      "0.4.2": {
-        "en": "Module selection activated",
-        "de": "Modulauswahl aktiviert",
-        "ru": "Выбор модуля активирован",
-        "pt": "Seleção do módulo ativada",
-        "nl": "Module selectie geactiveerd",
-        "fr": "Sélection du module activé",
-        "it": "Selezione modulo attivato",
-        "es": "Selección del módulo activada",
-        "pl": "Dobór modułów aktywowany",
-        "uk": "Налаштування модуля",
-        "zh-cn": "导 言"
       }
     },
     "titleLang": {

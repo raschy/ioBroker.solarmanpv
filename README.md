@@ -53,8 +53,7 @@ adaptations of the api, as far as they exist, have not been made.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 0.6.1 (2024-08-15)
 * (raschy)  renewed version without changes
 * (raschy) 	Dependencies require minor releases
 
