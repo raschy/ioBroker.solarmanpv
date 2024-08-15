@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "solarmanpv",
-    "version": "0.5.3",
+    "version": "0.6.0",
     "news": {
+      "0.6.0": {
+        "en": "Dependencies require minor releases",
+        "de": "Abhängigkeiten erfordern kleinere Freigaben",
+        "ru": "Зависимость требует незначительных выбросов",
+        "pt": "Dependências requerem versões menores",
+        "nl": "Afhankelijkheden vereisen kleine releases",
+        "fr": "Les dépendances nécessitent des rejets mineurs",
+        "it": "Le dipendenze richiedono comunicati minori",
+        "es": "Las dependencias requieren liberaciones menores",
+        "pl": "Zależności wymagają drobnych uwolnień",
+        "uk": "Залежності вимагають незначних релізів",
+        "zh-cn": "依赖性需要少量释放"
+      },
       "0.5.3": {
         "en": "Warning in schema corrected",
         "de": "Warnung im Schema korrigiert",
@@ -80,19 +93,6 @@
         "pl": "Dobór modułów aktywowany",
         "uk": "Налаштування модуля",
         "zh-cn": "导 言"
-      },
-      "0.4.1": {
-        "en": "Do not display devices that are not required",
-        "de": "Keine Geräte anzeigen, die nicht benötigt werden",
-        "ru": "Не отображать устройства, которые не требуются",
-        "pt": "Não exibir dispositivos que não são necessários",
-        "nl": "Vertoon geen apparaten die niet nodig zijn",
-        "fr": "Ne pas afficher les appareils qui ne sont pas nécessaires",
-        "it": "Non visualizzare dispositivi che non sono necessari",
-        "es": "No mostrar dispositivos que no son necesarios",
-        "pl": "Nie posiada urządzeń, które nie są wymagane, nie są wymagane",
-        "uk": "Не потрібно відображати пристрої, які не потрібні",
-        "zh-cn": "不显示不需要的设备"
       }
     },
     "titleLang": {
