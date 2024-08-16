@@ -16,19 +16,6 @@
         "uk": "оновлюється версія без змін\nЗалежності вимагають незначних релізів",
         "zh-cn": "未经修改的更新版本\n依赖性需要少量释放"
       },
-      "0.6.0": {
-        "en": "Dependencies require minor releases",
-        "de": "Abhängigkeiten erfordern kleinere Freigaben",
-        "ru": "Зависимость требует незначительных выбросов",
-        "pt": "Dependências requerem versões menores",
-        "nl": "Afhankelijkheden vereisen kleine releases",
-        "fr": "Les dépendances nécessitent des rejets mineurs",
-        "it": "Le dipendenze richiedono comunicati minori",
-        "es": "Las dependencias requieren liberaciones menores",
-        "pl": "Zależności wymagają drobnych uwolnień",
-        "uk": "Залежності вимагають незначних релізів",
-        "zh-cn": "依赖性需要少量释放"
-      },
       "0.5.3": {
         "en": "Warning in schema corrected",
         "de": "Warnung im Schema korrigiert",
