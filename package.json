@@ -22,7 +22,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^3.2.1",
+    "@iobroker/adapter-core": "^3.2.2",
     "axios": "^1.7.7",
     "crypto-js": "^4.2.0",
     "paket": "^0.1.4"
@@ -42,7 +42,7 @@
     "@types/sinon": "^17.0.3",
     "@types/sinon-chai": "^3.2.12",
     "chai": "^4.5.0",
-    "chai-as-promised": "^8.0.0",
+    "chai-as-promised": "^7.1.2",
     "eslint": "^8.57.0",
     "mocha": "^10.7.3",
     "proxyquire": "^2.1.3",

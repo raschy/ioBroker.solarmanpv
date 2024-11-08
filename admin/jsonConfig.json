@@ -1,54 +1,64 @@
 {
-    "i18n": true,
-    "type": "tabs",
-    "items": {
-        "_credentials": {
-            "type": "panel",
-            "label": "credentials",
-            "items": {
-                "email": {
-                    "newLine": true,
-                    "type": "text",
-                    "sm": 12,
-                    "md": 6,
-                    "lg": 6,
-                    "label": "email"
-                },
-                "password": {
-                    "type": "password",
-                    "repeat": false,
-                    "visible": false,
-                    "sm": 12,
-                    "md": 6,
-                    "lg": 6,
-                    "label": "password"
-                },
+	"i18n": true,
+	"type": "tabs",
+	"items": {
+		"_credentials": {
+			"type": "panel",
+			"label": "credentials",
+			"items": {
+				"email": {
+					"newLine": true,
+					"type": "text",
+					"xs": 12,
+					"sm": 12,
+					"md": 6,
+					"lg": 4,
+					"xl": 4,
+					"label": "email"
+				},
+				"password": {
+					"type": "password",
+					"repeat": false,
+					"visible": false,
+					"xs": 12,
+					"sm": 12,
+					"md": 6,
+					"lg": 4,
+					"xl": 4,
+					"label": "password"
+				},
 				"appId": {
-                    "type": "number",
-                    "sm": 12,
-                    "md": 6,
-                    "lg": 6,
-                    "label": "appId",
-                    "help": "appIdfromSolarmanpv"
-                },
-                "appSecret": {
-                    "type": "text",
-                    "sm": 12,
-                    "md": 6,
-                    "lg": 6,
+					"type": "number",
+					"xs": 12,
+					"sm": 12,
+					"md": 6,
+					"lg": 4,
+					"xl": 4,
+					"label": "appId",
+					"help": "appIdfromSolarmanpv"
+				},
+				"appSecret": {
+					"type": "text",
+					"xs": 12,
+					"sm": 12,
+					"md": 6,
+					"lg": 4,
+					"xl": 4,
 					"label": "appSecrets",
-                    "help": "secretsFromSolarmanpv"
-                },
+					"help": "secretsFromSolarmanpv"
+				},
 				"companyName": {
-                    "type": "text",
-                    "sm": 12,
-                    "md": 6,
-                    "lg": 6,
+					"type": "text",
+					"xs": 12,
+					"sm": 12,
+					"md": 6,
+					"lg": 4,
+					"xl": 4,
 					"label": "companyName",
-                    "help": "nameOfCompany"
-                }
-            }
-        },
+					"help": "nameOfCompany"
+				}
+			}
+		},
 		"_blacklist": {
 			"type": "panel",
 			"label": "valuesSelection",
@@ -65,8 +75,12 @@
 					"delimiter": ",",
 					"label": "termsToBeExcluded",
 					"help": "designateTheValues",
-					"sm": 12
-				},  
+					"xs": 12,
+					"sm": 12,
+					"md": 6,
+					"lg": 4,
+					"xl": 4
+				},
 				"headerZero": {
 					"newLine": true,
 					"type": "header",
@@ -77,11 +91,13 @@
 					"newLine": true,
 					"type": "chips",
 					"delimiter": ",",
-                    "sm": 12,
-                    "md": 12,
-                    "lg": 12,
+					"xs": 12,
+					"sm": 12,
+					"md": 6,
+					"lg": 4,
+					"xl": 4,
 					"label": "termsToBeZeroed"
-   				}
+				}
 			}
 		},
 		"_systemModules": {
@@ -97,9 +113,11 @@
 				"deviceModules": {
 					"type": "table",
 					"newLine": true,
+					"xs": 12,
 					"sm": 12,
-					"md": 12,
-					"lg": 12,
+					"md": 6,
+					"lg": 4,
+					"xl": 4,
 					"items": [
 						{
 							"type": "number",
@@ -116,12 +134,17 @@
 					]
 				},
 				"clearModules": {
-                    "type": "checkbox",
-                    "label": "clearSubModules",
-                    "tooltip": "tooltipClearModuleList",
-                    "help":"Helptext possible",
-                    "default":false
-                }
+					"type": "checkbox",
+					"label": "clearSubModules",
+					"xs": 12,
+					"sm": 12,
+					"md": 6,
+					"lg": 4,
+					"xl": 4,
+					"tooltip": "tooltipClearModuleList",
+					"help": "Helptext possible",
+					"default": false
+				}
 			}
 		}
 	}
