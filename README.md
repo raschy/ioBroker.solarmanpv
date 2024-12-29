@@ -179,7 +179,7 @@ adaptations of the api, as far as they exist, have not been made.
 ## License
 MIT License
 
-Copyright (c) 2025 raschy <raschy@gmx.de>
+Copyright (c) 2022-2025 raschy <raschy@gmx.de>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
