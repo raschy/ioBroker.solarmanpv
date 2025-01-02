@@ -53,7 +53,7 @@ adaptations of the api, as far as they exist, have not been made.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.6.3 (2025-01-02)
 
 * (raschy) Design edited
 * (raschy) Migration from ESLint 8.x to 9.x
