@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "solarmanpv",
-    "version": "0.6.3",
+    "version": "0.6.4",
     "news": {
+      "0.6.4": {
+        "en": "Developer system to nodejs 22.x updated",
+        "de": "Entwicklersystem zu nodejs 22.x aktualisiert",
+        "ru": "Система разработчиков к узлам 22.x",
+        "pt": "Sistema de desenvolvedor para nodejs 22.x atualizado",
+        "nl": "Ontwikkelaar systeem om nodejs 22.x bijgewerkt",
+        "fr": "Système développeur à nodejs 22.x mis à jour",
+        "it": "Sistema di sviluppo a nodejs 22.x aggiornato",
+        "es": "Sistema de desarrolladores a nodejs 22.x actualizado",
+        "pl": "System programisty do nodejs 22.x zaktualizowany",
+        "uk": "Розробник системи в nodejs 22.x оновлений",
+        "zh-cn": "更新至节点22js的开发者系统"
+      },
       "0.6.3": {
         "en": "Design edited\nMigration from ESLint 8.x to 9.x",
         "de": "Design bearbeitet\nMigration von ESLint 8.x auf 9.x",
@@ -80,19 +93,6 @@
         "pl": "Expanded number of modules (ang.)",
         "uk": "Розширена кількість модулів",
         "zh-cn": "扩大单元数量"
-      },
-      "0.5.0": {
-        "en": "Set selected values to zero",
-        "de": "Ausgewählte Werte auf Null einstellen",
-        "ru": "Установить выбранные значения до нуля",
-        "pt": "Definir valores selecionados para zero",
-        "nl": "Geselecteerde waarden tot nul",
-        "fr": "Définir les valeurs sélectionnées à zéro",
-        "it": "Impostare i valori selezionati a zero",
-        "es": "Establecer valores seleccionados a cero",
-        "pl": "Wybrane wartości do zera",
-        "uk": "Встановити вибрані значення до нуля",
-        "zh-cn": "A. 特定的零数值"
       }
     },
     "titleLang": {
