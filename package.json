@@ -19,7 +19,7 @@
 		"url": "https://github.com/raschy/ioBroker.solarmanpv"
 	},
 	"engines": {
-		"node": ">=18"
+		"node": ">= 20"
 	},
 	"dependencies": {
 		"@iobroker/adapter-core": "^3.2.3",
