@@ -154,7 +154,7 @@
 		},
 		"dependencies": [
 			{
-				"js-controller": ">=5.0.19"
+				"js-controller": ">=6.0.10"
 			}
 		],
 		"globalDependencies": [
@@ -177,10 +177,14 @@
 	},
 	"protectedNative": [
 		"email",
-		"password"
+		"password",
+		"appId",
+		"appSecret"
 	],
 	"encryptedNative": [
-		"password"
+		"password",
+		"appId",
+		"appSecret"
 	],
 	"objects": [],
 	"instanceObjects": []
