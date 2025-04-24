@@ -53,6 +53,7 @@ adaptations of the api, as far as they exist, have not been made.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+
 ### 0.7.0 (2025-04-23)
 * (raschy) NodeJS >= 20.x and js-controller >= 6 is required
 * (raschy) email and appsecret is now encrypted

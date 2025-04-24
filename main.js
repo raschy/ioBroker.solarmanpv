@@ -526,6 +526,7 @@ class Solarmanpv extends utils.Adapter {
      */
     async deleteDeviceState(stationID, deviceName, stateName) {
         const stateToDelete = `${stationID}.${deviceName}.${stateName}`;
+        this.log.debug(`[deleteDeviceState] ### ${stateToDelete}`);
         try {
             // Verify that associated object exists
             const currentObj = await this.getStateAsync(stateToDelete);

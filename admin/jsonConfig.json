@@ -103,6 +103,11 @@
 		"_systemModules": {
 			"type": "panel",
 			"label": "systemModules",
+			"xs": 12,
+			"sm": 12,
+			"md": 6,
+			"lg": 4,
+			"xl": 4,
 			"items": {
 				"_headerModule": {
 					"newLine": true,
@@ -113,14 +118,16 @@
 				"deviceModules": {
 					"type": "table",
 					"newLine": true,
+					"noDelete": true,
 					"xs": 12,
 					"sm": 12,
-					"md": 6,
-					"lg": 4,
-					"xl": 4,
+					"md": 12,
+					"lg": 12,
+					"xl": 12,
 					"items": [
 						{
-							"type": "number",
+							"type": "text",
+							"noClearButton": true,
 							"title": "modul",
 							"attr": "modul",
 							"width": "30%"
@@ -128,19 +135,13 @@
 						{
 							"type": "checkbox",
 							"title": "selected",
-							"attr": "checkSelect",
-							"width": "5%"
+							"attr": "checkSelect"
 						}
 					]
 				},
 				"clearModules": {
 					"type": "checkbox",
 					"label": "clearSubModules",
-					"xs": 12,
-					"sm": 12,
-					"md": 6,
-					"lg": 4,
-					"xl": 4,
 					"tooltip": "tooltipClearModuleList",
 					"help": "Helptext possible",
 					"default": false,
