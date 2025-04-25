@@ -135,7 +135,12 @@
 						{
 							"type": "checkbox",
 							"title": "selected",
-							"attr": "checkSelect"
+							"attr": "checkSelect",
+							"xs": 12,
+							"sm": 12,
+							"md": 6,
+							"lg": 4,
+							"xl": 4
 						}
 					]
 				},
