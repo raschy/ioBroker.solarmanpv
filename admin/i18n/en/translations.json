@@ -19,5 +19,6 @@
 	"modul": "Modul",
 	"selected": "Selected",
 	"clearSubModules": "Delete the modules list",
-	"tooltipClearModuleList": "This deletes the entire modules list"
+	"tooltipClearModuleList": "This deletes the entire modules list",
+	"Helptext": "Help text"
 }

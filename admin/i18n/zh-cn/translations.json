@@ -19,5 +19,6 @@
     "selected": "已选",
     "designateTheValues": "指定值。 （单独输入值并按“Enter”确认）",
     "clearSubModules": "删除模块列表",
-    "tooltipClearModuleList": "这将删除整个模块列表"
+    "tooltipClearModuleList": "这将删除整个模块列表",
+    "Helptext": "帮助文字"
 }

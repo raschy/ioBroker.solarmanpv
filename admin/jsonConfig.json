@@ -148,7 +148,12 @@
 					"type": "checkbox",
 					"label": "clearSubModules",
 					"tooltip": "tooltipClearModuleList",
-					"help": "Helptext possible",
+					"help": "Helptext",
+					"xs": 12,
+					"sm": 12,
+					"md": 6,
+					"lg": 4,
+					"xl": 4,
 					"default": false,
 					"newLine": true
 				}

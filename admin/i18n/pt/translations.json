@@ -19,5 +19,6 @@
     "selected": "Selecionado",
     "designateTheValues": "Designe os valores. (Insira os valores individualmente e confirme com “Enter”)",
     "clearSubModules": "Excluir a lista de módulos",
-    "tooltipClearModuleList": "Isso exclui toda a lista de módulos"
+    "tooltipClearModuleList": "Isso exclui toda a lista de módulos",
+    "Helptext": "Ajuda o texto"
 }

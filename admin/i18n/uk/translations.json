@@ -19,5 +19,6 @@
     "selected": "Вибране",
     "designateTheValues": "Назвіть значення. (Введіть значення окремо і підтвердіть натисканням «Enter»)",
     "clearSubModules": "Видалити список модулів",
-    "tooltipClearModuleList": "Це видаляє весь список модулів"
+    "tooltipClearModuleList": "Це видаляє весь список модулів",
+    "Helptext": "Довідка текст"
 }

@@ -19,5 +19,6 @@
     "selected": "Geselecteerd",
     "designateTheValues": "Benoem de waarden. (Voer de waarden afzonderlijk in en bevestig met “Enter”)",
     "clearSubModules": "Verwijder de lijst met modules",
-    "tooltipClearModuleList": "Hiermee wordt de volledige lijst met modules verwijderd"
+    "tooltipClearModuleList": "Hiermee wordt de volledige lijst met modules verwijderd",
+    "Helptext": "Help tekst"
 }
