@@ -62,8 +62,8 @@ In version 0.7.1, only minor adjustments were made to the instance view.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
-* (raschy) jsonConfig customized 
+### 0.7.1 (2025-04-25)
+* (raschy) jsonConfig customized
 
 ### 0.7.0 (2025-04-23)
 * (raschy) NodeJS >= 20.x and js-controller >= 6 is required

@@ -1,190 +1,190 @@
 {
-    "common": {
-        "name": "solarmanpv",
-        "version": "0.7.0",
-        "news": {
-            "0.7.0": {
-                "en": "NodeJS >= 20.x and js-controller >= 6 is required\nemail and appsecret is now encrypted",
-                "de": "NodeJS >= 20.x und js-Controller >= 6 ist erforderlich\ne-mail und appsecret werden jetzt verschlüsselt",
-                "ru": "NodeJS >= 20.x и js-контроллер >= 6 Требуется\nэлектронная почта и appsecret теперь зашифрованы",
-                "pt": "NodeJS >= 20.x e js-controller >= 6 é necessário\ne-mail e appsecret é agora criptografado",
-                "nl": "Van niet-gelegeerd staal 6 is vereist\ne-mail en appsecret is nu versleuteld",
-                "fr": "NodeJS >= 20.x et js-controller >= 6 est nécessaire\ne-mail et appsecret sont maintenant cryptés",
-                "it": "NodeJS >= 20.x e js-controller >= 6 è richiesto\ne-mail e appsecret è ora crittografato",
-                "es": "NodeJS ю= 20.x y js-controller Se requiere 6\nemail y appsecret ahora está cifrado",
-                "pl": "NodeJS > = 20 x i kontroler js- > = 6 jest wymagane\nemail i appsecret są teraz zaszyfrowane",
-                "uk": "NodeJS >= 20.x та js-controller >= 6 обов'язковий\nелектронна пошта та додаткиecret тепер зашифровані",
-                "zh-cn": "节点JS20x和js控制器QQ 需要6个\n电子邮件和应用程序已加密"
-            },
-            "0.6.4": {
-                "en": "Developer system to nodejs 22.x updated",
-                "de": "Entwicklersystem zu nodejs 22.x aktualisiert",
-                "ru": "Система разработчиков к узлам 22.x",
-                "pt": "Sistema de desenvolvedor para nodejs 22.x atualizado",
-                "nl": "Ontwikkelaar systeem om nodejs 22.x bijgewerkt",
-                "fr": "Système développeur à nodejs 22.x mis à jour",
-                "it": "Sistema di sviluppo a nodejs 22.x aggiornato",
-                "es": "Sistema de desarrolladores a nodejs 22.x actualizado",
-                "pl": "System programisty do nodejs 22.x zaktualizowany",
-                "uk": "Розробник системи в nodejs 22.x оновлений",
-                "zh-cn": "更新至节点22js的开发者系统"
-            },
-            "0.6.3": {
-                "en": "Design edited\nMigration from ESLint 8.x to 9.x",
-                "de": "Design bearbeitet\nMigration von ESLint 8.x auf 9.x",
-                "ru": "Дизайн редактируется\nМиграция из ESLint 8.x в 9.x",
-                "pt": "Design editado\nMigração de ESLint 8.x a 9.x",
-                "nl": "Ontwerp bewerkt\nMigratie van ESLint 8.x tot 9.x",
-                "fr": "Conception éditée\nMigration de ESLint 8.x vers 9.x",
-                "it": "Design modificato\nMigrazione da ESLint 8.x a 9.x",
-                "es": "Diseño editado\nMigración de ESLint 8.x a 9.x",
-                "pl": "Edytowany projekt\nMigracja z ESLint 8.x do 9.x",
-                "uk": "Редагування дизайну\nМіграція від ESLint 8.x до 9.x",
-                "zh-cn": "设计已编辑\n从ESLint 8.x迁移到9.x"
-            },
-            "0.6.2": {
-                "en": "responsive-design customized\nupdated to adapter-core 3.2.2",
-                "de": "responsive-design maßgeschneidert\naktualisiert auf adapter-kern 3.2.2",
-                "ru": "адаптивный дизайн\nобновленный к адаптер-ядерный 3.2.2",
-                "pt": "design responsivo personalizado\natualizado para adaptador-core 3.2.2",
-                "nl": "responsive-design aangepast\nbijgewerkt naar adapter-kern 3.2.2",
-                "fr": "design adapté personnalisé\nmise à jour au cœur de l'adaptateur 3.2.2",
-                "it": "responsive-design personalizzato\naggiornato a adattatore-core 3.2.2",
-                "es": "diseño de respuesta personalizado\nactualizado al adaptador-core 3.2.2",
-                "pl": "design odpowiedzialny dostosowany\nzaktualizowany do rdzenia adaptera 3.2.2",
-                "uk": "адаптивний дизайн\nоновлений до адаптера-core 3.2.2",
-                "zh-cn": "定制响应设计\n更新到适配器核心 3.2.2"
-            },
-            "0.6.1": {
-                "en": "renewed version without changes\nDependencies require minor releases",
-                "de": "neue version ohne änderungen\nAbhängigkeiten erfordern kleinere Freigaben",
-                "ru": "обновленная версия без изменений\nЗависимость требует незначительных выбросов",
-                "pt": "versão renovada sem alterações\nDependências requerem versões menores",
-                "nl": "vernieuwde versie zonder wijzigingen\nAfhankelijkheden vereisen kleine releases",
-                "fr": "version renouvelée sans modifications\nLes dépendances nécessitent des rejets mineurs",
-                "it": "versione rinnovata senza modifiche\nLe dipendenze richiedono comunicati minori",
-                "es": "versión renovada sin cambios\nLas dependencias requieren liberaciones menores",
-                "pl": "odnowiona wersja bez zmian\nZależności wymagają drobnych uwolnień",
-                "uk": "оновлюється версія без змін\nЗалежності вимагають незначних релізів",
-                "zh-cn": "未经修改的更新版本\n依赖性需要少量释放"
-            },
-            "0.5.3": {
-                "en": "Warning in schema corrected",
-                "de": "Warnung im Schema korrigiert",
-                "ru": "Предупреждение с поправкой на схему",
-                "pt": "Aviso em schema corrigido",
-                "nl": "Waarschuwing in schema gecorrigeerd",
-                "fr": "Avertissement dans le schéma corrigé",
-                "it": "Avvertenza nello schema corretto",
-                "es": "Advertencia en esquema corregido",
-                "pl": "Ostrzeżenie w schemacie poprawione",
-                "uk": "Попередження в схемі виправлення",
-                "zh-cn": "已更正的计划中的警告"
-            },
-            "0.5.2": {
-                "en": "updated dependencies\nNodeJS >= 18.x and js-controller >= 5 is required",
-                "de": "aktualisierte abhängigkeiten\nNodeJS >= 18.x und js-Controller >= 5 ist erforderlich",
-                "ru": "обновленные зависимости\nNodeJS >= 18.x и js-контроллер >= 5 требуется",
-                "pt": "dependências atualizadas\nNodeJS >= 18.x e js-controller >= 5 é necessário",
-                "nl": "bijgewerkte afhankelijkheden\nVoor de toepassing van de onderverdelingen 870190 tot en met 870290 wordt onder post 8702 verstaan: 5 is vereist",
-                "fr": "dépendances actualisées\nNodeJS >= 18.x et js-controller >= 5 est nécessaire",
-                "it": "dipendenze aggiornate\nNodeJS >= 18.x e js-controller 5 è richiesto",
-                "es": "dependencias actualizadas\nNodeJS >= 18.x y js-controller Se requiere 5",
-                "pl": "zaktualizowane zależności\nNodeJS > = 18.x i kontroler js- > = 5 jest wymagane",
-                "uk": "оновлені залежності\nNodeJS >= 18.x та js-controller >= 5 обов'язково",
-                "zh-cn": "更新的依赖关系\n节点JS18x和js控制器QQ 需要5个"
-            }
-        },
-        "titleLang": {
-            "en": "Solarman PV",
-            "de": "Solarman PV",
-            "ru": "Соларман ПВ",
-            "pt": "Solarman fotovoltaico",
-            "nl": "Solarman PV",
-            "fr": "PV Solarman",
-            "it": "Solarman PV",
-            "es": "fotovoltaica solarman",
-            "pl": "Solarman PV",
-            "zh-cn": "太阳能光伏",
-            "uk": "Соларман П.В"
-        },
-        "desc": {
-            "en": "Reading data from balcony power plant",
-            "de": "Auslesen von Daten aus dem Balkonkraftwerk",
-            "ru": "Чтение данных с балконной электростанции",
-            "pt": "Lendo dados da usina de varanda",
-            "nl": "Gegevens lezen van balkoncentrale",
-            "fr": "Lecture des données de la centrale électrique du balcon",
-            "it": "Lettura dei dati dalla centrale elettrica del balcone",
-            "es": "Lectura de datos de la planta de energía del balcón",
-            "pl": "Odczytywanie danych z elektrowni balkonowej",
-            "zh-cn": "从阳台电厂读取数据",
-            "uk": "Зчитування даних з балконної електростанції"
-        },
-        "authors": [
-            "raschy <raschy@gmx.de>"
-        ],
-        "keywords": [
-            "solar",
-            "balcony power plant",
-            "mi600"
-        ],
-        "licenseInformation": {
-            "license": "MIT",
-            "type": "free"
-        },
-        "platform": "Javascript/Node.js",
-        "icon": "solarmanpv.png",
-        "enabled": false,
-        "extIcon": "https://raw.githubusercontent.com/raschy/ioBroker.solarmanpv/main/admin/solarmanpv.png",
-        "readme": "https://github.com/raschy/ioBroker.solarmanpv/blob/main/README.md",
-        "loglevel": "info",
-        "mode": "schedule",
-        "tier": 2,
-        "allowInit": true,
-        "schedule": "*/6 * * * *",
-        "type": "energy",
-        "compact": true,
-        "connectionType": "cloud",
-        "dataSource": "poll",
-        "stopBeforeUpdate": true,
-        "stopTimeout": 1000,
-        "adminUI": {
-            "config": "json"
-        },
-        "dependencies": [
-            {
-                "js-controller": ">=6.0.10"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "admin": ">=7.4.10"
-            }
-        ]
+  "common": {
+    "name": "solarmanpv",
+    "version": "0.7.1",
+    "news": {
+      "0.7.1": {
+        "en": "jsonConfig customized",
+        "de": "jsonConfig besonders angefertigt",
+        "ru": "jsonConfig на заказ",
+        "pt": "jsonConfig personalizado",
+        "nl": "jsonConfig aangepast",
+        "fr": "jsonConfig personnalisé",
+        "it": "jsonConfig personalizzato",
+        "es": "jsonConfig personalizado",
+        "pl": "jsonConfig dostosowany",
+        "uk": "jsonConfig налаштувати",
+        "zh-cn": "json 定制配置"
+      },
+      "0.7.0": {
+        "en": "NodeJS >= 20.x and js-controller >= 6 is required\nemail and appsecret is now encrypted",
+        "de": "NodeJS >= 20.x und js-Controller >= 6 ist erforderlich\ne-mail und appsecret werden jetzt verschlüsselt",
+        "ru": "NodeJS >= 20.x и js-контроллер >= 6 Требуется\nэлектронная почта и appsecret теперь зашифрованы",
+        "pt": "NodeJS >= 20.x e js-controller >= 6 é necessário\ne-mail e appsecret é agora criptografado",
+        "nl": "Van niet-gelegeerd staal 6 is vereist\ne-mail en appsecret is nu versleuteld",
+        "fr": "NodeJS >= 20.x et js-controller >= 6 est nécessaire\ne-mail et appsecret sont maintenant cryptés",
+        "it": "NodeJS >= 20.x e js-controller >= 6 è richiesto\ne-mail e appsecret è ora crittografato",
+        "es": "NodeJS ю= 20.x y js-controller Se requiere 6\nemail y appsecret ahora está cifrado",
+        "pl": "NodeJS > = 20 x i kontroler js- > = 6 jest wymagane\nemail i appsecret są teraz zaszyfrowane",
+        "uk": "NodeJS >= 20.x та js-controller >= 6 обов'язковий\nелектронна пошта та додаткиecret тепер зашифровані",
+        "zh-cn": "节点JS20x和js控制器QQ 需要6个\n电子邮件和应用程序已加密"
+      },
+      "0.6.4": {
+        "en": "Developer system to nodejs 22.x updated",
+        "de": "Entwicklersystem zu nodejs 22.x aktualisiert",
+        "ru": "Система разработчиков к узлам 22.x",
+        "pt": "Sistema de desenvolvedor para nodejs 22.x atualizado",
+        "nl": "Ontwikkelaar systeem om nodejs 22.x bijgewerkt",
+        "fr": "Système développeur à nodejs 22.x mis à jour",
+        "it": "Sistema di sviluppo a nodejs 22.x aggiornato",
+        "es": "Sistema de desarrolladores a nodejs 22.x actualizado",
+        "pl": "System programisty do nodejs 22.x zaktualizowany",
+        "uk": "Розробник системи в nodejs 22.x оновлений",
+        "zh-cn": "更新至节点22js的开发者系统"
+      },
+      "0.6.3": {
+        "en": "Design edited\nMigration from ESLint 8.x to 9.x",
+        "de": "Design bearbeitet\nMigration von ESLint 8.x auf 9.x",
+        "ru": "Дизайн редактируется\nМиграция из ESLint 8.x в 9.x",
+        "pt": "Design editado\nMigração de ESLint 8.x a 9.x",
+        "nl": "Ontwerp bewerkt\nMigratie van ESLint 8.x tot 9.x",
+        "fr": "Conception éditée\nMigration de ESLint 8.x vers 9.x",
+        "it": "Design modificato\nMigrazione da ESLint 8.x a 9.x",
+        "es": "Diseño editado\nMigración de ESLint 8.x a 9.x",
+        "pl": "Edytowany projekt\nMigracja z ESLint 8.x do 9.x",
+        "uk": "Редагування дизайну\nМіграція від ESLint 8.x до 9.x",
+        "zh-cn": "设计已编辑\n从ESLint 8.x迁移到9.x"
+      },
+      "0.6.2": {
+        "en": "responsive-design customized\nupdated to adapter-core 3.2.2",
+        "de": "responsive-design maßgeschneidert\naktualisiert auf adapter-kern 3.2.2",
+        "ru": "адаптивный дизайн\nобновленный к адаптер-ядерный 3.2.2",
+        "pt": "design responsivo personalizado\natualizado para adaptador-core 3.2.2",
+        "nl": "responsive-design aangepast\nbijgewerkt naar adapter-kern 3.2.2",
+        "fr": "design adapté personnalisé\nmise à jour au cœur de l'adaptateur 3.2.2",
+        "it": "responsive-design personalizzato\naggiornato a adattatore-core 3.2.2",
+        "es": "diseño de respuesta personalizado\nactualizado al adaptador-core 3.2.2",
+        "pl": "design odpowiedzialny dostosowany\nzaktualizowany do rdzenia adaptera 3.2.2",
+        "uk": "адаптивний дизайн\nоновлений до адаптера-core 3.2.2",
+        "zh-cn": "定制响应设计\n更新到适配器核心 3.2.2"
+      },
+      "0.6.1": {
+        "en": "renewed version without changes\nDependencies require minor releases",
+        "de": "neue version ohne änderungen\nAbhängigkeiten erfordern kleinere Freigaben",
+        "ru": "обновленная версия без изменений\nЗависимость требует незначительных выбросов",
+        "pt": "versão renovada sem alterações\nDependências requerem versões menores",
+        "nl": "vernieuwde versie zonder wijzigingen\nAfhankelijkheden vereisen kleine releases",
+        "fr": "version renouvelée sans modifications\nLes dépendances nécessitent des rejets mineurs",
+        "it": "versione rinnovata senza modifiche\nLe dipendenze richiedono comunicati minori",
+        "es": "versión renovada sin cambios\nLas dependencias requieren liberaciones menores",
+        "pl": "odnowiona wersja bez zmian\nZależności wymagają drobnych uwolnień",
+        "uk": "оновлюється версія без змін\nЗалежності вимагають незначних релізів",
+        "zh-cn": "未经修改的更新版本\n依赖性需要少量释放"
+      },
+      "0.5.3": {
+        "en": "Warning in schema corrected",
+        "de": "Warnung im Schema korrigiert",
+        "ru": "Предупреждение с поправкой на схему",
+        "pt": "Aviso em schema corrigido",
+        "nl": "Waarschuwing in schema gecorrigeerd",
+        "fr": "Avertissement dans le schéma corrigé",
+        "it": "Avvertenza nello schema corretto",
+        "es": "Advertencia en esquema corregido",
+        "pl": "Ostrzeżenie w schemacie poprawione",
+        "uk": "Попередження в схемі виправлення",
+        "zh-cn": "已更正的计划中的警告"
+      }
     },
-    "native": {
-        "email": "",
-        "password": "",
-        "appId": "",
-        "appSecret": "",
-        "companyName": "",
-        "activeToken": "",
-        "deviceBlacklist": "",
-        "deviceZero": "",
-        "deviceModules": [],
-        "clearModules": false
+    "titleLang": {
+      "en": "Solarman PV",
+      "de": "Solarman PV",
+      "ru": "Соларман ПВ",
+      "pt": "Solarman fotovoltaico",
+      "nl": "Solarman PV",
+      "fr": "PV Solarman",
+      "it": "Solarman PV",
+      "es": "fotovoltaica solarman",
+      "pl": "Solarman PV",
+      "zh-cn": "太阳能光伏",
+      "uk": "Соларман П.В"
     },
-    "protectedNative": [
-        "email",
-        "password",
-        "appSecret"
+    "desc": {
+      "en": "Reading data from balcony power plant",
+      "de": "Auslesen von Daten aus dem Balkonkraftwerk",
+      "ru": "Чтение данных с балконной электростанции",
+      "pt": "Lendo dados da usina de varanda",
+      "nl": "Gegevens lezen van balkoncentrale",
+      "fr": "Lecture des données de la centrale électrique du balcon",
+      "it": "Lettura dei dati dalla centrale elettrica del balcone",
+      "es": "Lectura de datos de la planta de energía del balcón",
+      "pl": "Odczytywanie danych z elektrowni balkonowej",
+      "zh-cn": "从阳台电厂读取数据",
+      "uk": "Зчитування даних з балконної електростанції"
+    },
+    "authors": [
+      "raschy <raschy@gmx.de>"
     ],
-    "encryptedNative": [
-        "email",
-        "password",
-        "appSecret"
+    "keywords": [
+      "solar",
+      "balcony power plant",
+      "mi600"
     ],
-    "objects": [],
-    "instanceObjects": []
+    "licenseInformation": {
+      "license": "MIT",
+      "type": "free"
+    },
+    "platform": "Javascript/Node.js",
+    "icon": "solarmanpv.png",
+    "enabled": false,
+    "extIcon": "https://raw.githubusercontent.com/raschy/ioBroker.solarmanpv/main/admin/solarmanpv.png",
+    "readme": "https://github.com/raschy/ioBroker.solarmanpv/blob/main/README.md",
+    "loglevel": "info",
+    "mode": "schedule",
+    "tier": 2,
+    "allowInit": true,
+    "schedule": "*/6 * * * *",
+    "type": "energy",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "stopBeforeUpdate": true,
+    "stopTimeout": 1000,
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=6.0.10"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=7.4.10"
+      }
+    ]
+  },
+  "native": {
+    "email": "",
+    "password": "",
+    "appId": "",
+    "appSecret": "",
+    "companyName": "",
+    "activeToken": "",
+    "deviceBlacklist": "",
+    "deviceZero": "",
+    "deviceModules": [],
+    "clearModules": false
+  },
+  "protectedNative": [
+    "email",
+    "password",
+    "appSecret"
+  ],
+  "encryptedNative": [
+    "email",
+    "password",
+    "appSecret"
+  ],
+  "objects": [],
+  "instanceObjects": []
 }
