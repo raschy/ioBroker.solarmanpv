@@ -22,7 +22,7 @@
 		"node": ">= 20"
 	},
 	"dependencies": {
-		"@iobroker/adapter-core": "^3.2.3",
+		"@iobroker/adapter-core": "^3.3.2",
 		"axios": "^1.11.0",
 		"crypto-js": "^4.2.0",
 		"paket": "^0.1.4"
