@@ -62,6 +62,10 @@ In version 0.7.1, only minor adjustments were made to the instance view.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (raschy) Bump axios from 1.12.2 to 1.13.1
+* (raschy) Dependencies updated according to Dependabot on November 24
+
 ### 0.7.2 (2025-10-01)
 * (raschy) Bump axios from 1.11.0 to 1.12.2
 
