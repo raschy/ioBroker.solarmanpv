@@ -88,6 +88,7 @@ class Solarmanpv extends utils.Adapter {
 				? this.terminate('Everything done. Going to terminate till next schedule', 11)
 				: process.exit(0);
 		}
+
 		// End onReady
 	}
 	/**
@@ -427,10 +428,12 @@ class Solarmanpv extends utils.Adapter {
 				for (const obj of response.data.stationList) {
 					this.stationIdList.push(obj['id']); // StationId's for devices
 				}
+				//console.log(response.data);
 				return response.data.stationList;
 			})
 			.catch(error => {
 				this.log.warn(`[initializeStation] error: ${error.code}`);
+				//console.log(error);
 				return Promise.reject(error);
 			});
 	}

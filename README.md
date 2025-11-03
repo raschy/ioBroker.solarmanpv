@@ -64,6 +64,7 @@ In version 0.7.1, only minor adjustments were made to the instance view.
 -->
 ### **WORK IN PROGRESS**
 * (raschy) Bump axios from 1.12.2 to 1.13.1
+* (raschy) changed handling of the BearerToken
 * (raschy) Dependencies updated according to Dependabot on November 24
 
 ### 0.7.2 (2025-10-01)
