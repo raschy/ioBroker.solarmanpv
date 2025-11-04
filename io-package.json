@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "solarmanpv",
-		"version": "0.7.1",
+		"version": "0.7.2",
 		"news": {
+			"0.7.2": {
+				"en": "Bump axios from 1.11.0 to 1.12.2",
+				"de": "Bump axios von 1.11.0 bis 1.12.2",
+				"ru": "Бамп аксиос от 1.11.0 до 1.12.2",
+				"pt": "Bump axios de 1.11.0 a 1.12.2",
+				"nl": "Bump axios van 1.11,0 tot 1.12.2",
+				"fr": "Axios de pompe de 1.11.0 à 1.12.2",
+				"it": "Assidi di bump da 1.11.0 a 1.12.2",
+				"es": "Axios de bomba de 1.11.0 a 1.12.2",
+				"pl": "Axios bump od 1.11.0 do 1.12.2",
+				"uk": "Bump axios від 1.11.0 до 1.12.2",
+				"zh-cn": "从1.11.0到1.12.2的斜轴"
+			},
 			"0.7.1": {
 				"en": "jsonConfig customized",
 				"de": "jsonConfig besonders angefertigt",
@@ -178,14 +191,12 @@
 	"protectedNative": [
 		"email",
 		"password",
-		"appSecret",
-		"activeToken"
+		"appSecret"
 	],
 	"encryptedNative": [
 		"email",
 		"password",
-		"appSecret",
-		"activeToken"
+		"appSecret"
 	],
 	"objects": [],
 	"instanceObjects": []

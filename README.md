@@ -56,12 +56,23 @@ encrypted. Therefore, both values must be entered again after an update!
 
 In version 0.7.1, only minor adjustments were made to the instance view.
 
+Potentially sensitive data such as “activeToken” should be encrypted, but 
+this does not work reliably. Therefore, this was rolled back in version 0.7.3.
 
 ## Changelog
 <!--
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+* (raschy) Bump axios from 1.12.2 to 1.13.1
+* (raschy) Token encryption revoked
+* (raschy) Dependencies updated according to Dependabot on November 24
+
+### 0.7.2 (2025-10-01)
+* (raschy) Bump axios from 1.11.0 to 1.12.2
+
 ### 0.7.1 (2025-04-25)
 * (raschy) jsonConfig customized
 
