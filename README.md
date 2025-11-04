@@ -64,8 +64,7 @@ this does not work reliably. Therefore, this was rolled back in version 0.7.3.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 0.7.3 (2025-11-04)
 * (raschy) Bump axios from 1.12.2 to 1.13.1
 * (raschy) Token encryption revoked
 * (raschy) Dependencies updated according to Dependabot on November 24
