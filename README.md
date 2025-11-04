@@ -64,10 +64,16 @@ this does not work reliably. Therefore, this was rolled back in version 0.7.3.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+<<<<<<< HEAD
 
 ### **WORK IN PROGRESS**
 * (raschy) Bump axios from 1.12.2 to 1.13.1
 * (raschy) Token encryption revoked
+=======
+### **WORK IN PROGRESS**
+* (raschy) Bump axios from 1.12.2 to 1.13.1
+* (raschy) changed handling of the BearerToken
+>>>>>>> 19cef51dcc15b1e957a9a924bbd849a0b34ef5b4
 * (raschy) Dependencies updated according to Dependabot on November 24
 
 ### 0.7.2 (2025-10-01)

@@ -93,19 +93,6 @@
 				"pl": "odnowiona wersja bez zmian\nZależności wymagają drobnych uwolnień",
 				"uk": "оновлюється версія без змін\nЗалежності вимагають незначних релізів",
 				"zh-cn": "未经修改的更新版本\n依赖性需要少量释放"
-			},
-			"0.5.3": {
-				"en": "Warning in schema corrected",
-				"de": "Warnung im Schema korrigiert",
-				"ru": "Предупреждение с поправкой на схему",
-				"pt": "Aviso em schema corrigido",
-				"nl": "Waarschuwing in schema gecorrigeerd",
-				"fr": "Avertissement dans le schéma corrigé",
-				"it": "Avvertenza nello schema corretto",
-				"es": "Advertencia en esquema corregido",
-				"pl": "Ostrzeżenie w schemacie poprawione",
-				"uk": "Попередження в схемі виправлення",
-				"zh-cn": "已更正的计划中的警告"
 			}
 		},
 		"titleLang": {
@@ -172,7 +159,7 @@
 		],
 		"globalDependencies": [
 			{
-				"admin": ">=7.6.17"
+				"admin": ">=7.6.14"
 			}
 		]
 	},
