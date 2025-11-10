@@ -6,8 +6,17 @@ updates:
     schedule:
       interval: "cron"
       timezone: "Europe/Berlin"
-      cronjob: "38 2 23 * *"
-    open-pull-requests-limit: 20
+      cronjob: "38 1 23 * *"
+    open-pull-requests-limit: 15
     assignees:
       - "raschy"
     versioning-strategy: "increase"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "cron"
+      timezone: "Europe/Berlin"
+      cronjob: "38 1 23 * *"
+    open-pull-requests-limit: 15
+    assignees:
+      - "raschy"
