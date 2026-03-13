@@ -70,7 +70,7 @@ class Solarmanpv extends utils.Adapter {
 
 			await this.initializeStation().then(async stationList => {
 				//this.log.debug(`[onReady Test] Station ID: ${JSON.stringify(stationList)}`);
-				await this.updateStationData(stationList)	;	
+				await this.updateStationData(stationList);
 			});
 
 			for (const stationId of this.stationIdList) {
@@ -86,7 +86,6 @@ class Solarmanpv extends utils.Adapter {
 					}
 				});
 			}
-				
 		} catch (error) {
 			this.log.debug(`[main] catch ${JSON.stringify(error)}`);
 		} finally {
