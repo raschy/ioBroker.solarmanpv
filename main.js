@@ -57,6 +57,7 @@ class Solarmanpv extends utils.Adapter {
 		const object = this.config.activeToken;
 		if (typeof object !== 'undefined' && object !== null) {
 			api.token = this.config.activeToken;
+			this.log.debug(`[onReady] using stored token ${api.token}`);
 		}
 
 		// start with delay
@@ -65,7 +66,12 @@ class Solarmanpv extends utils.Adapter {
 		try {
 			// [main]
 			// get station-id via api-call
-			await this.initializeStation().then(async result => await this.updateStationData(result));
+			//await this.initializeStation().then(async result => await this.updateStationData(result));
+
+			await this.initializeStation().then(async stationList => {
+				//this.log.debug(`[onReady Test] Station ID: ${JSON.stringify(stationList)}`);
+				await this.updateStationData(stationList)	;	
+			});
 
 			for (const stationId of this.stationIdList) {
 				await this.initializeInverter(stationId).then(async inverterList => {
@@ -80,6 +86,7 @@ class Solarmanpv extends utils.Adapter {
 					}
 				});
 			}
+				
 		} catch (error) {
 			this.log.debug(`[main] catch ${JSON.stringify(error)}`);
 		} finally {
@@ -563,7 +570,8 @@ class Solarmanpv extends utils.Adapter {
 			} else {
 				const currentState = await this.getStateAsync(deviceName);
 				if (currentState) {
-					await this.deleteStateAsync(deviceName);
+					//await this.deleteStateAsync(deviceName); // deprecated
+					this.delObject(deviceName);
 					this.log.debug(`[deleteDeviceObject] State: (${deviceName})`);
 				}
 			}
