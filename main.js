@@ -6,7 +6,7 @@
 // you need to create an adapter
 'use strict';
 const utils = require('@iobroker/adapter-core');
-const crypto5 = require('crypto');
+const crypto5 = require('node:crypto');
 const api = require('./lib/solarmanpvApiClient.js');
 
 class Solarmanpv extends utils.Adapter {
