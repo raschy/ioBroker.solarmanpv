@@ -66,6 +66,9 @@ this does not work reliably. Therefore, this was rolled back in version 0.7.3.
 	### **WORK IN PROGRESS**
 -->
 
+### **WORK IN PROGRESS**
+- (copilot) Adapter requires node.js >= 22 now
+
 ### 0.7.3 (2025-11-04)
 
 - (raschy) Bump axios from 1.12.2 to 1.13.1
