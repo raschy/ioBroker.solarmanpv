@@ -579,17 +579,16 @@ class Solarmanpv extends utils.Adapter {
 			this.log.error(`[deleteDeviceObject] error ${e} while deleting: (${deviceName})`);
 		}
 	}
-// End Class
+	// End Class
 }
 
 // If started as allInOne/compact mode => return function to create instance
 if (module) {
-    module.exports = options => new Solarmanpv(options);
+	module.exports = options => new Solarmanpv(options);
 } else {
-    // or start the instance directly
-    new Solarmanpv();
+	// or start the instance directly
+	new Solarmanpv();
 }
-
 
 /*
 if (typeof require !== 'undefined' && typeof module !== 'undefined' && require.main !== module) {

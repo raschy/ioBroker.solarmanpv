@@ -70,6 +70,7 @@ this does not work reliably. Therefore, this was rolled back in version 0.7.3.
 
 - (raschy) Bump axios from 1.13.6 to 1.16.1
 - (raschy) Removed the unused 'paket' module
+- (raschy) NodeJS >= 22.x is required
 
 ### 0.7.3 (2025-11-04)
 
