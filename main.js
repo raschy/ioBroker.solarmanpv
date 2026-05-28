@@ -90,9 +90,10 @@ class Solarmanpv extends utils.Adapter {
 			this.log.debug(`[main] catch ${JSON.stringify(error)}`);
 		} finally {
 			this.log.debug(`[onReady] finished - stopping instance`);
-			this.terminate
-				? this.terminate('Everything done. Going to terminate till next schedule', 11)
-				: process.exit(0);
+			//this.terminate
+			//	? this.terminate('Everything done. Going to terminate till next schedule', 11)
+			//	: process.exit(0);
+			this.terminate(utils.EXIT_CODES.ADAPTER_REQUESTED_TERMINATION);
 		}
 
 		// End onReady
@@ -578,16 +579,25 @@ class Solarmanpv extends utils.Adapter {
 			this.log.error(`[deleteDeviceObject] error ${e} while deleting: (${deviceName})`);
 		}
 	}
-	// End Class
+// End Class
 }
 
-if (require.main !== module) {
+// If started as allInOne/compact mode => return function to create instance
+if (module) {
+    module.exports = options => new Solarmanpv(options);
+} else {
+    // or start the instance directly
+    new Solarmanpv();
+}
+
+
+/*
+if (typeof require !== 'undefined' && typeof module !== 'undefined' && require.main !== module) {
 	// Export the constructor in compact mode
-	/**
-	 * @param [options] empty
-	 */
+
 	module.exports = options => new Solarmanpv(options);
 } else {
 	// otherwise start the instance directly
 	new Solarmanpv();
 }
+*/
