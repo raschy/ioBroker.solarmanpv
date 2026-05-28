@@ -57,7 +57,7 @@ class Solarmanpv extends utils.Adapter {
 		const object = this.config.activeToken;
 		if (typeof object !== 'undefined' && object !== null) {
 			api.token = this.config.activeToken;
-			this.log.debug(`[onReady] using stored token ${api.token}`);
+			//this.log.debug(`[onReady] using stored token ${api.token}`);
 		}
 
 		// start with delay
