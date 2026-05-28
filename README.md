@@ -66,6 +66,10 @@ this does not work reliably. Therefore, this was rolled back in version 0.7.3.
 	### **WORK IN PROGRESS**
 -->
 
+### **WORK IN PROGRESS**
+
+- (raschy) Bump axios from 1.13.6 to 1.16.1
+
 ### 0.7.3 (2025-11-04)
 
 - (raschy) Bump axios from 1.12.2 to 1.13.1

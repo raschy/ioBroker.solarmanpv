@@ -19,13 +19,12 @@
 		"url": "https://github.com/raschy/ioBroker.solarmanpv"
 	},
 	"engines": {
-		"node": ">= 20"
+		"node": ">= 22"
 	},
 	"dependencies": {
 		"@iobroker/adapter-core": "^3.3.2",
 		"axios": "^1.16.1",
-		"crypto-js": "^4.2.0",
-		"paket": "^0.1.4"
+		"crypto-js": "^4.2.0"
 	},
 	"devDependencies": {
 		"@alcalzone/release-script": "^5.2.0",
