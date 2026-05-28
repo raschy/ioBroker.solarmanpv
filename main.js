@@ -463,6 +463,7 @@ class Solarmanpv extends utils.Adapter {
 	 * Check whether user data are plausible
 	 */
 	async checkUserData() {
+		this.log.info(`[checkUserData] checking user data...`);
 		let inputData =
 			this.config.email +
 			this.config.password +
@@ -579,24 +580,16 @@ class Solarmanpv extends utils.Adapter {
 			this.log.error(`[deleteDeviceObject] error ${e} while deleting: (${deviceName})`);
 		}
 	}
-	// End Class
 }
+// ##########  END  CLASS  ############
 
-// If started as allInOne/compact mode => return function to create instance
-if (module) {
-	module.exports = options => new Solarmanpv(options);
-} else {
-	// or start the instance directly
-	new Solarmanpv();
-}
-
-/*
-if (typeof require !== 'undefined' && typeof module !== 'undefined' && require.main !== module) {
+if (require.main !== module) {
 	// Export the constructor in compact mode
-
+	/**
+	 * @param [options] {object} Some options
+	 */
 	module.exports = options => new Solarmanpv(options);
 } else {
 	// otherwise start the instance directly
 	new Solarmanpv();
 }
-*/
