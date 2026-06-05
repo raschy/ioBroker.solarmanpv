@@ -65,6 +65,7 @@ this does not work reliably. Therefore, this was rolled back in version 0.7.3.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+
 ### 0.7.4 (2026-05-29)
 
 - (raschy) Bump axios from 1.13.6 to 1.16.1
@@ -90,7 +91,9 @@ this does not work reliably. Therefore, this was rolled back in version 0.7.3.
 - (raschy) NodeJS >= 20.x and js-controller >= 6 is required
 - (raschy) email and appsecret is now encrypted, please re-enter!
 
-[Older changelogs can be found there](CHANGELOG_OLD.md)## License
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
+## License
 
 MIT License
 
