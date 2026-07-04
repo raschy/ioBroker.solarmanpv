@@ -8,6 +8,7 @@
 const utils = require('@iobroker/adapter-core');
 const crypto5 = require('node:crypto');
 const api = require('./lib/solarmanpvApiClient.js');
+const { getStateType, normalizeStateValue } = require('./lib/stateType.js');
 
 class Solarmanpv extends utils.Adapter {
 	/**
@@ -137,7 +138,6 @@ class Solarmanpv extends utils.Adapter {
 			sensorName = `${device}.${description}`;
 		}
 		const dp_Device = String(`${dp_Folder}.${name}`);
-		//this.log.debug(`[persistData] Station "${station}" Device "${device}" Name "${name}" Sensor "${description}" with value: "${value}" and unit "${unit}" as role "${role}`);
 		this.log.silly(`[persistData] Sensorname "${sensorName}"`);
 		//
 		await this.setObjectNotExists(dp_Folder, {
@@ -162,8 +162,8 @@ class Solarmanpv extends utils.Adapter {
 			native: {},
 		});
 		//
-		const stateValue = nullable ? 0 : normalizeValue(value);
-		const stateType = isNumber(stateValue) ? 'number' : 'string';
+		const stateValue = nullable ? 0 : normalizeStateValue(value);
+		const stateType = getStateType(stateValue);
 		/** @satisfies {ioBroker.StateCommon} */
 		const stateCommon = {
 			name: name,
@@ -179,11 +179,13 @@ class Solarmanpv extends utils.Adapter {
 			common: stateCommon,
 			native: {},
 		});
+		// setObjectNotExistsAsync does not update existing objects. Therefore getObjectAsync is
+		// required to detect states that were created with an outdated or wrong common.type.
 		const stateObject = await this.getObjectAsync(dp_Device);
 		if (stateObject?.common?.type !== stateType) {
-			this.log.debug(
-				`[persistData] Correcting type of "${dp_Device}" from "${stateObject?.common?.type}" to "${stateType}"`,
-			);
+			// ioBroker validates the state value against common.type. Repair the object first
+			// so string based Solarman values such as "--" or "N/A" are not written to number states.
+			this.log.debug(`Correcting state type:\n${dp_Device}\n${stateObject?.common?.type} -> ${stateType}`);
 			await this.extendObjectAsync(dp_Device, {
 				type: 'state',
 				common: stateCommon,
@@ -193,30 +195,9 @@ class Solarmanpv extends utils.Adapter {
 		if (nullable) {
 			await this.setState(dp_Device, { val: 0, ack: true, q: 0x42 }); // Nullable values while device is not present
 		} else {
+			// setState must run after the optional extendObjectAsync call. Otherwise js-controller
+			// may reject the value because it still sees the previous common.type.
 			await this.setState(dp_Device, { val: stateValue, ack: true, q: 0x00 });
-		}
-		//
-		function isNumber(n) {
-			if (typeof n === 'number') {
-				return Number.isFinite(n);
-			}
-			if (typeof n !== 'string') {
-				return false;
-			}
-			const trimmedValue = n.trim();
-			return (
-				/^[+-]?(?:\d+\.?\d*|\.\d+)(?:e[+-]?\d+)?$/i.test(trimmedValue) && Number.isFinite(Number(trimmedValue))
-			);
-		}
-
-		function normalizeValue(n) {
-			if (n === null || n === undefined) {
-				return '';
-			}
-			if (typeof n === 'string' && n.trim() === '') {
-				return '';
-			}
-			return isNumber(n) ? Number(n) : n;
 		}
 	}
 
