@@ -162,48 +162,61 @@ class Solarmanpv extends utils.Adapter {
 			native: {},
 		});
 		//
-		// Type recognition <number>
-		if (isNumber(value)) {
-			value = parseFloat(value);
-			//
-			await this.setObjectNotExistsAsync(dp_Device, {
+		const stateValue = nullable ? 0 : normalizeValue(value);
+		const stateType = isNumber(stateValue) ? 'number' : 'string';
+		/** @satisfies {ioBroker.StateCommon} */
+		const stateCommon = {
+			name: name,
+			type: stateType,
+			role: role,
+			unit: unit,
+			read: true,
+			write: true,
+		};
+		//
+		await this.setObjectNotExistsAsync(dp_Device, {
+			type: 'state',
+			common: stateCommon,
+			native: {},
+		});
+		const stateObject = await this.getObjectAsync(dp_Device);
+		if (stateObject?.common?.type !== stateType) {
+			this.log.debug(
+				`[persistData] Correcting type of "${dp_Device}" from "${stateObject?.common?.type}" to "${stateType}"`,
+			);
+			await this.extendObjectAsync(dp_Device, {
 				type: 'state',
-				common: {
-					name: name,
-					type: 'number',
-					role: role,
-					unit: unit,
-					read: true,
-					write: true,
-				},
-				native: {},
+				common: stateCommon,
 			});
-			//this.log.debug(`[persistData] Device "${dp_Device}"  Key "${key}" with value: "${value}" and unit "${unit}" with role "${role}" as type "number"`);
-		} else {
-			// or <string>
-			await this.setObjectNotExistsAsync(dp_Device, {
-				type: 'state',
-				common: {
-					name: name,
-					type: 'string',
-					role: role,
-					unit: unit,
-					read: true,
-					write: true,
-				},
-				native: {},
-			});
-			//this.log.debug(`[persistData] Device "${dp_Device}"  Key "${key}" with value: "${value}" and unit "${unit}" with role "${role}" as type "string"`);
 		}
 		// Differentiated writing of data
 		if (nullable) {
 			await this.setState(dp_Device, { val: 0, ack: true, q: 0x42 }); // Nullable values while device is not present
 		} else {
-			await this.setState(dp_Device, { val: value, ack: true, q: 0x00 });
+			await this.setState(dp_Device, { val: stateValue, ack: true, q: 0x00 });
 		}
 		//
 		function isNumber(n) {
-			return !isNaN(parseFloat(n)) && !isNaN(n - 0);
+			if (typeof n === 'number') {
+				return Number.isFinite(n);
+			}
+			if (typeof n !== 'string') {
+				return false;
+			}
+			const trimmedValue = n.trim();
+			return (
+				/^[+-]?(?:\d+\.?\d*|\.\d+)(?:e[+-]?\d+)?$/i.test(trimmedValue) && Number.isFinite(Number(trimmedValue))
+			);
+		}
+
+		function normalizeValue(n) {
+			if (n === null || n === undefined) {
+				return '';
+			}
+			if (typeof n === 'string' && n.trim() === '') {
+				return '';
+			}
+			return isNumber(n) ? Number(n) : n;
 		}
 	}
 
