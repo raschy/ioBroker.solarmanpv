@@ -59,12 +59,26 @@ In version 0.7.1, only minor adjustments were made to the instance view.
 Potentially sensitive data such as “activeToken” should be encrypted, but
 this does not work reliably. Therefore, this was rolled back in version 0.7.3.
 
+## Compatibility
+
+- Tested with Node.js 22
+- Tested with js-controller 7
+- Incorrectly typed existing ioBroker states are repaired automatically during the next adapter run
+- Manual deletion of existing objects is not required
+
 ## Changelog
 
 <!--
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+
+### 0.7.5-dev
+
+- Fix dynamic state type handling
+- Automatically repair incorrect ioBroker state types
+- Improved compatibility with js-controller 7
+- Better handling of string based Solarman values
 
 ### 0.7.4 (2026-05-29)
 

@@ -8,6 +8,7 @@
 const utils = require('@iobroker/adapter-core');
 const crypto5 = require('node:crypto');
 const api = require('./lib/solarmanpvApiClient.js');
+const { getStateType, normalizeStateValue } = require('./lib/stateType.js');
 
 class Solarmanpv extends utils.Adapter {
 	/**
@@ -137,7 +138,6 @@ class Solarmanpv extends utils.Adapter {
 			sensorName = `${device}.${description}`;
 		}
 		const dp_Device = String(`${dp_Folder}.${name}`);
-		//this.log.debug(`[persistData] Station "${station}" Device "${device}" Name "${name}" Sensor "${description}" with value: "${value}" and unit "${unit}" as role "${role}`);
 		this.log.silly(`[persistData] Sensorname "${sensorName}"`);
 		//
 		await this.setObjectNotExists(dp_Folder, {
@@ -162,48 +162,42 @@ class Solarmanpv extends utils.Adapter {
 			native: {},
 		});
 		//
-		// Type recognition <number>
-		if (isNumber(value)) {
-			value = parseFloat(value);
-			//
-			await this.setObjectNotExistsAsync(dp_Device, {
+		const stateValue = nullable ? 0 : normalizeStateValue(value);
+		const stateType = getStateType(stateValue);
+		/** @satisfies {ioBroker.StateCommon} */
+		const stateCommon = {
+			name: name,
+			type: stateType,
+			role: role,
+			unit: unit,
+			read: true,
+			write: true,
+		};
+		//
+		await this.setObjectNotExistsAsync(dp_Device, {
+			type: 'state',
+			common: stateCommon,
+			native: {},
+		});
+		// setObjectNotExistsAsync does not update existing objects. Therefore getObjectAsync is
+		// required to detect states that were created with an outdated or wrong common.type.
+		const stateObject = await this.getObjectAsync(dp_Device);
+		if (stateObject?.common?.type !== stateType) {
+			// ioBroker validates the state value against common.type. Repair the object first
+			// so string based Solarman values such as "--" or "N/A" are not written to number states.
+			this.log.debug(`Correcting state type:\n${dp_Device}\n${stateObject?.common?.type} -> ${stateType}`);
+			await this.extendObjectAsync(dp_Device, {
 				type: 'state',
-				common: {
-					name: name,
-					type: 'number',
-					role: role,
-					unit: unit,
-					read: true,
-					write: true,
-				},
-				native: {},
+				common: stateCommon,
 			});
-			//this.log.debug(`[persistData] Device "${dp_Device}"  Key "${key}" with value: "${value}" and unit "${unit}" with role "${role}" as type "number"`);
-		} else {
-			// or <string>
-			await this.setObjectNotExistsAsync(dp_Device, {
-				type: 'state',
-				common: {
-					name: name,
-					type: 'string',
-					role: role,
-					unit: unit,
-					read: true,
-					write: true,
-				},
-				native: {},
-			});
-			//this.log.debug(`[persistData] Device "${dp_Device}"  Key "${key}" with value: "${value}" and unit "${unit}" with role "${role}" as type "string"`);
 		}
 		// Differentiated writing of data
 		if (nullable) {
 			await this.setState(dp_Device, { val: 0, ack: true, q: 0x42 }); // Nullable values while device is not present
 		} else {
-			await this.setState(dp_Device, { val: value, ack: true, q: 0x00 });
-		}
-		//
-		function isNumber(n) {
-			return !isNaN(parseFloat(n)) && !isNaN(n - 0);
+			// setState must run after the optional extendObjectAsync call. Otherwise js-controller
+			// may reject the value because it still sees the previous common.type.
+			await this.setState(dp_Device, { val: stateValue, ack: true, q: 0x00 });
 		}
 	}
 

@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "solarmanpv",
-    "version": "0.7.4",
+    "version": "0.7.5-dev",
     "news": {
+      "0.7.5-dev": {
+        "en": "Fix dynamic state type handling\nAutomatically repair incorrect ioBroker state types\nImproved compatibility with js-controller 7\nBetter handling of string based Solarman values",
+        "de": "Dynamische State-Typ-Behandlung korrigiert\nFalsch typisierte ioBroker-States werden automatisch repariert\nVerbesserte Kompatibilität mit js-controller 7\nBessere Behandlung stringbasierter Solarman-Werte",
+        "ru": "Исправлена динамическая обработка типов состояний\nАвтоматическое исправление неверных типов состояний ioBroker\nУлучшена совместимость с js-controller 7\nУлучшена обработка строковых значений Solarman",
+        "pt": "Corrigido o tratamento dinâmico de tipos de estados\nCorreção automática de tipos de estados ioBroker incorretos\nCompatibilidade melhorada com js-controller 7\nMelhor tratamento de valores Solarman baseados em texto",
+        "nl": "Dynamische state-typeafhandeling opgelost\nOnjuiste ioBroker-state-types worden automatisch hersteld\nVerbeterde compatibiliteit met js-controller 7\nBetere verwerking van tekstwaarden van Solarman",
+        "fr": "Correction de la gestion dynamique des types d'etats\nCorrection automatique des types d'etats ioBroker incorrects\nCompatibilite amelioree avec js-controller 7\nMeilleure gestion des valeurs Solarman sous forme de texte",
+        "it": "Corretta la gestione dinamica dei tipi di stato\nRiparazione automatica dei tipi di stato ioBroker errati\nCompatibilita migliorata con js-controller 7\nMigliore gestione dei valori Solarman testuali",
+        "es": "Corregido el manejo dinamico de tipos de estado\nReparacion automatica de tipos de estado ioBroker incorrectos\nCompatibilidad mejorada con js-controller 7\nMejor manejo de valores Solarman basados en texto",
+        "pl": "Naprawiono dynamiczna obsluge typow stanow\nAutomatyczna naprawa nieprawidlowych typow stanow ioBroker\nLepsza zgodnosc z js-controller 7\nLepsza obsluga tekstowych wartosci Solarman",
+        "uk": "Виправлено динамічну обробку типів станів\nАвтоматичне виправлення неправильних типів станів ioBroker\nПокращена сумісність з js-controller 7\nКраща обробка текстових значень Solarman",
+        "zh-cn": "修复动态状态类型处理\n自动修复错误的 ioBroker 状态类型\n改进与 js-controller 7 的兼容性\n更好地处理基于字符串的 Solarman 值"
+      },
       "0.7.4": {
         "en": "Bump axios from 1.13.6 to 1.16.1\nRemoved the unused 'paket' module\nNodeJS >= 22.x is required",
         "de": "Bump axios von 1.13.6 bis 1.16.1\nEntfernen des ungenutzten Moduls 'Paket'\nNodeJS >= 22.x erforderlich",
