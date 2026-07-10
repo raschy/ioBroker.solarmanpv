@@ -73,7 +73,7 @@ this does not work reliably. Therefore, this was rolled back in version 0.7.3.
 	### **WORK IN PROGRESS**
 -->
 
-### 0.7.5-dev
+### **WORK IN PROGRESS**
 
 - Fix dynamic state type handling
 - Automatically repair incorrect ioBroker state types
