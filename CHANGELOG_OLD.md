@@ -1,4 +1,9 @@
 # Older changes
+## 0.7.0 (2025-04-23)
+
+- (raschy) NodeJS >= 20.x and js-controller >= 6 is required
+- (raschy) email and appsecret is now encrypted, please re-enter!
+
 ## 0.6.4 (2025-02-06)
 
 - (raschy) Developer system to nodejs 22.x updated
