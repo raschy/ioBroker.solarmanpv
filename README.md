@@ -72,8 +72,7 @@ this does not work reliably. Therefore, this was rolled back in version 0.7.3.
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 0.7.5 (2026-07-13)
 
 - Fix dynamic state type handling
 - Automatically repair incorrect ioBroker state types
