@@ -1,6 +1,6 @@
 {
 	"name": "iobroker.solarmanpv",
-	"version": "0.7.5-dev",
+	"version": "0.7.4",
 	"description": "Reading data from balcony power plant",
 	"author": {
 		"name": "raschy",
